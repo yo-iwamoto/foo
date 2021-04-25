@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu } from '../../types/index';
 import { HeaderLink } from '../atoms/HeaderLink';
 import { FaUserCircle } from 'react-icons/fa';
+import Link from 'next/link';
 
 export const HeaderNav: React.VFC = () => {
   const menus: Menu[] = [
@@ -20,7 +21,9 @@ export const HeaderNav: React.VFC = () => {
           </HeaderLink>
         )
       )}
-      <FaUserCircle color="white" size="32" />
+      <Link href="/mypage"><a>
+        <FaUserCircle color="white" size="32" className="cursor-pointer" />
+      </a></Link>
     </nav>
   );
 }

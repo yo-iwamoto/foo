@@ -7,12 +7,11 @@ export const SearchBox: React.VFC = () => {
 
   const [searchText, updateSearchText] = useState('');
 
-  const changeHandler = (e: Event) => {
-    const el: HTMLInputElement = e.target;
-    updateSearchText(el.value);
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateSearchText(e.target.value)
   };
 
-  const submitHandler = (e: Event) => {
+  const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     router.push(`/restaurants/?word=${searchText}`)
   };

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Menus } from '../../types/index';
-import { TextLink } from '../atoms/HeaderLink';
+import { Menu } from '../../types/index';
+import { HeaderLink } from '../atoms/HeaderLink';
 
 export const Nav: React.VFC = () => {
-  const menus: Menus = [
+  const menus: Menu[] = [
     { text: 'TOP', href: '/' },
     { text: 'ABOUT', href: '/about' }
   ];
@@ -11,12 +11,12 @@ export const Nav: React.VFC = () => {
   return (
     <nav>
       {menus.map((menu) => (
-          <TextLink
+          <HeaderLink
             href={menu.href}
             key={menu.href}
           >
             {menu.text}
-          </TextLink>
+          </HeaderLink>
         )
       )}
     </nav>
