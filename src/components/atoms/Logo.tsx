@@ -13,7 +13,6 @@ export const Logo: React.VFC = () => {
         alt="foo"
         width={240}
         height={184}
-        className="cursor-pointer"
       />
       </a>
     </Link>

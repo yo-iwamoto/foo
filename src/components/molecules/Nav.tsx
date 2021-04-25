@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menus } from '../../types/index';
-import { TextLink } from '../atoms/TextLink';
+import { TextLink } from '../atoms/HeaderLink';
 
 export const Nav: React.VFC = () => {
   const menus: Menus = [
@@ -9,7 +9,7 @@ export const Nav: React.VFC = () => {
   ];
 
   return (
-    <nav className="flex w-32 items-center justify-between">
+    <nav>
       {menus.map((menu) => (
           <TextLink
             href={menu.href}

@@ -6,10 +6,10 @@ type Props = {
   children: React.ReactNode;
 }
 
-export const TextLink = ({ href, children }: Props) => {
+export const HeaderLink = ({ href, children }: Props) => {
   return (
     <Link href={href}>
-      <a className="text-text text-xl">{children}</a>
+      <a className="text-text text-md md:text-lg">{children}</a>
     </Link>
   );
 }
