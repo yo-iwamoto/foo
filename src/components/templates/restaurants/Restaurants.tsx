@@ -7,8 +7,8 @@ export const Restaurants: React.VFC = () => {
   const searchText = router.query.word;
   
   const restaurants: Restaurant[] = [
-    { name: '叙々苑', description: 'とてもうまいがとても高い！' },
-    { name: 'サイゼリア', description: 'とても安いが味はそこそこ！' }
+    { name: 'カフェ　ロマーノ', description: 'リーズナブル & 本格的な味わい' },
+    { name: '飯処 九份', description: 'お手軽台湾料理 ランチは¥500のセットがお得' }
   ];
 
   return (
@@ -20,7 +20,7 @@ export const Restaurants: React.VFC = () => {
         {restaurants.map((restaurant) => (
           <>
             <div className="border">
-              <h2>{restaurant.name}</h2>
+              <h2 className="font-bold">{restaurant.name}</h2>
               <h3>{restaurant.description}</h3>
             </div>
           </>

@@ -9,7 +9,7 @@ export const Top: React.VFC = () => {
   return (
     <>
       <div className="h-8" />
-      <h1 className="text-md sm:text-2xl md:text-3xl lg:text-4xl text-center mt-8 whitespace-pre-wrap">
+      <h1 className="text-md sm:text-2xl md:text-3xl text-center mt-8 whitespace-pre-wrap">
         {text}
       </h1>
       <SearchBox />
