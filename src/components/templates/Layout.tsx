@@ -10,7 +10,7 @@ export const Layout = ({ children }: Props) => {
   return (
     <>
       <Header />
-      <main className="h-screen">{children}</main>
+      <main className="h-screen text-gray-700 ">{children}</main>
       <Footer />
     </>
   );

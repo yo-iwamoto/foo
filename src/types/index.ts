@@ -1,6 +1,9 @@
-type Menu = {
+export type Menu = {
   text: string;
   href: string;
 }
 
-export type Menus = Menu[]
+export type Restaurant = {
+  name: string;
+  description: string;
+}

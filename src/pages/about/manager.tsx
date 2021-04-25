@@ -1,9 +1,6 @@
 import React from 'react';
+import { Manager } from '../../components/templates/about/Manager';
 
-const Page: React.VFC = () => {
-  return (
-    <h1>管理者について</h1>
-  );
-}
+const Page: React.VFC = () => <Manager />;
 
 export default Page;

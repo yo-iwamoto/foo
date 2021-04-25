@@ -1,25 +1,26 @@
 import React from 'react';
-import { Menus } from '../../types/index';
-import { TextLink } from '../atoms/TextLink';
+import { Menu } from '../../types/index';
+import { HeaderLink } from '../atoms/HeaderLink';
+import { FaUserCircle } from 'react-icons/fa';
 
 export const HeaderNav: React.VFC = () => {
-  const menus: Menus = [
+  const menus: Menu[] = [
     { text: 'TOP', href: '/' },
     { text: 'ABOUT', href: '/about' }
   ];
 
   return (
-    <nav className="flex w-32 items-center justify-between">
+    <nav className="flex w-44 items-center justify-between">
       {menus.map((menu) => (
-          <TextLink
+          <HeaderLink
             href={menu.href}
-            color="light"
             key={menu.href}
           >
             {menu.text}
-          </TextLink>
+          </HeaderLink>
         )
       )}
+      <FaUserCircle color="white" size="32" />
     </nav>
   );
 }

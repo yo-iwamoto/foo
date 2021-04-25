@@ -1,9 +1,6 @@
 import React from 'react';
+import { PrivacyPolicy } from '../../components/templates/about/PrivacyPolicy';
 
-const Page: React.VFC = () => {
-  return (
-    <h1>プライバシーポリシー</h1>
-  );
-}
+const Page: React.VFC = () => <PrivacyPolicy />
 
 export default Page;

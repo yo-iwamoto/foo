@@ -1,10 +1,6 @@
 import React from 'react';
-import { About } from '../../components/templates/About';
+import { About } from '../../components/templates/about/About';
 
-const Page: React.VFC = () => {
-  return (
-    <About />
-  );
-}
+const Page: React.VFC = () => <About />;
 
 export default Page;
