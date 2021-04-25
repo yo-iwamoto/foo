@@ -9,7 +9,6 @@ export const HotpepperCredit: React.VFC = () => {
           alt="ホットペッパー Webサービス"
           width="88"
           height="35"
-          border="0"
           title="ホットペッパー Webサービス"
         />
       </a>
