@@ -9,7 +9,7 @@ export const Nav: React.VFC = () => {
   ];
 
   return (
-    <nav className="flex w-32 items-center justify-between">
+    <nav>
       {menus.map((menu) => (
           <TextLink
             href={menu.href}

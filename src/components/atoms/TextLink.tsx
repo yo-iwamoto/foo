@@ -9,7 +9,7 @@ type Props = {
 export const TextLink = ({ href, children }: Props) => {
   return (
     <Link href={href}>
-      <a className="text-text text-xl">{children}</a>
+      <a>{children}</a>
     </Link>
   );
 }
