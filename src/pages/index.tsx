@@ -1,11 +1,6 @@
 import React from 'react';
+import { Top } from '../components/templates/Top';
 
-const Top: React.VFC = () => {
-  return (
-    <h1>
-      Hello, Foo!
-    </h1>
-  );
-}
+const Page: React.VFC = () => <Top />;
 
-export default Top;
+export default Page;
