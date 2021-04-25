@@ -21,7 +21,7 @@ export const SearchBox: React.VFC = () => {
   return (
     <div className="flex flex-col p-2 py-6 m-h-screen w-3/4 md:w-2/4 mx-auto">
     <form
-      className="bg-white items-center justify-between w-full flex rounded-full shadow-lg p-2 mb-5 sticky border border-gray focus-within:border-green-400"
+      className="bg-white items-center justify-between w-full flex rounded-full shadow-lg p-2 mb-5 sticky border border-gray focus-within:border-accent transition-colors"
       onSubmit={submitHandler}
     >
       <input

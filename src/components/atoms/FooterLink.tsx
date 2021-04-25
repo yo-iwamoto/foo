@@ -9,7 +9,7 @@ type Props = {
 export const FooterLink = ({ href, children }: Props) => {
   return (
     <Link href={href}>
-      <a className="text-xs sm:text-sm">{children}</a>
+      <a className="">{children}</a>
     </Link>
   );
 }

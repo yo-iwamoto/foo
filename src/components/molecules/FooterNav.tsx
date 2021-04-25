@@ -9,10 +9,8 @@ export const FooterNav: React.VFC = () => {
     { text: 'お問い合わせ', href: '/about/contact' }
   ];
 
-  const navClassName="flex items-center justify-around w-68 mx-auto";
-
   return (
-    <nav className={navClassName}>
+    <nav className="flex items-center justify-around w-68 mx-auto">
       {menus.map((menu, index) => (
         <>
           <FooterLink href={menu.href} key={index}>
