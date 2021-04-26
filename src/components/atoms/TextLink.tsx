@@ -7,7 +7,7 @@ type Props = {
   children: React.ReactNode;
 }
 
-export const HeaderLink = ({ href, type, children }: Props) => {
+export const TextLink = ({ href, type, children }: Props) => {
   let className = 'text-text text-md md:text-lg';
   if (type === 'footer') {
     className = 'text-xs sm:text-sm';

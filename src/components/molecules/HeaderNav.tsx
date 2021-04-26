@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from '../../types/index';
-import { HeaderLink } from '../atoms/HeaderLink';
+import { TextLink } from '../atoms/TextLink';
 import { FaUserCircle } from 'react-icons/fa';
 import Link from 'next/link';
 
@@ -13,12 +13,13 @@ export const HeaderNav: React.VFC = () => {
   return (
     <nav className="flex w-44 items-center justify-between">
       {menus.map((menu) => (
-          <HeaderLink
+          <TextLink
             href={menu.href}
+            type="header"
             key={menu.href}
           >
             {menu.text}
-          </HeaderLink>
+          </TextLink>
         )
       )}
       <Link href="/mypage"><a>
