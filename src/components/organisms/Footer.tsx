@@ -1,6 +1,5 @@
 import React from 'react';
 import { FooterNav } from '../molecules/FooterNav';
-import { HotpepperCredit } from '../atoms/HotpepperCredit';
 
 export const Footer: React.VFC = () => {
   return (

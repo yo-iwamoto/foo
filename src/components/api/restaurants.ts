@@ -9,12 +9,12 @@ const axios = baseAxios.create({
 
 const key = process.env.apiKey;
 
-const searchWithText = async (text: String): Promise<Restaurant[]> => {
-  const params = {
-    key: key,
-    name: text
-  };
+// const searchWithText = async (text: String): Promise<Restaurant[]> => {
+//   const params = {
+//     key: key,
+//     name: text
+//   };
 
-  const res = await axios.get('/', params)
-  console.log(res.data);
-}
+//   const res = await axios.get('/', params)
+//   console.log(res.data);
+// }
