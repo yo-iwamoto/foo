@@ -18,7 +18,7 @@ export const About: React.VFC = () => {
       </Heading>
       <div className="h-12" />
       <section className="w-4/5 sm:w-3/4 md:w-3/5 mx-auto flex flex-col sm:flex-row justify-between items-center">
-        <div className="w-3/5 sm:w-3/4">
+        <div className="w-4/5 sm:w-3/4">
           <SubHeading>
             ひとりで楽しめるお店を、すぐに見つける。
           </SubHeading>
@@ -29,17 +29,17 @@ export const About: React.VFC = () => {
           </p>
         </div>
         <div className="w-4" />
-        <div className="w-2/5 sm:w-1/4">
+        <div className="w-3/5 sm:w-1/4">
           <Image src={distanceImageUrl} width={400} height={400}/>
         </div>
       </section>
       <div className="h-12" />
       <section className="w-4/5 sm:w-3/4 md:w-3/5 mx-auto flex flex-col-reverse sm:flex-row justify-between items-center">
-        <div className="w-2/5 sm:w-1/4">
+        <div className="w-3/5 sm:w-1/4">
           <Image src={shareImageUrl} width={400} height={400}/>
         </div>
         <div className="w-4" />
-        <div className="w-3/5 sm:w-3/4">
+        <div className="w-4/5 sm:w-3/4">
           <SubHeading>
             気に入ったお店を、みんなに教える。
           </SubHeading>
