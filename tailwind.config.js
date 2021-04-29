@@ -9,7 +9,7 @@ module.exports = {
         main: '#ff652f',
         text: '#fef0ea',
         back: '#fef0ea',
-        accent: '#ff2f30',
+        accent: '#ffff89',
       },
       fontFamily: {
         'main': ['My Galano Grotesque', 'sans-serif']

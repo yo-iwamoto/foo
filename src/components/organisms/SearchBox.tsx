@@ -14,7 +14,7 @@ export const SearchBox: React.VFC = () => {
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchText) {
-      router.push(`/restaurants/?word=${searchText}`)
+      router.push(`/search/?word=${searchText}`)
     }
   };
   

@@ -8,12 +8,12 @@ export const Logo: React.VFC = () => {
   return (
     <Link href="/">
       <a>
-      <Image
-        src={imageUrl}
-        alt="foo"
-        width={240}
-        height={184}
-      />
+        <Image
+          src={imageUrl}
+          alt="foo"
+          width={240}
+          height={184}
+        />
       </a>
     </Link>
   );

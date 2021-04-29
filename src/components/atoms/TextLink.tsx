@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const TextLink = ({ href, type, children }: Props) => {
-  let className = 'text-text text-md md:text-lg';
+  let className = 'text-text text-md md:text-lg hover:text-accent';
   if (type === 'footer') {
     className = 'text-xs sm:text-sm';
   }
