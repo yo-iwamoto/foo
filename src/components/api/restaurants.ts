@@ -4,10 +4,9 @@ import { Shop, HotpepperResponse } from '../../types';
 const key = process.env.apiKey;
 const production = process.env.NODE_ENV === 'production';
 let baseUrl = `/hotpepper/gourmet/v1?key=${key}&format=json`;
-if (!production) {
+if (production) {
   baseUrl = 'https://shielded-tor-67528.herokuapp.com/https://webservice.recruit.co.jp' + baseUrl;
 }
-console.log(baseUrl)
 
 const joinParameter = (url: string, key: string, value: string): string => {
   return `${url}&${key}=${value}`;
