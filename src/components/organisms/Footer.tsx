@@ -24,9 +24,9 @@ export const Footer: React.VFC = () => {
       </RowFlexContainer>
       <div className="h-4" />
       <div className="w-24 mx-auto">
-        <a href="http://webservice.recruit.co.jp/">
+        <a href="https://webservice.recruit.co.jp/">
           <img
-            src="http://webservice.recruit.co.jp/banner/hotpepper-m.gif"
+            src="https://webservice.recruit.co.jp/banner/hotpepper-m.gif"
             alt="ホットペッパー Webサービス"
             width="88"
             height="35"
