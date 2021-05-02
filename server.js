@@ -13,7 +13,7 @@ app.prepare().then(() => {
   server.use(
     "/hotpepper/gourmet/v1",
     createProxyMiddleware({
-      target: 'http://webservice.recruit.co.jp',
+      target: 'https://webservice.recruit.co.jp',
       changeOrigin: true,
     })
   );
