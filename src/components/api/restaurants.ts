@@ -1,20 +1,16 @@
-import baseAxios from 'axios';
-
-const axios = baseAxios.create({
-  baseURL: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+import axios from 'axios';
+import { Shop, HotpepperResponse } from '../../types';
 
 const key = process.env.apiKey;
+const baseUrl = `/hotpepper/gourmet/v1?key=${key}&format=json`;
 
-// const searchWithText = async (text: String): Promise<Restaurant[]> => {
-//   const params = {
-//     key: key,
-//     name: text
-//   };
+const joinParameter = (url: string, key: string, value: string): string => {
+  return `${url}&${key}=${value}`;
+}
 
-//   const res = await axios.get('/', params)
-//   console.log(res.data);
-// }
+export const searchWithText = async (keyword: string): Promise<HotpepperResponse> => {
+  const keywordFormatted = keyword.replace(/\s+/g, ' ');
+  const url = joinParameter(baseUrl, 'keyword', keywordFormatted);
+  const res = await axios.get(url);
+  return res.data.results;
+}
