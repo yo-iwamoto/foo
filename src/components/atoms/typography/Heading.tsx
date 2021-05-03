@@ -6,7 +6,7 @@ type Props = {
 }
 
 export const Heading = ({ bold, children }: Props) => {
-  let className = 'text-xl sm:text-3xl md:text-4xl text-center whitespace-pre-wrap';
+  let className = 'text-2xl sm:text-3xl md:text-4xl text-center whitespace-pre-wrap';
   if (bold) {
     className += ' font-bold'
   }
