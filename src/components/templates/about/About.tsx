@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Heading } from '../../atoms/typography/Heading';
 import { SubHeading } from '../../atoms/typography/SubHeading';
 import Image from 'next/image';
@@ -6,9 +6,14 @@ import Image from 'next/image';
 export const About: React.VFC = () => {
   const distanceImageUrl = '/images/distance.png';
   const shareImageUrl = '/images/share.png';
+  const initialStyle = 'opacity-0 translate-y-2 transition-all duration-1000 transform';
+  const [animationStyle, setAnimationStyle] = useState<string>(initialStyle);
+  useEffect(() => {
+    setAnimationStyle(animationStyle.replace('opacity-0 translate-y-2', ''));
+  }, [animationStyle])
   
   return (
-    <>
+    <div className={animationStyle}>
       <div className="h-8" />
       <Heading>
         <span className="text-main">
@@ -51,6 +56,6 @@ export const About: React.VFC = () => {
         </div>
       </section>
       <div className="h-12" />
-    </>
+    </div>
   );
 }
