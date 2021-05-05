@@ -44,3 +44,13 @@ export interface HotpepperResponse {
   results_available: number;
   shop: Shop[];
 }
+
+export type AuthPayload = {
+  email: string;
+  password: string;
+}
+
+export type SignUpPayload = AuthPayload;
+export type LogInPayload = AuthPayload;
+
+export type FirebaseUid = string;

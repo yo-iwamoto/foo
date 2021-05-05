@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading } from '../../atoms/typography/Heading';
+import { Heading } from '../../atoms';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 
 export const Manager: React.VFC = () => {

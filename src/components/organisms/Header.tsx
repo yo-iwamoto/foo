@@ -3,8 +3,8 @@ import { FaUserCircle } from 'react-icons/fa';
 import { NavMenu } from '../../types/index';
 import Link from 'next/link';
 import Image from 'next/image';
-import { RowFlexContainer } from '../molecules/RowFlexContainer';
-import { TextLink } from '../atoms/TextLink';
+import { RowFlexContainer } from '../utilities';
+import { TextLink } from '../atoms';
 
 export const Header: React.VFC = () => {
   const menus: NavMenu[] = [

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Heading } from '../../atoms/typography/Heading';
-import { SubHeading } from '../../atoms/typography/SubHeading';
+import { Heading } from '../../atoms';
+import { SubHeading } from '../../atoms';
 import Image from 'next/image';
 
 export const About: React.VFC = () => {
