@@ -1,5 +1,5 @@
 import React from 'react';
-import { PrivacyPolicy } from '../../components/templates/about/PrivacyPolicy';
+import { PrivacyPolicy } from '../../components/templates';
 
 const Page: React.VFC = () => <PrivacyPolicy />
 

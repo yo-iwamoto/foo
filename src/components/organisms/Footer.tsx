@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavMenu } from '../../types/index';
 import { TextLink } from '../atoms';
-import { RowFlexContainer } from '../utilities';
+import { Vertical6, RowFlexContainer } from '../utilities';
 
 export const Footer: React.VFC = () => {
   const menus: NavMenu[] = [
@@ -22,7 +22,7 @@ export const Footer: React.VFC = () => {
           </div>
         ))}
       </RowFlexContainer>
-      <div className="h-4" />
+      <Vertical6 />
       <div className="w-24 mx-auto">
         <a href="https://webservice.recruit.co.jp/">
           <img

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { SearchBox } from '../organisms';
+import { Vertical6 } from '../utilities';
 
 export const Top: React.VFC = () => {
   const text = 'ひとりで食事をするお店を探していますか？\nFooでぴったりのお店を見つけましょう',
@@ -15,7 +16,7 @@ export const Top: React.VFC = () => {
 
   return (
     <div className={animationStyle}>
-      <div className="h-8" />
+      <Vertical6 />
       <h1 className="text-md opacity-100 sm:text-2xl md:text-3xl text-center mt-8 whitespace-pre-wrap">
         {text}
       </h1>

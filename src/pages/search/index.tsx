@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchResult } from '../../components/templates/search/SearchResult';
+import { SearchResult } from '../../components/templates';
 
 const Page: React.VFC = () => <SearchResult />;
 

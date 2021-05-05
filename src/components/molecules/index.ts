@@ -1,3 +1,7 @@
 import { Card } from './Card';
+import { SignUpForm } from './SignUpForm';
 
-export { Card };
+export {
+  Card,
+  SignUpForm
+};

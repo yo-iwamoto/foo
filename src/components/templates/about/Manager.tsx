@@ -1,13 +1,14 @@
 import React from 'react';
 import { Heading } from '../../atoms';
+import { Vertical6 } from '../../utilities';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 
 export const Manager: React.VFC = () => {
   return (
     <>
-      <div className="h-8" />
+      <Vertical6 />
       <Heading>管理者について</Heading>
-      <div className="h-8" />
+      <Vertical6 />
       <p className="text-center">
         当サイトは
         <span className="font-bold underline">
@@ -15,7 +16,7 @@ export const Manager: React.VFC = () => {
         </span>
         です
       </p>
-      <div className="h-8" />
+      <Vertical6 />
       <div className="flex justify-between items-center w-64 mx-auto">
 
         <div className="flex flex-col items-center">
