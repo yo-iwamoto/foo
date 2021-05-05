@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavMenu } from '../../types/index';
-import { TextLink } from '../atoms/TextLink';
-import { RowFlexContainer } from '../molecules/RowFlexContainer';
+import { TextLink } from '../atoms';
+import { RowFlexContainer } from '../utilities';
 
 export const Footer: React.VFC = () => {
   const menus: NavMenu[] = [

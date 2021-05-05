@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading } from '../../atoms/typography/Heading';
+import { Heading } from '../../atoms';
 
 export const PrivacyPolicy: React.VFC = () => {
   return (
