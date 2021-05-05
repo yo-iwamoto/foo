@@ -3,7 +3,11 @@ import { css } from '@emotion/core';
 import SyncLoader from 'react-spinners/SyncLoader';
 import { useGeneralState } from '../../ducks/general/selectors';
 
-export const Loader: React.VFC = () => {
+type Props = {
+  loading: boolean;
+}
+
+export const Loader: React.VFC<Props> = ({ loading }) => {
   const state = useGeneralState().general,
         color = '#ffa382',
         override = css`

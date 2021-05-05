@@ -6,7 +6,7 @@ export const firebaseCreateUser = createAsyncThunk(
   'user/firebaseCreateUser',
   async (payload: SignUpPayload) => {
     let result: FirebaseUid;
-    firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+    firebase.auth().createUserWithEmailAndPassword({...payload})
       .then(res => {
         result = res.user.uid;
       })
