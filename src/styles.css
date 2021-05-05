@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 *::selection {
-  background-color: #ffd1c1;
+  background-color: #ffd1c0;
 }
