@@ -25,7 +25,6 @@ export const SearchResult: React.VFC = () => {
 
   useEffect(() => {
     startLoading();
-    console.log(state.isLoading)
     if (searchText) {
       searchWithText(searchText).then(response => {
         setCount(response.results_available);

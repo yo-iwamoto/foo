@@ -21,12 +21,8 @@ export type StoreState = ReturnType<typeof preloadedState>;
 export type ReduxStore = Store<StoreState>;
 
 const createStore = () => {
-  const middlewareList = [...getDefaultMiddleware(), logger];
-
   return configureStore({
     reducer: rootReducer,
-    middleware: middlewareList,
-    devTools: process.env.NODE_ENV !== 'production',
     preloadedState: preloadedState()
   })
 }
