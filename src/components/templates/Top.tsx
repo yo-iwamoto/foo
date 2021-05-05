@@ -20,7 +20,6 @@ export const Top: React.VFC = () => {
         {text}
       </h1>
       <SearchBox />
-      {}
       <div className="w-64 mx-auto">
         <Image
           src={imageUrl}
