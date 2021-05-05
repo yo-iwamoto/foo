@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=test node server.js",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start"
   },
