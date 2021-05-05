@@ -49,16 +49,21 @@ export const SearchResult: React.VFC = () => {
                 <Loader />
               </>
           : <>
-              {shops.length === 0
-                ? <>
-                    <h1>お店が見つかりませんでした。
-                    <br/>キーワードを変えてもう一度調べてみましょう。</h1>
+              {shops === undefined
+                ? <h1>エラーが発生しました。</h1>
+                : <>
+                    {shops.length === 0
+                      ? <>
+                          <h1>お店が見つかりませんでした。
+                          <br/>キーワードを変えてもう一度調べてみましょう。</h1>
+                        </>
+                      : <ColumnFlexContainer>
+                          {shops.map((shop, index) => (
+                            <Card {...shop} catchPhrase={shop.catch} key={index} />
+                          ))}
+                        </ColumnFlexContainer>
+                    }
                   </>
-                : <ColumnFlexContainer>
-                    {shops.map((shop, index) => (
-                      <Card {...shop} catchPhrase={shop.catch} key={index} />
-                    ))}
-                  </ColumnFlexContainer>
               }
             </>
         }
