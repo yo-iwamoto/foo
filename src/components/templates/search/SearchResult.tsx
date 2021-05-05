@@ -46,19 +46,19 @@ export const SearchResult: React.VFC = () => {
         {state.isLoading
           ? <>
               <div className="h-16" />
-              <Loader />
-            </>
+                <Loader />
+              </>
           : <>
-              {shops.length !== 0
-                ? <ColumnFlexContainer>
+              {shops.length === 0
+                ? <>
+                    <h1>お店が見つかりませんでした。
+                    <br/>キーワードを変えてもう一度調べてみましょう。</h1>
+                  </>
+                : <ColumnFlexContainer>
                     {shops.map((shop, index) => (
                       <Card {...shop} catchPhrase={shop.catch} key={index} />
                     ))}
                   </ColumnFlexContainer>
-                : <>
-                    <h1>お店が見つかりませんでした。
-                    <br/>キーワードを変えてもう一度調べてみましょう。</h1>
-                  </>
               }
             </>
         }
