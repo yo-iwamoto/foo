@@ -9,7 +9,7 @@ export const SubmitButton: React.VFC<Props> = ({ text }) => {
     <input
       type="submit"
       value={text}
-      className="p-2 border bg-main text-white rounded-lg cursor-pointer hover:bg-white hover:text-main hover:border-main focus:bg-white focus:text-main focus:border-main transition-colors focus:outline-none"
+      className="p-3 border bg-main text-white rounded-lg cursor-pointer hover:bg-white hover:text-main hover:border-main focus:bg-white focus:text-main focus:border-main transition-colors focus:outline-none"
     />
   );
 }

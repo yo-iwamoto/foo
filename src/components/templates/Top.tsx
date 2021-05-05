@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { SearchBox } from '../organisms';
 import { Vertical6 } from '../utilities';
+import firebase from '../../plugins/firebase';
 
 export const Top: React.VFC = () => {
   const text = 'ひとりで食事をするお店を探していますか？\nFooでぴったりのお店を見つけましょう',

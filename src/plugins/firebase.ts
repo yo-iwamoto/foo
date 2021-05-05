@@ -1,4 +1,4 @@
-import firebaseModule from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 
 const firebaseConfig = {
@@ -10,6 +10,10 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 }
 
-const app = firebaseModule.initializeApp(firebaseConfig);
+let auth: firebase.auth.Auth;
 
-export default app;
+if (!firebase.app.length) {
+  auth = firebase.initializeApp(firebaseConfig).auth();
+}
+
+export default auth;

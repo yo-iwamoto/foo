@@ -1,5 +1,5 @@
 import { Card } from './Card';
-import { SignUpForm } from './SignUpForm';
+import { SignUpForm } from '../organisms/SignUpForm';
 
 export {
   Card,

@@ -4,7 +4,7 @@ type Props = {
   type: string;
   value: string;
   placeholder: string;
-  onChange: Function;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export const TextField: React.VFC<Props> = props => {
