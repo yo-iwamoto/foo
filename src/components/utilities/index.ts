@@ -1,10 +1,10 @@
 import { ColumnFlexContainer } from './ColumnFlexContainer';
-import { Horizontal6 } from './Horizontal6';
-import { Horizontal12 } from './Horizontal12';
-import { Horizontal24 } from './Horizontal24';
-import { Vertical6 } from './Vertical6';
-import { Vertical12 } from './Vertical12';
-import { Vertical24 } from './Vertical24';
+import { Horizontal6 } from './spacers/Horizontal6';
+import { Horizontal12 } from './spacers/Horizontal12';
+import { Horizontal24 } from './spacers/Horizontal24';
+import { Vertical6 } from './spacers/Vertical6';
+import { Vertical12 } from './spacers/Vertical12';
+import { Vertical24 } from './spacers/Vertical24';
 import { RowFlexContainer } from './RowFlexContainer';
 
 export {

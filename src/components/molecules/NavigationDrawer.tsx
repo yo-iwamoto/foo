@@ -18,7 +18,7 @@ export const NavigationDrawer: React.VFC<Props> = ({ show, onClose }) => {
     { text: 'ログイン', href: '/users/login', icon: <FaSignInAlt color="white" size={40} /> }
   ]
 
-  const opened = 'h-screen w-full sm:w-2/4 md:w-2/5 lg:w-1/4 bg-main absolute top-0 right-0 z-30 transform transition-transform duration-500',
+  const opened = 'h-full w-full sm:w-2/4 md:w-2/5 lg:w-1/4 bg-main absolute top-0 right-0 z-30 transform transition-transform duration-500',
         closed = opened + ' translate-x-full';
 
   return (
