@@ -12,7 +12,7 @@ export const Layout = ({ children }: Props) => {
         onClose = () => setShow(false),
         onOpen = () => setShow(true);
 
-  const closed = 'bg-gray-800 absolute w-screen opacity-40 h-full hidden transition-all z-20',
+  const closed = 'bg-gray-800 w-screen opacity-40 h-full hidden transition-all z-20 fixed',
         opened = closed.replace('hidden', '');
 
   const handler = (e: Event) => {
@@ -20,13 +20,13 @@ export const Layout = ({ children }: Props) => {
   }
 
   return (
-    <>
+    <div className="max-w-screen overflow-x-hidden">
       <div className={show ? opened : closed} onClick={onClose} />
       <NavigationDrawer show={show} onClose={onClose} />
       <Header onOpen={onOpen} />
       <main className="text-gray-700 font-main h-">{children}</main>
       <Vertical12 />
       <Footer />
-    </>
+    </div>
   );
 }
