@@ -13,7 +13,7 @@ export const NavigationDrawer: React.VFC<Props> = ({ show, onClose }) => {
 
   const menus: DrawerMenu[] = [
     { text: 'トップ', href: '/', icon: <FaHome color="white" size={40} /> },
-    { text: 'fooとは', href: '/about', icon: <FaEnvira color="white" size={40} /> },
+    { text: 'Fooとは', href: '/about', icon: <FaEnvira color="white" size={40} /> },
     { text: '新規登録', href: '/users/signup', icon: <FaUserPlus color="white" size={40} /> },
     { text: 'ログイン', href: '/users/login', icon: <FaSignInAlt color="white" size={40} /> }
   ]
