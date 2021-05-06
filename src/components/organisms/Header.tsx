@@ -1,13 +1,21 @@
 import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import { NavMenu } from '../../types/index';
 import { useUserState } from '../../ducks/user/selectors';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TextLink, PrimaryButton } from '../atoms';
+import { NavigationDrawer } from '../molecules';
 import { RowFlexContainer } from '../utilities';
 
-export const Header: React.VFC = () => {
+type Props = {
+  show: boolean;
+  onClose: React.MouseEventHandler;
+  onOpen: React.MouseEventHandler;
+}
+
+export const Header: React.VFC<Props> = ({ show, onClose, onOpen }) => {
   const menus: NavMenu[] = [
     { text: 'TOP', href: '/' },
     { text: 'ABOUT', href: '/about' }
@@ -16,7 +24,8 @@ export const Header: React.VFC = () => {
   const state = useUserState().user;
 
   return (
-    <header className="bg-main flex justify-between px-4">
+    <header className="bg-main flex justify-between items-center px-4">
+      <NavigationDrawer show={show} onClose={onClose} />
       <div className="w-16">
         <Link href="/">
           <a>
@@ -25,11 +34,12 @@ export const Header: React.VFC = () => {
               alt="foo"
               width={240}
               height={184}
+              className="transform translate-y-1"
             />
           </a>
         </Link>
       </div>
-      <RowFlexContainer extraClasses="w-48">
+      {/* <RowFlexContainer extraClasses="w-48 hidden sm:flex">
         {menus.map((menu, index) => (
           <TextLink {...menu} type="header" key={index} />
         ))}
@@ -45,7 +55,13 @@ export const Header: React.VFC = () => {
             </a>
           </Link>
       }
-      </RowFlexContainer>
+      </RowFlexContainer> */}
+      <GiHamburgerMenu
+        color="white"
+        size="30"
+        className="cursor-pointer"
+        onClick={onOpen}
+      />
     </header>
   );
 }
