@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Heading, SubHeading } from '../../atoms';
-import { SignUpForm } from '../../molecules';
+import { SignUpForm } from '../../organisms';
 import { Vertical6 } from '../../utilities';
 
 export const SignUp: React.VFC = () => {
