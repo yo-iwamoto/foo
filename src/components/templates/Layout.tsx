@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from '../organisms';
-import { Footer } from '../organisms';
+import { NavigationDrawer } from '../molecules';
+import { Header, Footer } from '../organisms';
+import { Vertical12 } from '../utilities';
 
 type Props = {
   children: React.ReactNode;
@@ -11,14 +12,20 @@ export const Layout = ({ children }: Props) => {
         onClose = () => setShow(false),
         onOpen = () => setShow(true);
 
-  const closed = 'bg-gray-800 absolute w-screen opacity-40 h-screen hidden transition-all z-20',
-        opened = closed.replace('hidden', '')
+  const closed = 'bg-gray-800 absolute w-screen opacity-40 h-full hidden transition-all z-20',
+        opened = closed.replace('hidden', '');
+
+  const handler = (e: Event) => {
+    e.preventDefault();
+  }
 
   return (
     <>
       <div className={show ? opened : closed} onClick={onClose} />
-      <Header show={show} onClose={onClose} onOpen={onOpen} />
-      <main className="min-h-screen text-gray-700 font-main">{children}</main>
+      <NavigationDrawer show={show} onClose={onClose} />
+      <Header onOpen={onOpen} />
+      <main className="text-gray-700 font-main h-">{children}</main>
+      <Vertical12 />
       <Footer />
     </>
   );
