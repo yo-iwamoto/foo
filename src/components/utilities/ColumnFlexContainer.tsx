@@ -1,12 +1,15 @@
 import React from 'react';
 
 type Props = {
+  extraClasses?: string;
   children: React.ReactNode;
 }
 
-export const ColumnFlexContainer: React.VFC<Props> = ({ children }) => {
+export const ColumnFlexContainer: React.VFC<Props> = ({ children, extraClasses }) => {
+  const baseClasses = 'flex flex-col justify-between items-center flex-nowrap w-full ',
+        className = baseClasses + extraClasses;
   return (
-    <div className="flex flex-col justify-start items-center flex-nowrap w-full">
+    <div className={className}>
       {children}
     </div>
   );

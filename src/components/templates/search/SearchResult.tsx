@@ -9,8 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Loader } from "../../atoms";
 import { Card } from "../../molecules";
-import { ColumnFlexContainer } from '../../utilities';
-import { RowFlexContainer } from "../../utilities";
+import { ColumnFlexContainer, RowFlexContainer, Vertical6, Vertical12 } from '../../utilities';
 
 export const SearchResult: React.VFC = () => {
   const router = useRouter(),
@@ -36,16 +35,16 @@ export const SearchResult: React.VFC = () => {
   
   return (
     <div className="w-full sm:w-10/12 xl:w-3/5 mx-auto">
-      <div className="h-8" />
+      <Vertical6 />
       <RowFlexContainer extraClasses="px-2" >
         <h1 className="text-xl font-bold">「{searchText}」の検索結果</h1>
         <h2>{count} 件</h2>
       </RowFlexContainer>
-      <div className="h-8" />
+      <Vertical6 />
       <div className="mx-4">
         {state.isLoading
           ? <>
-              <div className="h-16" />
+              <Vertical12 />
                 <Loader />
               </>
           : <>
@@ -68,7 +67,7 @@ export const SearchResult: React.VFC = () => {
             </>
         }
       </div>
-      <div className="h-16" />
+      <Vertical12 />
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Heading } from '../../atoms';
+import { Heading } from '../../../atoms';
+import { Vertical6 } from '../../../utilities';
 
 export const Mypage: React.VFC = () => {
   return (
     <>
-      <div className="h-8" />
+      <Vertical6 />
       <Heading>マイページ</Heading>
     </>
   );

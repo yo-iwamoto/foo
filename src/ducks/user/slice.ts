@@ -1,27 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { firebaseCreateUser } from './operations';
+import { FirebaseUid } from '../../types';
 
 export type UserState = {
   isLoggedIn: boolean;
   uid: string;
-  name: string;
 }
 
 export const initialState: UserState = {
   isLoggedIn: false,
   uid: '',
-  name: ''
 }
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    logIn: (state: UserState, action: PayloadAction<FirebaseUid>) => ({
+      ...state,
+      isLoggedIn: true,
+      uid: action.payload
+    }),
     logOut: (state: UserState) => ({
       ...initialState
     })
-  },
-  // extraReducers: (builder) => 
+  }
 });
 
 export default userSlice;

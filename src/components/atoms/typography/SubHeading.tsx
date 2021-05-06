@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode;
 }
 
-export const SubHeading = ({ bold, children }: Props) => {
+export const SubHeading: React.VFC<Props> = ({ bold, children }) => {
   let className = 'text-lg sm:text-xl md:text-2xl';
   if (bold) {
     className += ' font-bold';

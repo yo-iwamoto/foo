@@ -7,7 +7,7 @@ type Props = {
   type: 'header' | 'footer';
 }
 
-export const TextLink = ({ href, text, type }: Props) => {
+export const TextLink: React.VFC<Props> = ({ href, text, type }) => {
   let className = 'text-text text-md md:text-lg';
   if (type === 'footer') {
     className = 'text-xs sm:text-sm';
