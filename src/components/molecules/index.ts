@@ -1,7 +1,7 @@
 import { Card } from './Card';
-import { SignUpForm } from '../organisms/SignUpForm';
+import { NavigationDrawer } from './NavigationDrawer';
 
 export {
   Card,
-  SignUpForm
+  NavigationDrawer
 };
