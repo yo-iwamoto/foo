@@ -18,7 +18,6 @@ export const firebaseLogIn = async (payload: LogInPayload): Promise<FirebaseUid>
   auth.signInWithEmailAndPassword(payload.email, payload.password)
     .then(res => {
       uid: res.user.uid;
-      console.log('succeeded')
     })
     .catch((err: Error) => {
       throw err;

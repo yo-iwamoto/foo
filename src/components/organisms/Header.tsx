@@ -14,7 +14,6 @@ export const Header: React.VFC = () => {
   ];
 
   const state = useUserState().user;
-  console.log(state.isLoggedIn)
 
   return (
     <header className="bg-main flex justify-between px-4">
