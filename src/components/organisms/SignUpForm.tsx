@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { firebaseCreateUser } from '../../api/firebase';
+import { firebaseCreateUser } from '../../api/externals/firebase';
 import { useDispatch } from 'react-redux';
 import userSlice from '../../ducks/user/slice';
 import { useRouter } from 'next/router';
@@ -7,10 +7,14 @@ import { TextField, SubmitButton } from '../atoms';
 import { ColumnFlexContainer, Vertical6, Vertical12 } from '../utilities';
 
 export const SignUpForm: React.VFC = () => {
-  const [email, setEmail] = useState(''),
+  const [name, setName] = useState(''),
+        [email, setEmail] = useState(''),
         [password, setPassword] = useState(''),
         [passwordConfirmation, setPasswordConfirmation] = useState('');
 
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setName(e.target.value);
+  }
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);
   }
@@ -41,6 +45,8 @@ export const SignUpForm: React.VFC = () => {
     <form onSubmit={submitHandler} className="w-4/5 sm:w-3/5 md:w-2/5 mx-auto">
       <Vertical12 />
       <ColumnFlexContainer>
+        <TextField type="text" value={name} placeholder="ニックネーム" onChange={onChangeName} />
+        <Vertical6 />
         <TextField type="text" value={email} placeholder="メールアドレス" onChange={onChangeEmail} />
         <Vertical6 />
         <TextField type="password" value={password} placeholder="パスワード" onChange={onChangePassword} />

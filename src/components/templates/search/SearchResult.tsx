@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Shop } from "../../../types";
-import { searchWithText } from '../../../api/restaurants';
+import { searchWithText } from '../../../api/externals/restaurants';
 import { useGeneralState } from '../../../ducks/general/selectors';
 import generalSlice from '../../../ducks/general/slice';
 import { useDispatch } from 'react-redux';

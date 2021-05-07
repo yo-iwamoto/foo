@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationDrawer } from '../molecules';
 import { Header, Footer } from '../organisms';
-import { Vertical12 } from '../utilities';
 
 type Props = {
   children: React.ReactNode;
@@ -20,12 +19,11 @@ export const Layout = ({ children }: Props) => {
   }
 
   return (
-    <div className="max-w-screen overflow-x-hidden">
+    <div>
       <div className={show ? opened : closed} onClick={onClose} />
       <NavigationDrawer show={show} onClose={onClose} />
       <Header onOpen={onOpen} />
-      <main className="text-gray-700 font-main h-">{children}</main>
-      <Vertical12 />
+      <main className="text-gray-700 font-main min-h-screen">{children}</main>
       <Footer />
     </div>
   );

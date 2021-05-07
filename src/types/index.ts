@@ -1,15 +1,15 @@
 import React from "react";
 
-export type NavMenu = {
+export interface NavMenu {
   text: string;
   href: string;
-}
+};
 
-export type DrawerMenu = {
+export interface DrawerMenu {
   text: string;
   href: string;
   icon: React.ReactNode;
-}
+};
 
 export interface Shop {
   address: string;
@@ -34,7 +34,7 @@ export interface Shop {
   station_name: string;
   urls: ShopUrls;
   wifi: AriOrNashi;
-}
+};
 
 export interface ShopPhoto {
   pc: {
@@ -44,21 +44,25 @@ export interface ShopPhoto {
 
 export interface ShopUrls {
   pc: string;
-}
+};
 
 type AriOrNashi = 'あり' | 'なし';
 
 export interface HotpepperResponse {
   results_available: number;
   shop: Shop[];
-}
+};
 
-export type AuthPayload = {
+export interface AuthPayload {
   email: string;
   password: string;
-}
+};
 
 export type SignUpPayload = AuthPayload;
 export type LogInPayload = AuthPayload;
-
 export type FirebaseUid = string;
+
+export interface RegisterPayload {
+  uid: string;
+  name: string;
+}

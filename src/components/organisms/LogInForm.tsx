@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { firebaseLogIn } from '../../api/firebase';
+import { firebaseLogIn } from '../../api/externals/firebase';
 import { useDispatch } from 'react-redux';
 import userSlice from '../../ducks/user/slice';
 import { useRouter } from 'next/router';
