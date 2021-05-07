@@ -1,5 +1,5 @@
-import { auth } from '../plugins/firebase';
-import { FirebaseUid, LogInPayload, SignUpPayload } from '../types';
+import { auth } from '../../plugins/firebase';
+import { FirebaseUid, LogInPayload, SignUpPayload } from '../../types';
 
 export const firebaseCreateUser = async (payload: SignUpPayload): Promise<FirebaseUid> => {
   let uid: FirebaseUid;
