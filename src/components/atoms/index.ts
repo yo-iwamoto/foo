@@ -1,19 +1,8 @@
-import { Heading } from './typography/Heading';
-import { SubHeading } from './typography/SubHeading';
-import { IconTextLink } from './IconTextLink';
-import { Loader } from './Loader';
-import { PrimaryButton } from './PrimaryButton';
-import { SubmitButton } from './SubmitButton';
-import { TextField } from './TextField';
-import { TextLink } from './TextLink';
-
-export {
-  Heading,
-  SubHeading,
-  IconTextLink,
-  Loader,
-  PrimaryButton,
-  SubmitButton,
-  TextField,
-  TextLink
-};
+export { Heading } from './typography/Heading';
+export { SubHeading } from './typography/SubHeading';
+export { IconTextLink } from './IconTextLink';
+export { Loader } from './Loader';
+export { PrimaryButton } from './PrimaryButton';
+export { SubmitButton } from './SubmitButton';
+export { TextField } from './TextField';
+export { TextLink } from './TextLink';

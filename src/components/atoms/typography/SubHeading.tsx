@@ -6,7 +6,7 @@ type Props = {
 }
 
 export const SubHeading: React.VFC<Props> = ({ bold, children }) => {
-  let className = 'text-lg sm:text-xl md:text-2xl';
+  let className = 'text-xl md:text-2xl';
   if (bold) {
     className += ' font-bold';
   }

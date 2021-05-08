@@ -1,21 +1,9 @@
-import { About } from './about/About';
-import { Contact } from './about/Contact';
-import { Manager } from './about/Manager';
-import { PrivacyPolicy } from './about/PrivacyPolicy';
-import { Mypage } from './users/mypage/Mypage';
-import { SearchResult } from './search/SearchResult';
-import { SignUp } from './users/SignUp';
-import { LogIn } from './users/LogIn';
-import { Top } from './Top';
-
-export {
-  About,
-  Contact,
-  Manager,
-  PrivacyPolicy,
-  Mypage,
-  SearchResult,
-  SignUp,
-  LogIn,
-  Top
-}
+export { About } from './about/About';
+export { Contact } from './about/Contact';
+export { Manager } from './about/Manager';
+export { PrivacyPolicy } from './about/PrivacyPolicy';
+export { Mypage } from './users/mypage/Mypage';
+export { SearchResult } from './search/SearchResult';
+export { SignUp } from './users/SignUp';
+export { LogIn } from './users/LogIn';
+export { Top } from './Top';
