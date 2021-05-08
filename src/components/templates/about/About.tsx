@@ -4,7 +4,7 @@ import { Vertical6, Vertical12, Horizontal6 } from '../../utilities';
 import Image from 'next/image';
 
 export const About: React.VFC = () => {
-  const distanceImageUrl = '/images/distance.png';
+  const waiterImageUrl = '/images/waiter.png';
   const shareImageUrl = '/images/share.png';
   const initialStyle = 'opacity-0 translate-y-2 transition-all duration-1000 transform';
   const [animationStyle, setAnimationStyle] = useState<string>(initialStyle);
@@ -29,14 +29,14 @@ export const About: React.VFC = () => {
           </SubHeading>
           <Vertical6 />
           <p>
-            Fooでは、ユーザーが、ひとりで食べに行ったお店に「タベタ！」することができます。
-            <br/>行ったことがないお店は雰囲気が分からず、「ひとりで入ったら迷惑かも…？」と、少し入りにくく感じてしまうもの。
-            <br/>これからはFooで、あなたのお気に入りのお店を見つけましょう。
+            行ったことがないお店は雰囲気が分からず、「ひとり客は自分だけかも…？」と、少し入りにくく感じてしまうもの。
+            <br/>Fooでは、ユーザーが、ひとりで食べに行ったお店に「タベタ！」することができます。
+            他のユーザーの声を参考に、お店を選んでみましょう。
           </p>
         </div>
         <Horizontal6 />
         <div className="w-full sm:w-1/4">
-          <Image src={distanceImageUrl} width={400} height={400}/>
+          <Image src={waiterImageUrl} width={400} height={400}/>
         </div>
       </section>
       <Vertical12 />

@@ -1,7 +1,2 @@
-import { Card } from './Card';
-import { NavigationDrawer } from './NavigationDrawer';
-
-export {
-  Card,
-  NavigationDrawer
-};
+export { Card } from './Card';
+export { NavigationDrawer } from './NavigationDrawer';

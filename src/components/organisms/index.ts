@@ -1,13 +1,5 @@
-import { Footer } from './Footer';
-import { Header } from './Header';
-import { LogInForm } from './LogInForm'
-import { SearchBox } from './SearchBox';
-import { SignUpForm } from './SignUpForm';
-
-export {
-  Footer,
-  Header,
-  LogInForm,
-  SearchBox,
-  SignUpForm
-};
+export { Footer } from './Footer';
+export { Header } from './Header';
+export { LogInForm } from './LogInForm'
+export { SearchBox } from './SearchBox';
+export { SignUpForm } from './SignUpForm';
