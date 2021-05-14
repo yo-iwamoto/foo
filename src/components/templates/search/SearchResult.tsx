@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 
 import { Shop } from "../../../types";
 import { searchWithText } from '../../../api/externals/restaurants';
-import { useGeneralState } from '../../../ducks/general/selectors';
-import generalSlice from '../../../ducks/general/slice';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { useRouter } from 'next/router';
 import { Loader } from "../../atoms";
 import { Card } from "../../molecules";
-import { ColumnFlexContainer, RowFlexContainer, Vertical6, Vertical12 } from '../../utilities';
+import { ColumnFlexContainer, RowFlexContainer, Spacer } from '../../utilities';
+import { endLoadingAction, startLoadingAction } from "../../../redux/utilities/actions";
+import { State, UtilityState } from "../../../redux/types";
 
 export const SearchResult: React.VFC = () => {
   const router = useRouter(),
@@ -17,34 +17,33 @@ export const SearchResult: React.VFC = () => {
         [count, setCount] = useState<number>(0),
         [shops, setShops] = useState<Shop[]>([]);
 
-  const state = useGeneralState().general,
-        dispatch = useDispatch(),
-        startLoading = () => dispatch(generalSlice.actions.startLoading()),
-        endLoading = () => dispatch(generalSlice.actions.endLoading());
+  const dispatch = useDispatch();
+
+  const utilityState = useSelector<State, UtilityState>(state => state.utilities, shallowEqual);
 
   useEffect(() => {
-    startLoading();
+    dispatch(startLoadingAction());
     if (searchText) {
       searchWithText(searchText).then(response => {
         setCount(response.results_available);
         setShops(response.shop);
-        endLoading();
+        dispatch(endLoadingAction());
       })
     }
   }, [searchText]);
   
   return (
     <div className="w-full sm:w-10/12 xl:w-3/5 mx-auto">
-      <Vertical6 />
+      <Spacer h={6} />
       <RowFlexContainer extraClasses="px-2" >
         <h1 className="text-xl font-bold">「{searchText}」の検索結果</h1>
         <h2>{count} 件</h2>
       </RowFlexContainer>
-      <Vertical6 />
+      <Spacer h={6} />
       <div className="mx-4">
-        {state.isLoading
+        {utilityState.isLoading
           ? <>
-              <Vertical12 />
+              <Spacer h={12} />
                 <Loader />
               </>
           : <>
@@ -67,7 +66,7 @@ export const SearchResult: React.VFC = () => {
             </>
         }
       </div>
-      <Vertical12 />
+      <Spacer h={12} />
     </div>
   );
 }

@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import { State, UserState } from '../../redux/types';
 import { NavigationDrawer } from '../molecules';
 import { Header, Footer } from '../organisms';
 
@@ -18,10 +20,12 @@ export const Layout = ({ children }: Props) => {
     e.preventDefault();
   }
 
+  const { isLoggedIn } = useSelector<State, UserState>(state => state.users, shallowEqual)
+
   return (
     <div>
       <div className={show ? opened : closed} onClick={onClose} />
-      <NavigationDrawer show={show} onClose={onClose} />
+      <NavigationDrawer show={show} onClose={onClose} isLoggedIn={isLoggedIn} />
       <Header onOpen={onOpen} />
       <main className="text-gray-700 font-main min-h-screen">{children}</main>
       <Footer />

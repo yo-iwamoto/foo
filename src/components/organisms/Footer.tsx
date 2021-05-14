@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavMenu } from '../../types/index';
 import { TextLink } from '../atoms';
-import { Vertical6, RowFlexContainer } from '../utilities';
+import { RowFlexContainer, Spacer } from '../utilities';
 
 export const Footer: React.VFC = () => {
   const menus: NavMenu[] = [
@@ -15,14 +15,14 @@ export const Footer: React.VFC = () => {
       <RowFlexContainer extraClasses="w-68 mx-auto">
         {menus.map((menu, index) => (
           <div key={index}>
-            <TextLink {...menu} type="footer" key={index + 1} />
+            <TextLink {...menu} key={index + 1} />
             {(menu.text !== 'お問い合わせ') &&
               <span key={index + 2} className="px-2 font-thin">/</span>
             }
           </div>
         ))}
       </RowFlexContainer>
-      <Vertical6 />
+      <Spacer h={6} />
       <div className="w-24 mx-auto">
         <a href="https://webservice.recruit.co.jp/">
           <img

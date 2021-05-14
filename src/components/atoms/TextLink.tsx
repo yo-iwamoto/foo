@@ -4,14 +4,11 @@ import Link from 'next/link';
 type Props = {
   href: string;
   text: string;
-  type: 'header' | 'footer';
+  color?: 'main' | 'black';
 }
 
-export const TextLink: React.VFC<Props> = ({ href, text, type }) => {
-  let className = 'text-text text-md md:text-lg';
-  if (type === 'footer') {
-    className = 'text-xs sm:text-sm';
-  }
+export const TextLink: React.VFC<Props> = ({ href, text, color = 'black' }) => {
+  const className = `text-xs sm:text-sm hover:underline text-${color}`;
   return (
     <Link href={href}>
       <a className={className}>

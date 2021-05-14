@@ -1,11 +1,11 @@
 import React from 'react';
 import { Heading } from '../../atoms';
-import { Vertical6 } from '../../utilities';
+import { Spacer } from '../../utilities';
 
 export const PrivacyPolicy: React.VFC = () => {
   return (
     <>
-      <Vertical6 />
+      <Spacer h={6} />
       <Heading>プライバシーポリシー</Heading>
     </>
   );

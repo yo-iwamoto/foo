@@ -1,8 +1,11 @@
 export { Heading } from './typography/Heading';
 export { SubHeading } from './typography/SubHeading';
+export { ErrorToast } from './ErrorToast';
+export { GoogleSignIn } from './GoogleSignIn';
 export { IconTextLink } from './IconTextLink';
 export { Loader } from './Loader';
 export { PrimaryButton } from './PrimaryButton';
+export { SearchCircle } from './SearchCircle';
 export { SubmitButton } from './SubmitButton';
 export { TextField } from './TextField';
 export { TextLink } from './TextLink';

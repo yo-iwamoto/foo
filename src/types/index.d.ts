@@ -12,6 +12,7 @@ export interface DrawerMenu {
 };
 
 export interface Shop {
+  id: string;
   address: string;
   barrier_free: string;
   budget: {
@@ -19,7 +20,7 @@ export interface Shop {
     name: string;
   };
   capacity: number;
-  // card: '利用可' | '利用不可';
+  card: '利用可' | '利用不可';
   catch: string;
   english: AriOrNashi;
   lat: number;
@@ -52,17 +53,3 @@ export interface HotpepperResponse {
   results_available: number;
   shop: Shop[];
 };
-
-export interface AuthPayload {
-  email: string;
-  password: string;
-};
-
-export type SignUpPayload = AuthPayload;
-export type LogInPayload = AuthPayload;
-export type FirebaseUid = string;
-
-export interface RegisterPayload {
-  uid: string;
-  name: string;
-}
