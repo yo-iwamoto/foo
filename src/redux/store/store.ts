@@ -7,6 +7,7 @@ import { createLogger } from 'redux-logger';
 
 import { UtilitiesReducer } from '../utilities/reducers';
 import { UsersReducer } from '../users/reducers';
+import { ShopsReducer } from '../shops/reducers';
 
 const createStore = () => {
   const middleWares = [];
@@ -21,7 +22,8 @@ const createStore = () => {
   return reduxCreateStore(
     combineReducers({
       utilities: UtilitiesReducer,
-      users: UsersReducer
+      users: UsersReducer,
+      shops: ShopsReducer
     }),
     applyMiddleware(
       ...middleWares

@@ -11,5 +11,9 @@ export const initialState: State = {
     uid: '',
     name: '',
     authProvider: ''
+  },
+  shops: {
+    shops: [],
+    page: 0
   }
 };

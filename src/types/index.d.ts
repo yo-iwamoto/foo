@@ -12,6 +12,7 @@ export interface DrawerMenu {
 };
 
 export interface Shop {
+  id: string;
   address: string;
   barrier_free: string;
   budget: {
@@ -19,7 +20,7 @@ export interface Shop {
     name: string;
   };
   capacity: number;
-  // card: '利用可' | '利用不可';
+  card: '利用可' | '利用不可';
   catch: string;
   english: AriOrNashi;
   lat: number;

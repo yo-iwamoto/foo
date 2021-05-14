@@ -1,8 +1,8 @@
 import axiosModule, { AxiosError, AxiosResponse } from 'axios';
 import { FooLogInResource, FooSignUpResource, UserResponse } from '../types';
 
-// const axios = axiosModule.create({ baseURL: 'https://foo-back.herokuapp.com/api/v1' });
-const axios = axiosModule.create({ baseURL: 'http://localhost:5000/api/v1' });
+const axios = axiosModule.create({ baseURL: 'https://foo-back.herokuapp.com/api/v1' });
+// const axios = axiosModule.create({ baseURL: 'http://localhost:5000/api/v1' });
 
 axios.interceptors.request.use(config => {
   const accessToken = localStorage.getItem('Access-Token');
