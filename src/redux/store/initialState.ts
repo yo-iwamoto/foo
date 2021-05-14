@@ -7,7 +7,7 @@ export const initialState: State = {
     errorMessage: ''
   },
   users: {
-    isLoggedIn: true,
+    isLoggedIn: false,
     uid: '',
     name: '',
     authProvider: ''
