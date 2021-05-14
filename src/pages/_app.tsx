@@ -1,13 +1,14 @@
 import { AppProps } from 'next/app';
+import Head from 'next/head';
 import { Layout } from '../components/templates/Layout';
 import '../styles.css';
-import Head from 'next/head';
+
 import { Provider } from 'react-redux';
-import createStore from '../ducks/createStore';
+import { store } from '../redux/store/store';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Provider store={createStore()}>
+    <Provider store={store}>
       <Head>
         <title>Foo - ひとりご飯の検索サイト</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />

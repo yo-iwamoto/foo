@@ -1,22 +1,37 @@
 import React from 'react';
 import { DrawerMenu } from '../../types';
-import { FaHome, FaEnvira, FaSignInAlt, FaUserPlus, FaTimes } from 'react-icons/fa';
+import { FaHome, FaEnvira, FaSignInAlt, FaUserPlus, FaTimes, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { IconTextLink } from '../atoms';
-import { ColumnFlexContainer, Vertical6 } from '../utilities';
+import { ColumnFlexContainer, Spacer } from '../utilities';
+import { useDispatch } from 'react-redux';
+import { logOutAction } from '../../redux/users/actions';
 
 type Props = {
   show: boolean;
-  onClose: React.MouseEventHandler;
+  isLoggedIn: boolean;
+  onClose: () => void;
 }
 
-export const NavigationDrawer: React.VFC<Props> = ({ show, onClose }) => {
+export const NavigationDrawer: React.VFC<Props> = ({ show, isLoggedIn, onClose }) => {
+  const dispatch = useDispatch(),
+        logOutHandler = (): void => {
+          onClose();
+          dispatch(logOutAction());
+        };
 
   const menus: DrawerMenu[] = [
     { text: 'トップ', href: '/', icon: <FaHome color="white" size={40} /> },
-    { text: 'Fooとは', href: '/about', icon: <FaEnvira color="white" size={40} /> },
     { text: '新規登録', href: '/users/signup', icon: <FaUserPlus color="white" size={40} /> },
-    { text: 'ログイン', href: '/users/login', icon: <FaSignInAlt color="white" size={40} /> }
+    { text: 'ログイン', href: '/users/login', icon: <FaSignInAlt color="white" size={40} /> },
+    { text: 'マイページ', href: '/users/mypage', icon: <FaUser color="white" size={40} /> },
+    { text: 'ログアウト', href: '/', icon: <FaSignOutAlt color="white" size={40} />}
   ]
+
+  if (isLoggedIn) {
+    menus.splice(1,2);
+  } else {
+    menus.splice(3,2);
+  }
 
   const closed = 'h-full w-full sm:w-2/4 md:w-2/5 lg:w-1/4 bg-main top-0 -right-full z-30 transform transition-all duration-500 fixed',
         opened = closed.replace('-right-full', 'right-0');
@@ -29,10 +44,10 @@ export const NavigationDrawer: React.VFC<Props> = ({ show, onClose }) => {
       <div className="mt-16 flex flex-col justify-between items-start">
         {menus.map((menu, index) => (
           <div key={index} className="w-full pl-16 lg:pl-10">
-            <IconTextLink {...menu} onClick={onClose}>
+            <IconTextLink {...menu} onClick={menu.text === 'ログアウト' ? logOutHandler : onClose }>
               {menu.icon}
             </IconTextLink>
-            <Vertical6 />
+            <Spacer h={6} />
           </div>
         ))}
       </div>

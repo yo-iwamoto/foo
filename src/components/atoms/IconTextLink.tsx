@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Horizontal6 } from '../utilities';
+import { Spacer } from '../utilities';
 
 type Props = {
   href: string;
@@ -16,7 +16,7 @@ export const IconTextLink: React.VFC<Props> = ({ href, text, children, onClick }
         <a>
           <div className="h-full flex justify-start items-center">
             {children}
-            <Horizontal6 />
+            <Spacer w={6} />
             <p className="text-white text-xl">{text}</p>
           </div>
         </a>

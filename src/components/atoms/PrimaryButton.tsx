@@ -2,12 +2,15 @@ import React from 'react';
 
 type Props = {
   text: string;
+  width?: number;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export const PrimaryButton: React.VFC<Props> = ({ text }) => {
+export const PrimaryButton: React.VFC<Props> = ({ text, width, onClick }) => {
   return (
     <button
-      className="border border-main rounded-lg p-2 bg-main text-white hover:bg-white hover:text-main"
+      className={`w-${width} border border-white bg-gradient-to-tl from-main to-red-200 rounded-lg p-2 text-white hover:from-white hover:to-white hover:text-main hover:border-main transition-colors focus:outline-none`}
+      onClick={onClick}
     >{text}</button>
   );
-}
+};

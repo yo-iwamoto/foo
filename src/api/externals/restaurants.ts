@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Shop, HotpepperResponse } from '../../types';
-import generalSlice from '../../ducks/general/slice';
 
 const key = process.env.NEXT_PUBLIC_API_KEY;
 const production = process.env.NODE_ENV === 'production';

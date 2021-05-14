@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { SearchBox } from '../organisms';
-import { Vertical6 } from '../utilities';
+import { SearchBar } from '../organisms';
+import { Spacer } from '../utilities';
+import { PrimaryButton } from '../atoms';
+import Link from 'next/link';
 
 export const Top: React.VFC = () => {
   const text = 'ひとりで食事をするお店を探していますか？\nFooでぴったりのお店を見つけましょう',
         imageUrl = '/images/meal.png';
 
-  const initialStyle = 'opacity-0 translate-y-2 transition-all duration-1000 transform',
+  const initialStyle = 'text-center opacity-0 translate-y-2 transition-all duration-1000 transform',
         [animationStyle, setAnimationStyle] = useState<string>(initialStyle);
 
   useEffect(() => {
@@ -16,11 +18,11 @@ export const Top: React.VFC = () => {
 
   return (
     <div className={animationStyle}>
-      <Vertical6 />
+      <Spacer h={6} />
       <h1 className="text-md opacity-100 sm:text-2xl md:text-3xl text-center mt-8 whitespace-pre-wrap">
         {text}
       </h1>
-      <SearchBox />
+      <SearchBar />
       <div className="w-64 mx-auto">
         <Image
           src={imageUrl}
@@ -28,6 +30,13 @@ export const Top: React.VFC = () => {
           height={300}
         />
       </div>
+      <Spacer h={28} />
+      <Link href="/about">
+        <a>
+          <PrimaryButton text="Fooについて" width={48} />
+        </a>
+      </Link>
+      <Spacer h={12} />
     </div>
   );
 }

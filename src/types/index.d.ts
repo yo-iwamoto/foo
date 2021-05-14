@@ -52,17 +52,3 @@ export interface HotpepperResponse {
   results_available: number;
   shop: Shop[];
 };
-
-export interface AuthPayload {
-  email: string;
-  password: string;
-};
-
-export type SignUpPayload = AuthPayload;
-export type LogInPayload = AuthPayload;
-export type FirebaseUid = string;
-
-export interface RegisterPayload {
-  uid: string;
-  name: string;
-}

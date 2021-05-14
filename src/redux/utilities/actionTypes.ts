@@ -1,0 +1,4 @@
+export const START_LOADING = 'START_LOADING';
+export const END_LOADING = 'END_LOADING';
+export const RAISE_ERROR = 'RAISE_ERROR';
+export const RESOLVE_ERROR = 'RESOLVE_ERROR';
