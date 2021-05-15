@@ -1,24 +1,17 @@
-// export type AuthProvider = '' | 'firebase' | 'google' | 'twitter';
-
-export type FirebaseSignUpResponse = {
+export interface FirebaseSignInResponse {
   name: string;
   uid: string;
+  isNewUser: boolean;
   authProvider: string;
 };
 
-export type FirebaseLogInResponse = Omit<FirebaseSignUpResponse, 'name'>;
-
-export type FirebasePayload = {
+export interface FirebasePayload {
   email: string;
   password: string;
 };
 
-export type FooSignUpResource = {
+export interface FooSignInResource {
   name: string;
-  uid: string;
-};
-
-export type FooLogInResource = {
   uid: string;
 };
 

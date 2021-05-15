@@ -1,5 +1,6 @@
 import React from 'react';
 import { DrawerMenu } from '../../types';
+import cn from 'classnames';
 import { FaHome, FaEnvira, FaSignInAlt, FaUserPlus, FaTimes, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { IconTextLink } from '../atoms';
 import { ColumnFlexContainer, Spacer } from '../utilities';
@@ -14,8 +15,9 @@ type Props = {
 
 export const NavigationDrawer: React.VFC<Props> = ({ show, isLoggedIn, onClose }) => {
   const dispatch = useDispatch(),
-        logOutHandler = (): void => {
+        logOut = (): void => {
           onClose();
+          localStorage.removeItem('Access-Token');
           dispatch(logOutAction());
         };
 
@@ -28,23 +30,26 @@ export const NavigationDrawer: React.VFC<Props> = ({ show, isLoggedIn, onClose }
   ]
 
   if (isLoggedIn) {
-    menus.splice(1,2);
+    menus.splice(1,2); // '新規登録', 'ログイン'
   } else {
-    menus.splice(3,2);
+    menus.splice(3,2); // 'マイページ', 'ログアウト'
   }
 
   const closed = 'h-full w-full sm:w-2/4 md:w-2/5 lg:w-1/4 bg-main top-0 -right-full z-30 transform transition-all duration-500 fixed',
         opened = closed.replace('-right-full', 'right-0');
 
   return (
-    <div className={show ? opened : closed}>
+    <div className={cn({
+      [closed]: !show,
+      [opened]: show
+    })}>
       <div className="ml-auto w-8 mt-6 mr-6 cursor-pointer" onClick={onClose}>
         <FaTimes color="white" size="40" />
       </div>
       <div className="mt-16 flex flex-col justify-between items-start">
         {menus.map((menu, index) => (
           <div key={index} className="w-full pl-16 lg:pl-10">
-            <IconTextLink {...menu} onClick={menu.text === 'ログアウト' ? logOutHandler : onClose }>
+            <IconTextLink {...menu} onClick={menu.text === 'ログアウト' ? logOut : onClose }>
               {menu.icon}
             </IconTextLink>
             <Spacer h={6} />

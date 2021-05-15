@@ -10,6 +10,7 @@ export const initialState: State = {
     isLoggedIn: false,
     uid: '',
     name: '',
+    isNewUser: false,
     authProvider: ''
   },
   shops: {

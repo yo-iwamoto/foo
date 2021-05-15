@@ -19,6 +19,7 @@ export const logOutAction = (): UserActionResponse => ({
     isLoggedIn: false,
     uid: '',
     name: '',
+    isNewUser: false,
     authProvider: ''
   }
 });
