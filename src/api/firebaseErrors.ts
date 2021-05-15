@@ -3,5 +3,6 @@ export const firebaseError = {
   internalError: 'auth/internal-error',
   invalidEmail: 'auth/invalid-email',
   weakPassword: 'auth/weak-password',
-  invalidPassword: 'auth/invalid-password'
+  invalidPassword: 'auth/invalid-password',
+  noUser: 'auth/user-not-found'
 };

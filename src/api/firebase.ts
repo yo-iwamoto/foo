@@ -53,6 +53,8 @@ const firebaseAuthGenerator = (method: 'signup' | 'login') => async (payload: Fi
         case firebaseError.invalidPassword:
           alert('無効なパスワードが入力されています');
           break;
+        case firebaseError.noUser:
+          alert('登録されていないメールアドレスです\n会員登録を行ってください')
         default:
           alert(err.code);
       }

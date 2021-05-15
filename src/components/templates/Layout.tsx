@@ -5,12 +5,14 @@ import { logInAction, LogInActionPayload } from '../../redux/users/actions';
 import { State, UserState } from '../../redux/types';
 import { NavigationDrawer } from '../molecules';
 import { Header, Footer } from '../organisms';
+import { Router } from 'next/router';
 
 type Props = {
   children: React.ReactNode;
+  router: Router;
 }
 
-export const Layout = ({ children }: Props) => {
+export const Layout: React.VFC<Props> = ({ children, router }) => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector<State, UserState>(state => state.users, shallowEqual)
 
@@ -23,9 +25,16 @@ export const Layout = ({ children }: Props) => {
           authProvider: 'firebase'
         };
         dispatch(logInAction(actionPayload));
+        if (router.route === '/users/login' || router.route === '/users/signup') {
+          router.push('/');
+        }
       })
+    } else if (!isLoggedIn) {
+      if (router.route === '/users/mypage') {
+        router.push('/users/login');
+      }
     }
-  })
+  }, [router.pathname])
 
   const [show, setShow] = useState(false),
         onClose = () => setShow(false),
