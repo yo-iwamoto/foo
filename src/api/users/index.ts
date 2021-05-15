@@ -9,7 +9,9 @@ const axios = axiosModule.create({ baseURL });
 
 axios.interceptors.request.use(config => {
   const accessToken = localStorage.getItem('Access-Token');
-  config.headers.common['Access-Token'] = accessToken;
+  if (accessToken) {
+    config.headers.common['Access-Token'] = accessToken;
+  }
   return config;
 });
 
@@ -29,3 +31,12 @@ export const signIn = {
   signUp: authGenerator('signup'),
   logIn: authGenerator('login')
 };
+
+export const autoLogIn = async (): Promise<UserResponse> => {
+  try {
+    const res: AxiosResponse<UserResponse> = await axios.post('/sessions');
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+}

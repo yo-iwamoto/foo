@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, shallowEqual, useSelector } from 'react-redux';
+import { autoLogIn } from '../../api/users';
+import { logInAction, LogInActionPayload } from '../../redux/users/actions';
 import { State, UserState } from '../../redux/types';
 import { NavigationDrawer } from '../molecules';
 import { Header, Footer } from '../organisms';
@@ -9,6 +11,22 @@ type Props = {
 }
 
 export const Layout = ({ children }: Props) => {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector<State, UserState>(state => state.users, shallowEqual)
+
+  useEffect(() => {
+    if (!isLoggedIn && localStorage.getItem('Access-Token')) {
+      autoLogIn().then(data => {
+        const actionPayload: LogInActionPayload = {
+          ...data.user,
+          isNewUser: false,
+          authProvider: 'firebase'
+        };
+        dispatch(logInAction(actionPayload));
+      })
+    }
+  })
+
   const [show, setShow] = useState(false),
         onClose = () => setShow(false),
         onOpen = () => setShow(true);
@@ -19,8 +37,6 @@ export const Layout = ({ children }: Props) => {
   const handler = (e: Event) => {
     e.preventDefault();
   }
-
-  const { isLoggedIn } = useSelector<State, UserState>(state => state.users, shallowEqual)
 
   return (
     <div>
