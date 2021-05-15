@@ -10,6 +10,7 @@ export type UserState = {
   isLoggedIn: boolean;
   uid: string;
   name: string;
+  isNewUser: boolean;
   authProvider: string;
 };
 

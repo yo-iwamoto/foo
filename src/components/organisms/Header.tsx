@@ -11,7 +11,6 @@ type Props = {
 }
 
 export const Header: React.VFC<Props> = ({ onOpen }) => {
-  // const { isLoggedIn } = useSelector<State, UserState>(state => state.users, shallowEqual);
 
   return (
     <header className="bg-main flex justify-between items-center px-4">

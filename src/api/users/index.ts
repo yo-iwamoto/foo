@@ -1,8 +1,11 @@
 import axiosModule, { AxiosError, AxiosResponse } from 'axios';
-import { FooLogInResource, FooSignUpResource, UserResponse } from '../types';
+import { FooSignInResource, UserResponse } from '../types';
 
-const axios = axiosModule.create({ baseURL: 'https://foo-back.herokuapp.com/api/v1' });
-// const axios = axiosModule.create({ baseURL: 'http://localhost:5000/api/v1' });
+const isDevelopment = process.env.NODE_ENV === 'development';
+const baseURL = isDevelopment
+  ? 'http://localhost:5000/api/v1'
+  : process.env.NEXT_PUBLIC_FOO_BACK_URL;
+const axios = axiosModule.create({ baseURL });
 
 axios.interceptors.request.use(config => {
   const accessToken = localStorage.getItem('Access-Token');
@@ -10,28 +13,19 @@ axios.interceptors.request.use(config => {
   return config;
 });
 
-export const signUp = async (resource: FooSignUpResource): Promise<UserResponse> => {
-  let result: UserResponse;
-  await axios.post('/users', {...resource})
-    .then((res: AxiosResponse<UserResponse>): void => {
-      localStorage.setItem('Access-Token', res.headers['access-token']);
-      result = res.data;
-    })
-    .catch((err): void => {
-      throw err;
-    })
-  return result;
+const authGenerator = (method: 'login' | 'signup') => async (resource: FooSignInResource): Promise<UserResponse> => {
+  try {
+    const isLogin = method === 'login';
+    const path = isLogin ? '/sessions' : '/users';
+    const res: AxiosResponse<UserResponse> = await axios.post(path, {...resource});
+    localStorage.setItem('Access-Token', res.headers['access-token']);
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
 };
 
-export const logIn = async (resource: FooLogInResource): Promise<UserResponse> => {
-  let result: UserResponse;
-  await axios.post('/sessions', { uid: resource.uid })
-    .then((res: AxiosResponse<UserResponse>): void => {
-      localStorage.setItem('Access-Token', res.headers['access-token']);
-      result = res.data;
-    })
-    .catch((err): void => {
-      throw err;
-    })
-  return result;
+export const signIn = {
+  signUp: authGenerator('signup'),
+  logIn: authGenerator('login')
 };

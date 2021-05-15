@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { FirebasePayload, FirebaseLogInResponse, FirebaseSignUpResponse } from './types';
+import { FirebasePayload, FirebaseSignInResponse } from './types';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -17,149 +17,55 @@ const firebaseConfig = {
   ? firebase.initializeApp(firebaseConfig)
   : firebase.app();
 
-// Provider: Firebase
-
 const auth = firebase.auth();
-
-type DefaultResponse = Omit<FirebaseSignUpResponse, 'name'>;
-
-export const firebaseCreateUser = async (payload: FirebasePayload): Promise<DefaultResponse> => {
+  
+// Provider: Firebase
+  
+const firebaseAuthGenerator = (method: 'signup' | 'login') => async (payload: FirebasePayload): Promise<FirebaseSignInResponse> => {
   try {
-    const response = await auth.createUserWithEmailAndPassword(payload.email, payload.password);
-    const result: DefaultResponse = {
-      uid: response.user.uid,
-      authProvider: response.user.providerId
-    };
-    return result;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const firebaseLogIn = async (payload: FirebasePayload): Promise<FirebaseLogInResponse> => {
-  try {
-    const response = await auth.signInWithEmailAndPassword(payload.email, payload.password);
-    const result: FirebaseLogInResponse = {
-      uid: response.user.uid,
-      authProvider: response.user.providerId
-    };
-    return result;
-  } catch (err) {
-    throw err;
-  }
-};
-
-// Provider: Google
-
-const googleProvider = new firebase.auth.GoogleAuthProvider();
-
-export const googleSignUp = async (): Promise<FirebaseSignUpResponse> => {
-  try {
-    const response = await auth.signInWithPopup(googleProvider);
-    const result: FirebaseSignUpResponse = {
+    const isSignUp = method === 'signup';
+    const response = isSignUp
+      ? await auth.createUserWithEmailAndPassword(payload.email, payload.password)
+      : await auth.signInWithEmailAndPassword(payload.email, payload.password);
+    const result: FirebaseSignInResponse = {
       name: response.user.displayName,
       uid: response.user.uid,
+      isNewUser: response.additionalUserInfo.isNewUser,
       authProvider: response.user.providerId
     };
     return result;
   } catch (err) {
     throw err;
   }
-};
+}
 
-export const googleLogIn = async (): Promise<FirebaseLogInResponse> => {
-  try {
-    const response = await auth.signInWithPopup(googleProvider);
-    const result: FirebaseLogInResponse = {
-      uid: response.user.uid,
-      authProvider: response.user.providerId
-    };
-    return result;
-  } catch (err) {
-    throw err;
-  }
-};
-
-// Provider: Twitter
-
-const twitterProvider = new firebase.auth.TwitterAuthProvider();
-
-export const twitterSignUp = async (): Promise<FirebaseSignUpResponse> => {
-  try {
-    const response = await auth.signInWithPopup(twitterProvider);
-    const result: FirebaseSignUpResponse = {
-      name: response.user.displayName,
-      uid: response.user.uid,
-      authProvider: response.user.providerId
-    };
-    return result;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const twitterLogIn = async (): Promise<FirebaseLogInResponse> => {
-  try {
-    const response = await auth.signInWithPopup(twitterProvider);
-    const result: FirebaseLogInResponse = {
-      uid: response.user.uid,
-      authProvider: response.user.providerId
-    };
-    return result;
-  } catch (err) {
-    throw err;
-  }
+export const firebaseSignIn = {
+  signUp: firebaseAuthGenerator('signup'),
+  logIn: firebaseAuthGenerator('login')
 };
 
 // Provider: Google or Twitter
 
-// const googleProvider = new firebase.auth.GoogleAuthProvider();
-// const twitterProvider = new firebase.auth.TwitterAuthProvider();
-// type Provider = Exclude<AuthProvider, 'firebase'>
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+const twitterProvider = new firebase.auth.TwitterAuthProvider();
+type Provider = typeof googleProvider | typeof twitterProvider;
 
-// export const oAuthSignUp = async (authProvider: Provider): Promise<FirebaseSignUpResponse> => {
-//   try {
-//     switch (authProvider) {
-//       case 'google':
-//         const provider = googleProvider;
-//         break;
-//       case 'twitter':
-//         const provider = twitterProvider;
-//         break;
-//       default:
-//         throw new Error();
-//     }
-//     const response = await auth.signInWithPopup(provider);
-//     const result: FirebaseSignUpResponse = {
-//       name: response.user.displayName,
-//       uid: response.user.uid,
-//       authProvider: response.user.providerId
-//     };
-//     return result;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+const oAuthGenerator = (provider: Provider) => async (): Promise<FirebaseSignInResponse> => {
+  try {
+    const response = await auth.signInWithPopup(provider);
+    const result: FirebaseSignInResponse = {
+      name: response.user.displayName,
+      uid: response.user.uid,
+      isNewUser: response.additionalUserInfo.isNewUser,
+      authProvider: response.user.providerId
+    };
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
 
-// export const oAuthLogIn = async (authProvider: Provider): Promise<FirebaseLogInResponse> => {
-//   try {
-//     switch (authProvider) {
-//       case 'google':
-//         const provider = googleProvider;
-//         break;
-//       case 'twitter':
-//         const provider = twitterProvider;
-//         break;
-//       default:
-//         throw new Error();
-//     }
-//     const response = await auth.signInWithPopup(provider);
-//     const result: FirebaseLogInResponse = {
-//       uid: response.user.uid,
-//       authProvider: response.user.providerId
-//     };
-//     return result;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+export const oAuthSignIn = {
+  google: oAuthGenerator(googleProvider),
+  twitter: oAuthGenerator(twitterProvider)
+};
