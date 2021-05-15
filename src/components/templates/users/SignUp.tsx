@@ -48,8 +48,8 @@ export const SignUp: React.VFC = () => {
 
   const firebaseAuth = async (payload: FirebasePayload, name: string): Promise<void> => {
     try {
-      dispatch(startLoadingAction());
       const { authProvider, isNewUser, uid } = await firebaseSignIn.signUp(payload);
+      dispatch(startLoadingAction());
       const resource = { uid, name };
       const res = await signIn.signUp(resource);
       const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};

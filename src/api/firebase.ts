@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { firebaseError } from './firebaseErrors';
 import { FirebasePayload, FirebaseSignInResponse } from './types';
 
 const firebaseConfig = {
@@ -20,7 +21,7 @@ const firebaseConfig = {
 const auth = firebase.auth();
   
 // Provider: Firebase
-  
+
 const firebaseAuthGenerator = (method: 'signup' | 'login') => async (payload: FirebasePayload): Promise<FirebaseSignInResponse> => {
   try {
     const isSignUp = method === 'signup';
@@ -35,6 +36,27 @@ const firebaseAuthGenerator = (method: 'signup' | 'login') => async (payload: Fi
     };
     return result;
   } catch (err) {
+    if ('code' in err) {
+      switch (err.code) {
+        case firebaseError.existEmail:
+          alert('既に登録済みのメールアドレスです\nログインしてください');
+          break;
+        case firebaseError.internalError:
+          alert('予期しないエラーが発生しました');
+          break;
+        case firebaseError.invalidEmail:
+          alert('無効なメールアドレスが入力されています');
+          break;
+        case firebaseError.weakPassword:
+          alert('パスワードは6文字以上で入力してください');
+          break;
+        case firebaseError.invalidPassword:
+          alert('無効なパスワードが入力されています');
+          break;
+        default:
+          alert(err.code);
+      }
+    }
     throw err;
   }
 }
@@ -61,6 +83,9 @@ const oAuthGenerator = (provider: Provider) => async (): Promise<FirebaseSignInR
     };
     return result;
   } catch (err) {
+    if (err instanceof Error) {
+      console.log(err.message)
+    }
     throw err;
   }
 }
