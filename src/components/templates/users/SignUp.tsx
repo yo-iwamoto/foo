@@ -20,8 +20,8 @@ export const SignUp: React.VFC = () => {
 
   const googleAuth = async (): Promise<void> => {
     try {
-      const { authProvider, isNewUser, ...resource } = await oAuthSignIn.google();
       dispatch(startLoadingAction());
+      const { authProvider, isNewUser, ...resource } = await oAuthSignIn.google();
       const res = await signIn.signUp(resource);
       const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};
       dispatch(logInAction(actionPayload));
@@ -34,8 +34,8 @@ export const SignUp: React.VFC = () => {
 
   const twitterAuth = async (): Promise<void> => {
     try {
-      const { authProvider, isNewUser, ...resource } = await oAuthSignIn.twitter();
       dispatch(startLoadingAction());
+      const { authProvider, isNewUser, ...resource } = await oAuthSignIn.twitter();
       const res = await signIn.signUp(resource);
       const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};
       dispatch(logInAction(actionPayload));
