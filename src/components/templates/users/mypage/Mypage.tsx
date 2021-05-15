@@ -1,19 +1,12 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
 import { Heading, SubHeading } from '../../../atoms';
 import { Spacer } from '../../../utilities';
 import { shallowEqual, useSelector } from 'react-redux';
 import { State, UserState } from '../../../../redux/types';
 
 export const Mypage: React.VFC = () => {
-  const router = useRouter();
-
   const user = useSelector<State, UserState>(state => state.users, shallowEqual);
   const welcomeMessage = user.isNewUser ? 'はじめまして' : 'こんにちは';
-
-  useEffect(() => {
-    if (!user.isLoggedIn) { router.push('/users/login'); }
-  })
 
   return (
     <>

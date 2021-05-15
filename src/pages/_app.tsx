@@ -7,7 +7,7 @@ import '../styles.css';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store/store';
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps, router }: AppProps) => {
   return (
     <Provider store={store}>
       <Head>
@@ -17,7 +17,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <link rel="apple-touch-icon" href="images/apple-touch-icon.png" sizes="180x180" />
         <link rel="android-touch-icon" href="images/android-touch-icon.png" sizes="192x192" />
       </Head>
-      <Layout>
+      <Layout router={router}>
         <Component {...pageProps} />
       </Layout>
     </Provider>
