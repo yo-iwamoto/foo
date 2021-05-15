@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Heading, SubHeading } from '../../../atoms';
 import { Spacer } from '../../../utilities';
@@ -11,17 +11,23 @@ export const Mypage: React.VFC = () => {
   const user = useSelector<State, UserState>(state => state.users, shallowEqual);
   const welcomeMessage = user.isNewUser ? 'はじめまして' : 'こんにちは';
 
+  useEffect(() => {
+    if (!user.isLoggedIn) { router.push('/users/login'); }
+  })
+
   return (
     <>
       <Spacer h={6} />
-      <Heading>マイページ</Heading>
-      <Spacer h={6} />
-      <div className="w-4/5 mx-auto">
-        {user.isLoggedIn
-          ? <SubHeading>{welcomeMessage}、{user.name}さん</SubHeading>
-          : <SubHeading>ログインしてください</SubHeading>
-        }
-      </div>
+      {user.isLoggedIn
+        ? <>
+            <Heading>マイページ</Heading>
+            <Spacer h={6} />
+            <div className="w-4/5 mx-auto">
+              <SubHeading>{welcomeMessage}、{user.name}さん</SubHeading>
+            </div>
+          </>
+        : <Heading>ログインしてください</Heading>
+      }
     </>
   );
 }
