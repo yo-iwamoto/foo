@@ -40,8 +40,8 @@ export const ResultMap: React.VFC = () => {
       lat: data.coords.latitude,
       lng: data.coords.longitude
     };
-    setCurrentPosition(initialPosition);
-    search(initialPosition);
+    setCurrentPosition(position);
+    search(position);
   };
 
   const handleError = (err: any): void => {
