@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export interface NavMenu {
   text: string;
@@ -52,4 +52,9 @@ type AriOrNashi = 'あり' | 'なし';
 export interface HotpepperResponse {
   results_available: number;
   shop: Shop[];
+};
+
+export interface Position {
+  lat: number;
+  lng: number;
 };

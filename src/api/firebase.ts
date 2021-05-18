@@ -32,7 +32,7 @@ const firebaseAuthGenerator = (method: 'signup' | 'login') => async (payload: Fi
       name: response.user.displayName,
       uid: response.user.uid,
       isNewUser: response.additionalUserInfo.isNewUser,
-      authProvider: response.user.providerId
+      authProvider: 'firebase'
     };
     return result;
   } catch (err) {
@@ -81,7 +81,7 @@ const oAuthGenerator = (provider: Provider) => async (): Promise<FirebaseSignInR
       name: response.user.displayName,
       uid: response.user.uid,
       isNewUser: response.additionalUserInfo.isNewUser,
-      authProvider: response.user.providerId
+      authProvider: response.credential.providerId
     };
     return result;
   } catch (err) {
