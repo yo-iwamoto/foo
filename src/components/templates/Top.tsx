@@ -33,7 +33,7 @@ export const Top: React.VFC = () => {
       <Spacer h={28} />
       <Link href="/about">
         <a>
-          <PrimaryButton text="Fooについて" width={48} />
+          <PrimaryButton text="Fooについて" width={64} />
         </a>
       </Link>
       <Spacer h={12} />

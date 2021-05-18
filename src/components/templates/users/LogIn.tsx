@@ -8,36 +8,26 @@ import { firebaseSignIn, oAuthSignIn } from '../../../api/firebase';
 import { signIn } from '../../../api/users';
 import { useRouter } from 'next/router';
 
-import { Heading, SubHeading, TextLink, GoogleSignIn, Loader } from '../../atoms';
+import { Heading, SubHeading, TextLink, GoogleSignIn, Loader, OAuthIcon } from '../../atoms';
 import { LogInForm } from '../../organisms';
-import { Spacer } from '../../utilities';
+import { ColumnFlexContainer, Spacer } from '../../utilities';
 import { FirebasePayload } from '../../../api/types';
 import { State, UserState, UtilityState } from '../../../redux/types';
+import { FaTwitter } from 'react-icons/fa';
 
 export const LogIn: React.VFC = () => {
   const router = useRouter(),
         dispatch = useDispatch();
 
-  const googleAuth = async (): Promise<void> => {
+  const oAuthLogInGenerator = (provider: 'google' | 'twitter') => async (): Promise<void> => {
+    const isGoogle = provider === 'google';
+    const handler = isGoogle
+      ? oAuthSignIn.google
+      : oAuthSignIn.twitter;
     try {
       dispatch(startLoadingAction());
-      const { authProvider, isNewUser, ...logInResource } = await oAuthSignIn.google();
-      const res = await signIn.logIn(logInResource);
-      const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};
-      dispatch(logInAction(actionPayload));
-      dispatch(endLoadingAction());
-      router.push('/users/mypage');
-    } catch (err) {
-      throw err;
-      dispatch(endLoadingAction());
-    }
-  };
-
-  const twitterAuth = async (): Promise<void> => {
-    try {
-      dispatch(startLoadingAction());
-      const { authProvider, isNewUser, ...logInResource } = await oAuthSignIn.twitter();
-      const res = await signIn.logIn(logInResource);
+      const { authProvider, isNewUser, ...resource } = await handler();
+      const res = await signIn.signUp(resource);
       const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};
       dispatch(logInAction(actionPayload));
       dispatch(endLoadingAction());
@@ -45,6 +35,11 @@ export const LogIn: React.VFC = () => {
     } catch {
       dispatch(endLoadingAction());
     }
+  };
+
+  const oAuthLogIn = {
+    google: oAuthLogInGenerator('google'),
+    twitter: oAuthLogInGenerator('twitter')
   };
 
   const firebaseAuth = async (payload: FirebasePayload): Promise<void> => {
@@ -76,7 +71,12 @@ export const LogIn: React.VFC = () => {
       <div className="py-10 px-4 sm:px-0 text-center">
         <Heading>ログイン</Heading>
         <Spacer h={6} />
-        <GoogleSignIn onClick={googleAuth} />
+        <ColumnFlexContainer>
+          <OAuthIcon provider="google" method="login" onClick={oAuthLogIn.google} />
+          <Spacer h={4} />
+          <OAuthIcon provider="twitter" method="login" onClick={oAuthLogIn.twitter} />
+        </ColumnFlexContainer>
+        <Spacer h={6} />
         <p>必要情報を入力して、ログインをクリックしてください。</p>
         <LogInForm firebaseAuth={firebaseAuth} />
         <Spacer h={6} />

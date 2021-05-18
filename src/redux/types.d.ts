@@ -1,5 +1,5 @@
-import { Shop } from "../types";
-import { State } from "./store/initialState";
+import { Shop } from '../types';
+import { State } from './store/initialState';
 
 interface ActionResponse<T> {
   type: string;
