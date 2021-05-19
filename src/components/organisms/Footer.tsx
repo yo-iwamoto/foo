@@ -17,7 +17,7 @@ export const Footer: React.VFC = () => {
           <div key={index}>
             <TextLink {...menu} key={index + 1} />
             {(menu.text !== 'お問い合わせ') &&
-              <span key={index + 2} className="px-2 font-thin">/</span>
+              <span key={index + 2} className="px-1 font-thin">/</span>
             }
           </div>
         ))}

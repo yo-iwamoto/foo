@@ -1,10 +1,6 @@
-import NextImage from 'next/image';
+import NextImage, { ImageProps } from 'next/image';
 
-type Props = {
-  src: string;
-  height: number;
-  width: number;
-};
+type Props = ImageProps;
 
 export const Image: React.VFC<Props> = props => {
   return (

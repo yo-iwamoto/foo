@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import React from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { Shop, ShopPhoto, ShopUrls } from '../../types';
+import { Image } from '../atoms';
 
 type Props = {
   shop: Shop | undefined;

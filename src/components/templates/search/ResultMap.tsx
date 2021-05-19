@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/router';
 
 import { Shop } from '../../../types';
@@ -69,7 +69,13 @@ export const ResultMap: React.VFC = () => {
     navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
   }, [router.query.word]);
 
+  const ref = useRef<HTMLDivElement>(null);
+
   const onClickPin = (hotpepper_id: string): void => {
+    ref.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
     const shop = shops.filter(shop => {
       return shop.id === hotpepper_id;
     });
@@ -79,21 +85,21 @@ export const ResultMap: React.VFC = () => {
   return (
     <>
       {isLoading
-      ? <>
-          <Spacer h={28} />
-          <Loader />
-          <Spacer h={12} />
-          <h1 className="text-center">すてきなお店を探しています...</h1>
-        </>
-      : <>
-          <Map currentPosition={currentPosition} shops={shops} onClickPin={onClickPin} />
-          <Spacer h={6} />
-          <div className="px-4 sm:px-8 lg:px-20">
-            <h1>3km以内に{shopsCount}件のお店が見つかりました</h1>
-            <Card shop={selectedShop} />
-          </div>
-          <Spacer h={8} />
-        </>
+        ? <>
+            <Spacer h={28} />
+            <Loader />
+            <Spacer h={12} />
+            <h1 className="text-center">すてきなお店を探しています...</h1>
+          </>
+        : <>
+            <Map currentPosition={currentPosition} shops={shops} onClickPin={onClickPin} />
+            <Spacer h={6} />
+            <div className="px-4 sm:px-8 lg:px-20" ref={ref} >
+              <h1>3km以内に{shopsCount}件のお店が見つかりました</h1>
+              <Card shop={selectedShop}/>
+            </div>
+            <Spacer h={8} />
+          </>
       }
     </>
   );

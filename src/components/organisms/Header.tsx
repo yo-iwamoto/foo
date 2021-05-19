@@ -1,8 +1,6 @@
 import React from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import Link from 'next/link';
-import Image from 'next/image';
-import { PrimaryButton } from '../atoms';
+import { PrimaryButton, Image, Link } from '../atoms';
 import { shallowEqual, useSelector } from 'react-redux';
 import { State, UserState } from '../../redux/types';
 

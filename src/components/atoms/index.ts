@@ -5,6 +5,7 @@ export { GoogleSignIn } from './GoogleSignIn';
 export { IconTextLink } from './IconTextLink';
 export { Image } from './Image';
 export { Like } from './Like';
+export { Link } from './Link';
 export { Loader } from './Loader';
 export { MapMarker } from './MapMarker';
 export { OAuthIcon } from './OAuthIcon';

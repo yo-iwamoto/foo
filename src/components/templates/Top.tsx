@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { SearchBar } from '../organisms';
 import { Spacer } from '../utilities';
-import { PrimaryButton } from '../atoms';
-import Link from 'next/link';
+import { PrimaryButton, Image, Link } from '../atoms';
 
 export const Top: React.VFC = () => {
   const text = 'ひとりで食事をするお店を探していますか？\nFooでぴったりのお店を見つけましょう',

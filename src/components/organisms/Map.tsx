@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoadScriptNext, GoogleMap, InfoWindow, Marker } from '@react-google-maps/api'
+import { LoadScriptNext, GoogleMap, GoogleMapProps } from '@react-google-maps/api'
 import { Position, Shop } from '../../types';
 import { MapMarker } from '../atoms';
 
@@ -10,12 +10,18 @@ type Props = {
 };
 
 export const Map: React.VFC<Props> = ({ currentPosition, shops, onClickPin }) => {
-  const containerStyle = { width: '100%', height: '500px' },
-        apiKey = process.env.NEXT_PUBLIC_GOOGLEMAP_API_KEY;
+  const containerStyle = { width: '100%', height: '500px' };
+
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLEMAP_API_KEY;
 
   return (
     <LoadScriptNext googleMapsApiKey={apiKey} >
-      <GoogleMap center={currentPosition} mapContainerStyle={containerStyle} zoom={15} >
+      <GoogleMap
+        center={currentPosition}
+        mapContainerStyle={containerStyle}
+        zoom={15}
+        options={{ disableDefaultUI: true, clickableIcons: false }}
+      >
         {shops && shops.map((shop, index) => {
           const shopPosition: Position = { lat: shop.lat, lng: shop.lng };
           return (
