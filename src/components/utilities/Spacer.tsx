@@ -15,7 +15,7 @@ export const Spacer: React.VFC<Props> = ({ h, w }) => {
           [`w-${w}`]: !!w
         })}
       />
-      {false && <div className="h-6 h-8 h-12 h-28 w-6" />}
+      {false && <div className="h-4 h-6 h-8 h-12 h-28 w-6" />}
     </>
   );
 };

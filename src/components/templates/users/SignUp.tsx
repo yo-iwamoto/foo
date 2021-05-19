@@ -44,7 +44,10 @@ export const SignUp: React.VFC = () => {
   const firebaseAuth = async (payload: FirebasePayload, name: string): Promise<void> => {
     try {
       dispatch(startLoadingAction());
-      await firebaseSignIn.signUp(payload);
+      const uid = await firebaseSignIn.signUp(payload) as string;
+      const resource = { name, uid };
+      await signIn.signUp(resource);
+      localStorage.removeItem('Access-Token');
       const modal: ModalState = {
         type: 'mail',
         title: 'メールを確認してください',

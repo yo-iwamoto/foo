@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import { Heading, SubHeading, TextLink, GoogleSignIn, Loader, OAuthIcon } from '../../atoms';
 import { LogInForm } from '../../organisms';
 import { ColumnFlexContainer, Spacer } from '../../utilities';
-import { FirebasePayload } from '../../../api/types';
+import { FirebasePayload, FirebaseSignInResponse } from '../../../api/types';
 import { State, UserState, UtilityState } from '../../../redux/types';
 
 export const LogIn: React.VFC = () => {
@@ -43,7 +43,8 @@ export const LogIn: React.VFC = () => {
 
   const firebaseAuth = async (payload: FirebasePayload): Promise<void> => {
     try {
-      const { authProvider, isNewUser, ...logInResource } = await firebaseSignIn.logIn(payload);
+      const response = await firebaseSignIn.logIn(payload) as FirebaseSignInResponse;
+      const { authProvider, isNewUser, ...logInResource } = response;
       dispatch(startLoadingAction());
       const res = await signIn.logIn(logInResource);
       const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};
