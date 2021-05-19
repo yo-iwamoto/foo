@@ -1,5 +1,5 @@
 import * as ActionTypes from './actionTypes';
-import { ActionResponse, UtilityState } from '../types';
+import { ActionResponse, ModalState, ModalType, ToastState, ToastType, UtilityState } from '../types';
 
 type UtilityActionResponse = ActionResponse<UtilityState>;
 
@@ -17,18 +17,37 @@ export const endLoadingAction = (): UtilityActionResponse => ({
   }
 });
 
-export const raiseErrorAction = (errorMessage: string): UtilityActionResponse => ({
-  type: ActionTypes.RAISE_ERROR,
+export const raiseToastAction = (toast: ToastState): UtilityActionResponse => ({
+  type: ActionTypes.RAISE_TOAST,
   payload: {
-    isError: true,
-    errorMessage: errorMessage
+    toast: toast
   }
 });
 
-export const resolveErrorAction = (): UtilityActionResponse => ({
-  type: ActionTypes.RESOLVE_ERROR,
+export const closeToastAction = (): UtilityActionResponse => ({
+  type: ActionTypes.CLOSE_TOAST,
   payload: {
-    isError: false,
-    errorMessage: ''
+    toast: {
+      type: null,
+      message: ''
+    }
+  }
+});
+
+export const raiseModalAction = (modal: ModalState): UtilityActionResponse => ({
+  type: ActionTypes.RAISE_MODAL,
+  payload: {
+    modal: modal
+  }
+});
+
+export const closeModalAction = (): UtilityActionResponse => ({
+  type: ActionTypes.CLOSE_MODAL,
+  payload: {
+    modal: {
+      type: null,
+      title: '',
+      message: ''
+    }
   }
 });

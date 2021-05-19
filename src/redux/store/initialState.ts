@@ -3,8 +3,15 @@ import { State } from '../types';
 export const initialState: State = {
   utilities: {
     isLoading: false,
-    isError: false,
-    errorMessage: ''
+    toast: {
+      type: null,
+      message: ''
+    },
+    modal: {
+      type: null,
+      title: '',
+      message: ''
+    }
   },
   users: {
     isLoggedIn: false,

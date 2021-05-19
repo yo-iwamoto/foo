@@ -13,7 +13,6 @@ import { LogInForm } from '../../organisms';
 import { ColumnFlexContainer, Spacer } from '../../utilities';
 import { FirebasePayload } from '../../../api/types';
 import { State, UserState, UtilityState } from '../../../redux/types';
-import { FaTwitter } from 'react-icons/fa';
 
 export const LogIn: React.VFC = () => {
   const router = useRouter(),
