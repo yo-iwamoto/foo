@@ -17,7 +17,7 @@ export const MapMarker: React.VFC<Props> = ({ position, name, address, hid, onCl
   const [mouseOver, setMouseOver] = useState<boolean>(false);
   
   const defaultStyle = '-translate-y-12 transition transition-transform transform origin-bottom';
-  const hoverStyle = defaultStyle + ' scale-150 animate-bounce';
+  const hoverStyle = defaultStyle + ' scale-150';
 
   return (
     <OverlayView position={position} mapPaneName={OverlayView.FLOAT_PANE} >
