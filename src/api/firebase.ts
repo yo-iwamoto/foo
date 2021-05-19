@@ -22,7 +22,7 @@ const auth = firebase.auth();
   
 // Provider: Firebase
 
-const firebaseAuthGenerator = (method: 'signup' | 'login') => async (payload: FirebasePayload): Promise<FirebaseSignInResponse> => {
+const firebaseAuthGenerator = (method: 'signup' | 'login') => async (payload: FirebasePayload): Promise<FirebaseSignInResponse | string> => {
   try {
     const isSignUp = method === 'signup';
     const response = isSignUp
@@ -30,6 +30,7 @@ const firebaseAuthGenerator = (method: 'signup' | 'login') => async (payload: Fi
       : await auth.signInWithEmailAndPassword(payload.email, payload.password);
     if (isSignUp) {
       await response.user.sendEmailVerification();
+      return response.user.uid;
     } else {
       if (response.user.emailVerified) {
         const result: FirebaseSignInResponse = {

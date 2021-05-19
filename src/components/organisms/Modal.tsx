@@ -21,7 +21,7 @@ export const Modal: React.VFC = () => {
         className="fixed w-full h-full z-30 bg-black opacity-40"
       />
       <div
-        className="fixed w-4/5 sm:w-1/2 lg:w-1/3 h-3/5 z-40 bg-white rounded-lg top-1/6 left-1/10 sm:left-1/4 lg:left-1/3 opacity-100 p-8"
+        className="fixed w-4/5 sm:w-1/2 lg:w-1/3 min-h-3/5 z-40 bg-white rounded-lg top-1/6 left-1/10 sm:left-1/4 lg:left-1/3 opacity-100 p-8"
       >
         <div className="flex flex-col">
           <div className="flex justify-end">
@@ -38,7 +38,7 @@ export const Modal: React.VFC = () => {
           <h1 className="text-lg sm:text-xl text-center font-bold whitespace-nowrap">{modal.title}</h1>
           <Spacer h={6} />
           <p className="text-sm">{modal.message}</p>
-          <Spacer h={4} />
+          <Spacer h={6} />
           <PrimaryButton text="確認" onClick={closeModal} />
         </div>
       </div>
