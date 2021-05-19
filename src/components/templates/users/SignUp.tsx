@@ -63,7 +63,7 @@ export const SignUp: React.VFC = () => {
   if (isLoading) {
     return (
       <div className="py-10 px-4 sm:px-0 text-center">
-        <SubHeading>処理中です・・・</SubHeading>
+        <SubHeading>アカウントを作成しています・・・</SubHeading>
         <Spacer h={6} />
         <Loader />
       </div>

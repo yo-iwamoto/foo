@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Heading, SubHeading } from '../../atoms';
+import { Heading, SubHeading, Image } from '../../atoms';
 import { Spacer } from '../../utilities';
-import Image from 'next/image';
 
 export const About: React.VFC = () => {
   const waiterImageUrl = '/images/waiter.png';

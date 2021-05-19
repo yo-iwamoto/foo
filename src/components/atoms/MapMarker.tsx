@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { OverlayView } from '@react-google-maps/api';
-import Image from 'next/image';
+import cn from 'classnames';
 import { Position } from '../../types';
+import { Image } from '../atoms';
 
 type Props = {
   position: Position;
@@ -13,10 +14,27 @@ type Props = {
 
 export const MapMarker: React.VFC<Props> = ({ position, name, address, hid, onClick }) => {
   const imageUrl = '/images/pin.svg';
+  const [mouseOver, setMouseOver] = useState<boolean>(false);
+  
+  const defaultStyle = '-translate-y-12 transition transition-transform transform origin-bottom';
+  const hoverStyle = defaultStyle + ' scale-150 animate-bounce';
+
   return (
     <OverlayView position={position} mapPaneName={OverlayView.FLOAT_PANE} >
-      <div className="relative cursor-pointer">
-        <Image src={imageUrl} width={35} height={46} onClick={() => onClick(hid)} />
+      <div
+        className={cn({
+          [defaultStyle]: !mouseOver,
+          [hoverStyle]: mouseOver
+        })}
+      >
+        <Image
+          src={imageUrl}
+          width={40}
+          height={53}
+          onMouseOver={() => {setMouseOver(true)}}
+          onMouseLeave={() => {setMouseOver(false)}}
+          onClick={() => onClick(hid)}
+        />
       </div>
     </OverlayView>
   );
