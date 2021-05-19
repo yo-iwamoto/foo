@@ -21,3 +21,5 @@ export type UserResponse = {
     uid: string;
   };
 };
+
+export type VerificationPayload = string;

@@ -17,7 +17,6 @@ export const Mypage: React.VFC = () => {
             <Spacer h={6} />
             <div className="w-4/5 mx-auto">
               <SubHeading>{welcomeMessage}、{user.name}さん。</SubHeading>
-              <SubHeading>{user.authProvider}を利用してログインしています。</SubHeading>
             </div>
           </>
         : <div />

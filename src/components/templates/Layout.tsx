@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { autoLogIn } from '../../api/users';
 import { logInAction, LogInActionPayload } from '../../redux/users/actions';
-import { State, UserState } from '../../redux/types';
+import { ModalState, State, UserState, UtilityState } from '../../redux/types';
 import { NavigationDrawer } from '../molecules';
-import { Header, Footer } from '../organisms';
+import { Header, Footer, Modal } from '../organisms';
 import { Router } from 'next/router';
 
 type Props = {
@@ -15,6 +15,7 @@ type Props = {
 export const Layout: React.VFC<Props> = ({ children, router }) => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector<State, UserState>(state => state.users, shallowEqual)
+  const { modal } = useSelector<State, UtilityState>(state => state.utilities);
 
   useEffect(() => {
     if (!isLoggedIn && localStorage.getItem('Access-Token')) {
@@ -36,19 +37,17 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
     }
   }, [router.pathname])
 
-  const [show, setShow] = useState(false),
-        onClose = () => setShow(false),
-        onOpen = () => setShow(true);
+  const [show, setShow] = useState(false);
 
-  const closed = 'bg-gray-800 w-screen opacity-40 h-full hidden transition-all z-20 fixed',
-        opened = closed.replace('hidden', '');
+  const onClose = () => setShow(false);
+  const onOpen = () => setShow(true);
 
-  const handler = (e: Event) => {
-    e.preventDefault();
-  }
+  const closed = 'bg-gray-800 w-screen opacity-40 h-full hidden transition-all z-20 fixed';
+  const opened = closed.replace('hidden', '');
 
   return (
     <div>
+      {modal.type && <Modal />}
       <div className={show ? opened : closed} onClick={onClose} />
       <NavigationDrawer show={show} onClose={onClose} isLoggedIn={isLoggedIn} />
       <Header onOpen={onOpen} />

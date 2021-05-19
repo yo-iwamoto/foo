@@ -6,13 +6,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        main: '#ff652f',
+        main: '#cd5954',
         text: '#fef0ea',
         back: '#fef0ea',
         accent: '#ffff89'
       },
       fontFamily: {
         'main': ['My Galano Grotesque', 'sans-serif']
+      },
+      inset: {
+        '1/10': '10%',
+        '1/6': '16.6%',
       },
     },
   },

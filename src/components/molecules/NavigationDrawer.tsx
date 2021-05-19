@@ -1,7 +1,7 @@
 import React from 'react';
 import { DrawerMenu } from '../../types';
 import cn from 'classnames';
-import { FaHome, FaEnvira, FaSignInAlt, FaUserPlus, FaTimes, FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { HomeIcon, SignInIcon, UserPlusIcon, TimesIcon, SignOutIcon, UserIcon } from '../atoms/Icons';
 import { IconTextLink } from '../atoms';
 import { ColumnFlexContainer, Spacer } from '../utilities';
 import { useDispatch } from 'react-redux';
@@ -22,11 +22,11 @@ export const NavigationDrawer: React.VFC<Props> = ({ show, isLoggedIn, onClose }
         };
 
   const menus: DrawerMenu[] = [
-    { text: 'トップ', href: '/', icon: <FaHome color="white" size={40} /> },
-    { text: '新規登録', href: '/users/signup', icon: <FaUserPlus color="white" size={40} /> },
-    { text: 'ログイン', href: '/users/login', icon: <FaSignInAlt color="white" size={40} /> },
-    { text: 'マイページ', href: '/users/mypage', icon: <FaUser color="white" size={40} /> },
-    { text: 'ログアウト', href: '/', icon: <FaSignOutAlt color="white" size={40} />}
+    { text: 'トップ', href: '/', icon: <HomeIcon color="white" size={40} /> },
+    { text: '新規登録', href: '/users/signup', icon: <UserPlusIcon color="white" size={40} /> },
+    { text: 'ログイン', href: '/users/login', icon: <SignInIcon color="white" size={40} /> },
+    { text: 'マイページ', href: '/users/mypage', icon: <UserIcon color="white" size={40} /> },
+    { text: 'ログアウト', href: '/', icon: <SignOutIcon color="white" size={40} />}
   ]
 
   if (isLoggedIn) {
@@ -44,7 +44,7 @@ export const NavigationDrawer: React.VFC<Props> = ({ show, isLoggedIn, onClose }
       [opened]: show
     })}>
       <div className="ml-auto w-8 mt-6 mr-6 cursor-pointer" onClick={onClose}>
-        <FaTimes color="white" size="40" />
+        <TimesIcon color="white" size="40" />
       </div>
       <div className="mt-16 flex flex-col justify-between items-start">
         {menus.map((menu, index) => (

@@ -1,7 +1,8 @@
 import React from 'react';
-import { FaExternalLinkAlt } from 'react-icons/fa';
 import { Shop, ShopPhoto, ShopUrls } from '../../types';
 import { Image } from '../atoms';
+import { ExternalLinkIcon } from '../atoms/Icons';
+import { Spacer } from '../utilities';
 
 type Props = {
   shop: Shop | undefined;
@@ -18,15 +19,15 @@ export const Card: React.VFC<Props> = ({ shop }) => {
             <a
               href={shop.urls.pc}
               target="_blank"
+              className="block w-full md:w-3/5 lg:w-2/5 mx-auto p-4 shadow-lg hover:shadow-md rounded-lg text-left leading-loose cursor-pointer transition-shadow duration-100"
             >
-              <div className="w-full md:w-3/5 lg:w-2/5 mx-auto p-4 shadow-lg hover:shadow-md rounded-lg text-left leading-loose cursor-pointer transition-shadow duration-100">
-                <div className="w-full flex justify-between items-start">
-                  <img src={shop.photo.pc.l} className="max-h-40" />
-                  <FaExternalLinkAlt color="#384044" />
-                </div>
-                <div className="text-">{shop.name}</div>
-                <p>{shop.catch}</p>
+              <div className="w-full flex justify-between items-start">
+                <img src={shop.photo.pc.l} className="max-h-40" />
+                <ExternalLinkIcon color="#384044" />
               </div>
+              <Spacer h={4} />
+              <div className="font-bold">{shop.name}</div>
+              <p>{shop.catch}</p>
             </a>
           </div>
       }

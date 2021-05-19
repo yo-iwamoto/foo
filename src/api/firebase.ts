@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { firebaseError } from './firebaseErrors';
-import { FirebasePayload, FirebaseSignInResponse } from './types';
+import { FirebasePayload, FirebaseSignInResponse, VerificationPayload } from './types';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -28,13 +28,21 @@ const firebaseAuthGenerator = (method: 'signup' | 'login') => async (payload: Fi
     const response = isSignUp
       ? await auth.createUserWithEmailAndPassword(payload.email, payload.password)
       : await auth.signInWithEmailAndPassword(payload.email, payload.password);
-    const result: FirebaseSignInResponse = {
-      name: response.user.displayName,
-      uid: response.user.uid,
-      isNewUser: response.additionalUserInfo.isNewUser,
-      authProvider: 'firebase'
-    };
-    return result;
+    if (isSignUp) {
+      await response.user.sendEmailVerification();
+    } else {
+      if (response.user.emailVerified) {
+        const result: FirebaseSignInResponse = {
+          name: response.user.displayName,
+          uid: response.user.uid,
+          isNewUser: response.additionalUserInfo.isNewUser,
+          authProvider: 'firebase'
+        };
+        return result;
+      } else {
+        alert('メール認証が完了していません。メールを確認してください。');
+      }
+    }
   } catch (err) {
     if ('code' in err) {
       switch (err.code) {
@@ -50,13 +58,19 @@ const firebaseAuthGenerator = (method: 'signup' | 'login') => async (payload: Fi
         case firebaseError.weakPassword:
           alert('パスワードは6文字以上で入力してください');
           break;
+        case firebaseError.wrongPassword:
+          alert('パスワードが誤っています');
+          break;
         case firebaseError.invalidPassword:
           alert('無効なパスワードが入力されています');
           break;
         case firebaseError.noUser:
           alert('登録されていないメールアドレスです\n会員登録を行ってください')
+          break;
         default:
-          alert(err.code);
+          if (process.env.NODE_ENV !== 'production') {
+            alert(err.code);
+          }
       }
     }
     throw err;
@@ -95,4 +109,15 @@ const oAuthGenerator = (provider: Provider) => async (): Promise<FirebaseSignInR
 export const oAuthSignIn = {
   google: oAuthGenerator(googleProvider),
   twitter: oAuthGenerator(twitterProvider)
+};
+
+// E-mail Verification
+
+export const verifyEmail = async (payload: VerificationPayload): Promise<void> => {
+  try {
+    await auth.applyActionCode(payload);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 };

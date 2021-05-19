@@ -15,12 +15,22 @@ export const UtilitiesReducer = (state: UtilityState = initialState.utilities, a
         ...state,
         ...action.payload
       };
-    case ActionTypes.RAISE_ERROR:
+    case ActionTypes.RAISE_TOAST:
       return {
         ...state,
         ...action.payload
       };
-    case ActionTypes.RESOLVE_ERROR:
+    case ActionTypes.CLOSE_TOAST:
+      return {
+        ...state,
+        ...action.payload
+      };
+    case ActionTypes.RAISE_MODAL:
+      return {
+        ...state,
+        ...action.payload
+      };
+    case ActionTypes.CLOSE_MODAL:
       return {
         ...state,
         ...action.payload

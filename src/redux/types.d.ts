@@ -6,6 +6,19 @@ interface ActionResponse<T> {
   payload: Partial<T>;
 };
 
+type ToastType = 'error' | 'info';
+type ToastState = {
+  type: ToastType | null;
+  message: string;
+};
+
+type ModalType = 'mail' | 'success';
+type ModalState = {
+  type: ModalType | null;
+  title: string;
+  message: string;
+};
+
 export type UserState = {
   isLoggedIn: boolean;
   uid: string;
@@ -16,8 +29,8 @@ export type UserState = {
 
 export type UtilityState = {
   isLoading: boolean;
-  isError: boolean;
-  errorMessage: string;
+  toast: ToastState;
+  modal: ModalState;
 };
 
 export type ShopState = {

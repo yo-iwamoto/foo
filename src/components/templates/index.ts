@@ -5,5 +5,6 @@ export { PrivacyPolicy } from './about/PrivacyPolicy';
 export { Mypage } from './users/mypage/Mypage';
 export { ResultMap } from './search/ResultMap';
 export { SignUp } from './users/SignUp';
+export { HandleFirebase } from './users/HandleFirebase';
 export { LogIn } from './users/LogIn';
 export { Top } from './Top';
