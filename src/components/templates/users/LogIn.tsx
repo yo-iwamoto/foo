@@ -70,12 +70,12 @@ export const LogIn: React.VFC = () => {
     return (
       <div className="py-10 px-4 sm:px-0 text-center">
         <Heading>ログイン</Heading>
-        <Spacer h={6} />
-        <ColumnFlexContainer>
+        <Spacer h={12} />
+        <div className="flex flex-col sm:flex-row mx-auto w-full sm:w-2/3 md:w-1/2 lg:w-1/3 justify-between">
           <OAuthIcon provider="google" method="login" onClick={oAuthLogIn.google} />
-          <Spacer h={4} />
+          <Spacer h={4} w={4} />
           <OAuthIcon provider="twitter" method="login" onClick={oAuthLogIn.twitter} />
-        </ColumnFlexContainer>
+        </div>
         <Spacer h={6} />
         <p>必要情報を入力して、ログインをクリックしてください。</p>
         <LogInForm firebaseAuth={firebaseAuth} />

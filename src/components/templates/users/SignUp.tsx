@@ -8,7 +8,7 @@ import { firebaseSignIn, oAuthSignIn } from '../../../api/firebase';
 import { signIn } from '../../../api/users';
 import { useRouter } from 'next/router';
 
-import { Heading, SubHeading, TextLink, GoogleSignIn, Loader } from '../../atoms';
+import { Heading, SubHeading, TextLink, GoogleSignIn, Loader, OAuthIcon } from '../../atoms';
 import { SignUpForm } from '../../organisms';
 import { Spacer } from '../../utilities';
 import { FirebasePayload } from '../../../api/types';
@@ -72,9 +72,12 @@ export const SignUp: React.VFC = () => {
     return (
       <div className="py-10 px-4 sm:px-0 text-center">
         <Heading>新規登録</Heading>
-        <Spacer h={6} />
-        <GoogleSignIn onClick={oAuthSignUp.google} />
-        <FaTwitter className="w-20 mx-auto cursor-pointer" onClick={oAuthSignUp.twitter} color="skyblue" size={50} />
+        <Spacer h={12} />
+        <div className="flex flex-col sm:flex-row mx-auto w-full sm:w-2/3 md:w-1/2 lg:w-1/3 justify-between">
+          <OAuthIcon provider="google" method="signup" onClick={oAuthSignUp.google} />
+          <Spacer h={4} w={4} />
+          <OAuthIcon provider="twitter" method="signup" onClick={oAuthSignUp.twitter} />
+        </div>
         <Spacer h={6} />
         <p>必要情報を入力して、登録するをクリックしてください。</p>
         <SignUpForm firebaseAuth={firebaseAuth} />
