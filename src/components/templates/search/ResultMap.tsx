@@ -78,8 +78,9 @@ export const ResultMap: React.VFC = () => {
     });
     const shop = shops.filter(shop => {
       return shop.id === hotpepper_id;
-    });
-    setSelectedShop(shop[0]);
+    })[0];
+    setCurrentPosition({ lat: shop.lat, lng: shop.lng });
+    setSelectedShop(shop);
   };
 
   return (
