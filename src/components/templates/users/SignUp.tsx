@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { logInAction, LogInActionPayload } from '../../../redux/users/actions';
 import { startLoadingAction, endLoadingAction, raiseModalAction } from '../../../redux/utilities/actions';
 
-import { firebaseSignIn, oAuthSignIn } from '../../../api/firebase';
+import { firebaseSignIn, twitterProvider, googleProvider, catchOAuthRedirect, auth } from '../../../api/authentication/firebase';
 import { signIn } from '../../../api/users';
 import { useRouter } from 'next/router';
 
@@ -18,27 +18,12 @@ export const SignUp: React.VFC = () => {
   const router = useRouter(),
         dispatch = useDispatch();
 
-  const oAuthSignUpGenerator = (provider: 'google' | 'twitter') => async (): Promise<void> => {
-    const isGoogle = provider === 'google';
-    const handler = isGoogle
-      ? oAuthSignIn.google
-      : oAuthSignIn.twitter;
-    try {
-      dispatch(startLoadingAction());
-      const { authProvider, isNewUser, ...resource } = await handler();
-      const res = await signIn.signUp(resource);
-      const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};
-      dispatch(logInAction(actionPayload));
-      dispatch(endLoadingAction());
-      router.push('/users/mypage');
-    } catch {
-      dispatch(endLoadingAction());
-    }
+  const googleSignUp = (): void => {
+    auth.signInWithRedirect(googleProvider);
   };
 
-  const oAuthSignUp = {
-    google: oAuthSignUpGenerator('google'),
-    twitter: oAuthSignUpGenerator('twitter')
+  const twitterSignUp = (): void => {
+    auth.signInWithRedirect(twitterProvider);
   };
 
   const firebaseAuth = async (payload: FirebasePayload, name: string): Promise<void> => {
@@ -63,6 +48,30 @@ export const SignUp: React.VFC = () => {
 
   const { isLoading } = useSelector<State, UtilityState>(state => state.utilities, shallowEqual);
 
+  useEffect(() => {
+    const userCredential = auth.getRedirectResult()
+      .then(userCredential => {
+        if (userCredential.user) {
+          dispatch(startLoadingAction());
+          const { authProvider, isNewUser, ...resource } = catchOAuthRedirect(userCredential);
+          signIn.signUp(resource)
+            .then(res => {
+              const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};
+              dispatch(logInAction(actionPayload));
+              dispatch(endLoadingAction());
+              router.push('/users/mypage');
+            })
+            .catch(err => {
+              throw err;
+              dispatch(endLoadingAction());
+            })
+        }
+      })
+      .catch(err => {
+        throw err;
+      })
+  }, [])
+
   if (isLoading) {
     return (
       <div className="py-10 px-4 sm:px-0 text-center">
@@ -77,9 +86,9 @@ export const SignUp: React.VFC = () => {
         <Heading>新規登録</Heading>
         <Spacer h={12} />
         <div className="flex flex-col sm:flex-row mx-auto w-full sm:w-2/3 md:w-1/2 lg:w-1/3 justify-between">
-          <OAuthIcon provider="google" method="signup" onClick={oAuthSignUp.google} />
+          <OAuthIcon provider="google" method="signup" onClick={googleSignUp} />
           <Spacer h={4} w={4} />
-          <OAuthIcon provider="twitter" method="signup" onClick={oAuthSignUp.twitter} />
+          <OAuthIcon provider="twitter" method="signup" onClick={twitterSignUp} />
         </div>
         <Spacer h={6} />
         <p>必要情報を入力して、登録するをクリックしてください。</p>

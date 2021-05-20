@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Shop, ShopPhoto, ShopUrls } from '../../types';
+
 import { Image } from '../atoms';
 import { ExternalLinkIcon } from '../atoms/Icons';
 import { Spacer } from '../utilities';
 
 type Props = {
   shop: Shop | undefined;
+  like: (id: string) => Promise<void>;
 }
 
-export const Card: React.VFC<Props> = ({ shop }) => {
+export const Card: React.VFC<Props> = ({ shop, like }) => {
+  useEffect(() => {
+
+  }, [])
+
   return (
     <>
       {!shop
@@ -22,7 +28,7 @@ export const Card: React.VFC<Props> = ({ shop }) => {
               className="block w-full md:w-3/5 lg:w-2/5 mx-auto p-4 shadow-lg hover:shadow-md rounded-lg text-left leading-loose cursor-pointer transition-shadow duration-100"
             >
               <div className="w-full flex justify-between items-start">
-                <img src={shop.photo.pc.l} className="max-h-40" />
+                <img src={shop.photo.pc.l} className="max-h-40 rounded-lg" />
                 <ExternalLinkIcon color="#384044" />
               </div>
               <Spacer h={4} />

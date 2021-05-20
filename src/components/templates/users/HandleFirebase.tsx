@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { verifyEmail } from '../../../api/firebase';
+import { verifyEmail } from '../../../api/authentication/firebase';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { raiseModalAction } from '../../../redux/utilities/actions';

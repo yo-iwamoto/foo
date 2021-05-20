@@ -23,3 +23,5 @@ export type UserResponse = {
 };
 
 export type VerificationPayload = string;
+
+export type GetLikesResponse = { result: boolean[] };
