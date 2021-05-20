@@ -35,6 +35,7 @@ export interface Shop {
   station_name: string;
   urls: ShopUrls;
   wifi: AriOrNashi;
+  like: boolean | undefined;
 };
 
 export interface ShopPhoto {

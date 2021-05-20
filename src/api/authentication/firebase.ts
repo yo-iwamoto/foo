@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { firebaseError } from './firebaseErrors';
-import { FirebasePayload, FirebaseSignInResponse, VerificationPayload } from './types';
+import { FirebasePayload, FirebaseSignInResponse, VerificationPayload } from '../types';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -18,7 +18,7 @@ const firebaseConfig = {
   ? firebase.initializeApp(firebaseConfig)
   : firebase.app();
 
-const auth = firebase.auth();
+export const auth = firebase.auth();
   
 // Provider: Firebase
 
@@ -85,31 +85,17 @@ export const firebaseSignIn = {
 
 // Provider: Google or Twitter
 
-const googleProvider = new firebase.auth.GoogleAuthProvider();
-const twitterProvider = new firebase.auth.TwitterAuthProvider();
-type Provider = typeof googleProvider | typeof twitterProvider;
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+export const twitterProvider = new firebase.auth.TwitterAuthProvider();
 
-const oAuthGenerator = (provider: Provider) => async (): Promise<FirebaseSignInResponse> => {
-  try {
-    const response = await auth.signInWithPopup(provider);
-    const result: FirebaseSignInResponse = {
-      name: response.user.displayName,
-      uid: response.user.uid,
-      isNewUser: response.additionalUserInfo.isNewUser,
-      authProvider: response.credential.providerId
-    };
-    return result;
-  } catch (err) {
-    if (err instanceof Error) {
-      console.log(err.message)
-    }
-    throw err;
-  }
-}
-
-export const oAuthSignIn = {
-  google: oAuthGenerator(googleProvider),
-  twitter: oAuthGenerator(twitterProvider)
+export const catchOAuthRedirect = (res: firebase.auth.UserCredential): FirebaseSignInResponse => {
+  const result: FirebaseSignInResponse = {
+    name: res.user.displayName,
+    uid: res.user.uid,
+    isNewUser: res.additionalUserInfo.isNewUser,
+    authProvider: res.credential.providerId
+  };
+  return result;
 };
 
 // E-mail Verification
@@ -122,3 +108,5 @@ export const verifyEmail = async (payload: VerificationPayload): Promise<void> =
     throw err;
   }
 };
+
+auth.signInWithRedirect
