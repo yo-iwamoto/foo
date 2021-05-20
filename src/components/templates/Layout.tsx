@@ -14,11 +14,11 @@ type Props = {
 
 export const Layout: React.VFC<Props> = ({ children, router }) => {
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector<State, UserState>(state => state.users, shallowEqual)
+  const user = useSelector<State, UserState>(state => state.users, shallowEqual)
   const { modal } = useSelector<State, UtilityState>(state => state.utilities);
 
   useEffect(() => {
-    if (!isLoggedIn && localStorage.getItem('Access-Token')) {
+    if (!user.isLoggedIn && localStorage.getItem('Access-Token')) {
       autoLogIn().then(data => {
         const actionPayload: LogInActionPayload = {
           ...data.user,
@@ -30,7 +30,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
           router.push('/');
         }
       })
-    } else if (!isLoggedIn) {
+    } else if (!user.isLoggedIn) {
       if (router.route === '/users/mypage') {
         router.push('/users/login');
       }
@@ -49,7 +49,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
     <div>
       {modal.type && <Modal />}
       <div className={show ? opened : closed} onClick={onClose} />
-      <NavigationDrawer show={show} onClose={onClose} isLoggedIn={isLoggedIn} />
+      <NavigationDrawer show={show} onClose={onClose} isLoggedIn={user.isLoggedIn} />
       <Header onOpen={onOpen} />
       <main className="text-gray-700 font-main min-h-screen">{children}</main>
       <Footer />
