@@ -12,9 +12,8 @@ export const HandleFirebase: React.VFC = () => {
   const actionCode = router.query.oobCode as string;
   const lang = router.query.lang as string;
   const mode = router.query.mode as string;
-  
+
   useEffect(() => {
-    console.log(actionCode, lang, mode);
     if (mode) {
       switch (mode) {
         case 'verifyEmail':
@@ -29,7 +28,6 @@ export const HandleFirebase: React.VFC = () => {
             })
           break;
         case 'resetPassword':
-          console.log('reset');
           break;
         default:
           router.push('/');

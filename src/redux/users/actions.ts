@@ -23,3 +23,10 @@ export const logOutAction = (): UserActionResponse => ({
     authProvider: ''
   }
 });
+
+export const endNewUserAction = (): UserActionResponse => ({
+  type: ActionTypes.END_NEW_USER,
+  payload: {
+    isNewUser: false
+  }
+});
