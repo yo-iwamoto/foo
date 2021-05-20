@@ -3,6 +3,11 @@ const colors = require('tailwindcss/colors');
 module.exports = {
   purge: ['./src/**/*.{ts,tsx,js,jsx}'],
   darkMode: false,
+  variants: {
+    extend: {
+      translate: ['active'],
+    }
+  },
   theme: {
     extend: {
       colors: {
@@ -20,8 +25,9 @@ module.exports = {
       },
       minHeight: {
         '3/5': '60%',
+        '1/2': '50%'
       },
-    },
+    }
   },
   variants: {
     extend: {},

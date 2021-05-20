@@ -3,18 +3,19 @@ import { useRouter } from 'next/router';
 
 import { Shop } from '../../../types';
 import { searchWithKeywordAndPosition } from '../../../api/externals/shops';
-import { getLikes, likeShop } from '../../../api/shops';
+import { getLikes, likeShop, removeLike } from '../../../api/shops';
 
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { startLoadingAction, endLoadingAction } from '../../../redux/utilities/actions';
+import { startLoadingAction, endLoadingAction, raiseModalAction } from '../../../redux/utilities/actions';
 import { getShopsAction } from '../../../redux/shops/actions';
-import { State, ShopState , UtilityState} from '../../../redux/types';
+import { State, ShopState , UtilityState, UserState, ModalState} from '../../../redux/types';
 import { Position } from '../../../types';
 
 import { Loader, SubHeading, Image } from '../../atoms';
 import { Map } from '../../organisms';
 import { Spacer } from '../../utilities';
 import { Card } from '../../molecules';
+import { modalTemplates } from '../../../lib/modals';
 
 interface GeolocationData {
   coords: {
@@ -29,13 +30,13 @@ export const ResultMap: React.VFC = () => {
 
   const { shops } = useSelector<State, ShopState>(state => state.shops, shallowEqual);
   const { isLoading } = useSelector<State, UtilityState>(state => state.utilities, shallowEqual);
+  const { isLoggedIn } = useSelector<State, UserState>(state => state.users, shallowEqual);
 
   const initialPosition: Position = { lat: 35.68812, lng: 139.7671 };
         
   const [currentPosition, setCurrentPosition] = useState<Position>(initialPosition);
   const [selectedShop, setSelectedShop] = useState<Shop | undefined>(undefined);
   const [shopsCount, setShopsCount] = useState<number>(0);
-  const [likes, setLikes] = useState<boolean[]>([]);
 
   const handleSuccess = (data: GeolocationData): void => {
     const position: Position = {
@@ -55,10 +56,21 @@ export const ResultMap: React.VFC = () => {
     if (query) {
       const keyword = query.replace(/\s+/g, ' ');
       searchWithKeywordAndPosition(keyword, searchPosition, 5).then(res => {
-        getLikes(res.shop).then(res => setLikes(res));
-        setShopsCount(res.results_available);
-        dispatch(getShopsAction(res.shop, 1));
-        dispatch(endLoadingAction());
+        const getShops = res.shop;
+        if (isLoggedIn) {
+          getLikes(getShops).then(likes => {
+            getShops.map((shop, index) => {
+              shop.like = likes[index];
+            });
+            dispatch(getShopsAction(getShops, 1));
+            setShopsCount(res.results_available);
+            dispatch(endLoadingAction());
+          });
+        } else {
+          dispatch(getShopsAction(getShops, 1));
+          setShopsCount(res.results_available);
+          dispatch(endLoadingAction());
+        }
       });
     } else {
       if (shops.length !== 0) {
@@ -86,11 +98,37 @@ export const ResultMap: React.VFC = () => {
     setSelectedShop(shop);
   };
 
-  const like = async (id: string): Promise<void> => {
+  const like = async (id: string): Promise<boolean> => {
+    if (isLoggedIn) {
+      try {
+        await likeShop(id);
+        const result = shops;
+        result.map(shop => {
+          if (shop.id === id) {
+            shop.like = true;
+          }
+        });
+        dispatch(getShopsAction(result, 1));
+        return true;
+      } catch (err) {
+        throw err;
+      }
+    } else {
+      dispatch(raiseModalAction(modalTemplates.like));
+      return false;
+    }
+  };
+
+  const remove = async (id: string): Promise<void> => {
     try {
-      await likeShop(id);
-      const res = await getLikes(shops);
-      setLikes(res);
+      await removeLike(id);
+      let result = shops;
+      result.map(shop => {
+        if (shop.id === id) {
+          shop.like = false;
+        }
+      });
+      dispatch(getShopsAction(result, 1));
     } catch (err) {
       throw err;
     }
@@ -110,7 +148,7 @@ export const ResultMap: React.VFC = () => {
             <Spacer h={6} />
             <div className="px-4 sm:px-8 lg:px-20" ref={ref} >
               <h1>3km以内に{shopsCount}件のお店が見つかりました</h1>
-              <Card shop={selectedShop} like={like} />
+              <Card shop={selectedShop} like={like} removeLike={remove} />
             </div>
             <Spacer h={8} />
           </>

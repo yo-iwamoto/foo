@@ -47,7 +47,9 @@ export const closeModalAction = (): UtilityActionResponse => ({
     modal: {
       type: null,
       title: '',
-      message: ''
+      message: '',
+      link: null,
+      buttonText: ''
     }
   }
 });

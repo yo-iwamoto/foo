@@ -1,6 +1,7 @@
 import React from 'react';
 import { IconBaseProps } from 'react-icons'
-import { FaGithub, FaHeart, FaExternalLinkAlt, FaHome, FaSignInAlt, FaUserPlus, FaTimes, FaSignOutAlt, FaUser, FaTwitter, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
+import { FaGithub, FaHeart, FaExternalLinkAlt, FaHome, FaSignInAlt, FaUserPlus, FaTimes, FaSignOutAlt, FaUser, FaTwitter, FaPaperPlane, FaCheckCircle, FaUtensils } from 'react-icons/fa';
+import { FiHeart } from 'react-icons/fi'
 import { GiHamburgerMenu } from 'react-icons/gi';
 
 type Props = IconBaseProps;
@@ -14,6 +15,12 @@ export const GitHubIcon: React.VFC<IconBaseProps> = props => {
 export const HeartIcon: React.VFC<IconBaseProps> = props => {
   return (
     <FaHeart {...props} />
+  );
+};
+
+export const HeartOutlineIcon: React.VFC<IconBaseProps> = props => {
+  return (
+    <FiHeart {...props} />
   );
 };
 
@@ -79,6 +86,12 @@ export const PlaneIcon: React.VFC<IconBaseProps> = props => {
 export const CheckCircleIcon: React.VFC<IconBaseProps> = props => {
   return (
     <FaCheckCircle {...props} />
+  );
+};
+
+export const UtensilsIcon: React.VFC<IconBaseProps> = props => {
+  return (
+    <FaUtensils {...props} />
   );
 };
 
