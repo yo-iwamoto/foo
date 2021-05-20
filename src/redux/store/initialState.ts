@@ -4,7 +4,7 @@ export const initialState: State = {
   utilities: {
     isLoading: false,
     toast: {
-      type: '',
+      type: null,
       message: ''
     },
     modal: {
