@@ -4,8 +4,8 @@ export const initialState: State = {
   utilities: {
     isLoading: false,
     toast: {
-      type: 'success',
-      message: '成功しました'
+      type: '',
+      message: ''
     },
     modal: {
       type: null,
