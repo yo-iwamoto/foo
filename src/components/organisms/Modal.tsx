@@ -52,10 +52,10 @@ export const Modal: React.VFC = () => {
           <Spacer h={6} />
           {modal.type === 'registration'
             ? <div className="flex items-center justify-between">
-                <Button text="しない" width="2/5" onClick={closeModal} />
-                <LinkButton primary text="ログイン" width="2/5" onClick={closeModal} href={modal.link ? modal.link : null} />
+                <Button text="しない" className="w-2/5 h-12" onClick={closeModal} />
+                <LinkButton primary text="ログイン" className="w-2/5 h-12" onClick={closeModal} href={modal.link ? modal.link : null} />
               </div>
-            : <LinkButton primary text={modal.buttonText} onClick={closeModal} href={modal.link ? modal.link : null} />
+            : <LinkButton primary text={modal.buttonText} onClick={closeModal} href={modal.link ? modal.link : null} className="h-12" />
           }
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 
 type Props = {
   bold?: boolean;
@@ -6,13 +7,13 @@ type Props = {
 }
 
 export const SubHeading: React.VFC<Props> = ({ bold, children }) => {
-  let className = 'text-xl md:text-2xl';
-  if (bold) {
-    className += ' font-bold';
-  }
-
   return(
-    <h2 className={className}>
+    <h2
+      className={cn({
+        ['text-xl sm:text-2xl']: true,
+        ['font-bold']: bold
+      })}
+    >
       {children}
     </h2>
   );

@@ -1,12 +1,14 @@
 import { Shop } from '../types';
 import { State } from './store/initialState';
 
+export type AuthProvider = 'firebase' | 'google.com' | 'twitter.com';
+
 interface ActionResponse<T> {
   type: string;
   payload: Partial<T>;
 };
 
-type ToastType = 'error' | 'info';
+type ToastType = 'error' | 'success';
 type ToastState = {
   type: ToastType | null;
   message: string;
@@ -26,7 +28,7 @@ export type UserState = {
   uid: string;
   name: string;
   isNewUser: boolean;
-  authProvider: string;
+  authProvider: AuthProvider | null;
 };
 
 export type UtilityState = {

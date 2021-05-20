@@ -6,7 +6,7 @@ type Props = {
 }
 
 export const Heading: React.VFC<Props> = ({ bold, children }) => {
-  let className = 'text-2xl sm:text-3xl md:text-4xl text-center whitespace-pre-wrap';
+  let className = 'text-3xl md:text-4xl text-center whitespace-pre-wrap';
   if (bold) {
     className += ' font-bold'
   }

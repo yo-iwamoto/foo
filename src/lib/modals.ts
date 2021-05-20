@@ -35,7 +35,7 @@ const checkEmail: ModalState = {
 const firstVisit: ModalState = {
   type: 'success',
   title: 'はじめまして！',
-  message: 'ご登録いただきありがとうございます！\nまずは近くの飲食店を探してみましょう。',
+  message: 'ご登録いただきありがとうございます！\nマイページではお気に入りしたお店の確認などができます。\nまずは近くの飲食店を探してみましょう。',
   link: '/',
   buttonText: 'お店を探す'
 };

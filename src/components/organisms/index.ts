@@ -1,3 +1,5 @@
+export { CardList } from './CardList';
+export { EditControl } from './EditControl';
 export { Footer } from './Footer';
 export { Header } from './Header';
 export { LogInForm } from './LogInForm'

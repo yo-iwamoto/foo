@@ -20,7 +20,7 @@ export const logOutAction = (): UserActionResponse => ({
     uid: '',
     name: '',
     isNewUser: false,
-    authProvider: ''
+    authProvider: null
   }
 });
 
@@ -29,4 +29,9 @@ export const endNewUserAction = (): UserActionResponse => ({
   payload: {
     isNewUser: false
   }
+});
+
+export const updateUserAction = (payload: Partial<UserState>): UserActionResponse => ({
+  type: ActionTypes.UPDATE_USER,
+  payload: payload
 });

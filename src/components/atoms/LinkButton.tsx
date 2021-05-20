@@ -6,20 +6,20 @@ type ButtonAttributes = JSX.IntrinsicElements['button'];
 
 type ExtraAttributes = {
   text: string;
-  width?: string | number;
   href?: string;
   primary?: boolean;
 };
 
-type Props = ExtraAttributes & Omit<ButtonAttributes, 'value' | 'className'>;
+type Props = ExtraAttributes & Omit<ButtonAttributes, 'value'>;
 
-export const LinkButton: React.VFC<Props> = ({ text, width, href, primary, onClick }) => {
+export const LinkButton: React.VFC<Props> = ({ text, href, primary, onClick, className }) => {
   return (
     <Link href={href ? href : ''}>
       <button
         className={cn({
-          [`w-${width} h-12 border border-gray-400 bg-gray-400 text-white rounded-lg hover:text-gray-400 hover:bg-white hover:border-gray-400 transition-colors focus:outline-none`]: true,
-          ['border-main bg-main hover:text-main hover:border-main']: primary
+          [`h-8 border border-gray-400 bg-gray-400 text-white rounded-lg hover:text-gray-400 hover:bg-white hover:border-gray-400 transition-colors focus:outline-none`]: true,
+          ['border-main bg-main hover:text-main hover:border-main']: primary,
+          [className]: className
         })}
         onClick={onClick}
       >
