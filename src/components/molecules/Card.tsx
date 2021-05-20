@@ -20,9 +20,10 @@ export const Card: React.VFC<Props> = ({ shop, like, removeLike }) => {
         setLikeState(false);
       } else {
         try {
+          setLikeState(true);
           const success = await like(shop.id);
-          if (success) {
-            setLikeState(true);
+          if (!success) {
+            setLikeState(false);
           }
         } catch (err) {
           throw err;
@@ -42,6 +43,7 @@ export const Card: React.VFC<Props> = ({ shop, like, removeLike }) => {
         <Spacer h={4} />
         <div className="flex justify-between items-center">
           <div className ="font-bold text-xl">{shop.name}</div>
+          <Spacer w={4} />
           <Like likeState={likeState} onClick={onClick} />
         </div>
         <p>{shop.catch}</p>
