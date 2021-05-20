@@ -3,9 +3,11 @@ import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { autoLogIn } from '../../api/users';
 import { logInAction, LogInActionPayload } from '../../redux/users/actions';
 import { ModalState, State, UserState, UtilityState } from '../../redux/types';
-import { NavigationDrawer } from '../molecules';
-import { Header, Footer, Modal } from '../organisms';
 import { Router } from 'next/router';
+import cn from 'classnames';
+
+import { NavigationDrawer, Toast } from '../molecules';
+import { Header, Footer, Modal } from '../organisms';
 
 type Props = {
   children: React.ReactNode;
@@ -15,7 +17,7 @@ type Props = {
 export const Layout: React.VFC<Props> = ({ children, router }) => {
   const dispatch = useDispatch();
   const user = useSelector<State, UserState>(state => state.users, shallowEqual)
-  const { modal } = useSelector<State, UtilityState>(state => state.utilities);
+  const { modal, toast } = useSelector<State, UtilityState>(state => state.utilities);
 
   useEffect(() => {
     if (!user.isLoggedIn && localStorage.getItem('Access-Token')) {
@@ -48,6 +50,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
   return (
     <div>
       {modal.type && <Modal />}
+      {toast.type && <Toast />}
       <div className={show ? opened : closed} onClick={onClose} />
       <NavigationDrawer show={show} onClose={onClose} isLoggedIn={user.isLoggedIn} />
       <Header onOpen={onOpen} />

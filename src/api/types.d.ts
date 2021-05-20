@@ -1,8 +1,10 @@
+import { AuthProvider } from "../redux/types";
+
 export interface FirebaseSignInResponse {
   name: string;
   uid: string;
   isNewUser: boolean;
-  authProvider: string;
+  authProvider: AuthProvider;
 };
 
 export interface FirebasePayload {
@@ -27,3 +29,8 @@ export type VerificationPayload = string;
 export type LikeResponse = { message: string };
 
 export type GetLikesResponse = { result: boolean[] };
+
+export type UpdateNameResource = {
+  uid: string;
+  name: string;
+};

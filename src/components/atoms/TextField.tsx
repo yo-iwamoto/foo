@@ -1,17 +1,24 @@
 import React from 'react';
+import cn from 'classnames';
 
-type Props = {
-  type: string;
-  value: string;
-  placeholder: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+type InputAttributes = JSX.IntrinsicElements['input'];
+type ExtraAttributes = {
+  fullwidth?: boolean;
 };
 
+type Props = InputAttributes & ExtraAttributes;
+
 export const TextField: React.VFC<Props> = props => {
+  const { fullwidth, ...inputProps } = props;
+  
   return (
     <input
-      className="w-full sm:text-lg p-2 border border-gray-400 outline-none appearance-none rounded-md focus:border-main"
-      {...props}
+      {...inputProps}
+      className={cn({
+        ['sm:text-lg p-2 border border-gray-400 outline-none appearance-none rounded-md focus:border-main']: true,
+        [props.className]: props.className,
+        ['w-full']: fullwidth
+      })}
     />
   );
 };

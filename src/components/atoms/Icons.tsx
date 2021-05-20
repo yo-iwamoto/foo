@@ -1,6 +1,24 @@
 import React from 'react';
 import { IconBaseProps } from 'react-icons'
-import { FaGithub, FaHeart, FaExternalLinkAlt, FaHome, FaSignInAlt, FaUserPlus, FaTimes, FaSignOutAlt, FaUser, FaTwitter, FaPaperPlane, FaCheckCircle, FaUtensils } from 'react-icons/fa';
+import {
+  FaGithub,
+  FaHeart,
+  FaExternalLinkAlt,
+  FaHome,
+  FaSignInAlt,
+  FaUserPlus,
+  FaTimes,
+  FaSignOutAlt,
+  FaUser,
+  FaTwitter,
+  FaPaperPlane,
+  FaCheckCircle,
+  FaUtensils,
+  FaEnvelope,
+  FaRegEnvelope,
+  FaEdit,
+  FaTimesCircle
+} from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi'
 import { GiHamburgerMenu } from 'react-icons/gi';
 
@@ -92,6 +110,24 @@ export const CheckCircleIcon: React.VFC<IconBaseProps> = props => {
 export const UtensilsIcon: React.VFC<IconBaseProps> = props => {
   return (
     <FaUtensils {...props} />
+  );
+};
+
+export const EnvelopeIcon: React.VFC<IconBaseProps> = props => {
+  return (
+    <FaEnvelope {...props} />
+  );
+};
+
+export const EditIcon: React.VFC<IconBaseProps> = props => {
+  return (
+    <FaEdit {...props} />
+  );
+};
+
+export const TimesCircleIcon: React.VFC<IconBaseProps> = props => {
+  return (
+    <FaTimesCircle {...props} />
   );
 };
 

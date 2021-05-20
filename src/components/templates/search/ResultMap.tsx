@@ -8,14 +8,14 @@ import { getLikes, likeShop, removeLike } from '../../../api/shops';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { startLoadingAction, endLoadingAction, raiseModalAction } from '../../../redux/utilities/actions';
 import { getShopsAction } from '../../../redux/shops/actions';
-import { State, ShopState , UtilityState, UserState, ModalState} from '../../../redux/types';
+import { State, ShopState , UtilityState, UserState, ModalState } from '../../../redux/types';
 import { Position } from '../../../types';
+import { modalTemplates } from '../../../lib/modals';
 
 import { Loader, SubHeading, Image } from '../../atoms';
-import { Map } from '../../organisms';
-import { Spacer } from '../../utilities';
 import { Card } from '../../molecules';
-import { modalTemplates } from '../../../lib/modals';
+import { Map, SearchBar } from '../../organisms';
+import { Spacer } from '../../utilities';
 
 interface GeolocationData {
   coords: {
@@ -134,6 +134,20 @@ export const ResultMap: React.VFC = () => {
     }
   };
 
+  // SearchBar setting
+
+  const initialValue = router.query.word as string;
+  const [text, setText] = useState<string>(initialValue);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setText(e.target.value);
+  };
+  const onSubmit = (e: React.FormEvent): void => {
+    e.preventDefault();
+    if (text) {
+      router.push(`/search/?word=${text}`);
+    }
+  };
+
   return (
     <>
       {isLoading
@@ -146,7 +160,13 @@ export const ResultMap: React.VFC = () => {
         : <>
             <Map currentPosition={currentPosition} shops={shops} onClickPin={onClickPin} />
             <Spacer h={6} />
-            <div className="px-4 sm:px-8 lg:px-20" ref={ref} >
+            <SearchBar
+              value={text}
+              onChange={onChange}
+              onSubmit={onSubmit}
+            />
+            <Spacer h={6} />
+            <div className="px-4 w-full md:w-3/5 lg:w-2/5 mx-auto" ref={ref} >
               <h1>3km以内に{shopsCount}件のお店が見つかりました</h1>
               <Card shop={selectedShop} like={like} removeLike={remove} />
             </div>

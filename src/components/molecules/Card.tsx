@@ -32,7 +32,7 @@ export const Card: React.VFC<Props> = ({ shop, like, removeLike }) => {
     const hotpepperImageUrl = '/images/hot_pepper.png';
 
     return (
-      <div className="w-full md:w-3/5 lg:w-2/5 mx-auto p-4 shadow-lg rounded-lg text-left leading-loose">
+      <div className="w-full mx-auto p-4 shadow-lg rounded-lg text-left leading-loose">
         <div className="w-full flex justify-between items-start">
           <img src={shop.photo.pc.l} className="max-h-40 rounded-lg" />
           <a className="flex items-center hover:underline" target="_blank" href={shop.urls.pc}>

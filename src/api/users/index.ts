@@ -1,6 +1,6 @@
 import { axios } from '../axios';
 import { AxiosError, AxiosResponse } from 'axios';
-import { FooSignInResource, UserResponse } from '../types';
+import { FooSignInResource, UpdateNameResource, UserResponse } from '../types';
 
 const authGenerator = (method: 'login' | 'signup') => async (resource: FooSignInResource): Promise<UserResponse> => {
   try {
@@ -22,6 +22,18 @@ export const signIn = {
 export const autoLogIn = async (): Promise<UserResponse> => {
   try {
     const res: AxiosResponse<UserResponse> = await axios.post('/sessions');
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateName = async (resource: UpdateNameResource): Promise<UserResponse> => {
+  try {
+    const params = {
+      name: resource.name
+    };
+    const res: AxiosResponse<UserResponse> = await axios.patch(`/users/${resource.uid}`, params);
     return res.data;
   } catch (err) {
     throw err;

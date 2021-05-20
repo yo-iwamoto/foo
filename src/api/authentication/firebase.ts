@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { firebaseError } from './firebaseErrors';
 import { FirebasePayload, FirebaseSignInResponse, VerificationPayload } from '../types';
+import { AuthProvider } from '../../redux/types';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -89,11 +90,12 @@ export const googleProvider = new firebase.auth.GoogleAuthProvider();
 export const twitterProvider = new firebase.auth.TwitterAuthProvider();
 
 export const catchOAuthRedirect = (res: firebase.auth.UserCredential): FirebaseSignInResponse => {
+  const providerId = res.credential.providerId as AuthProvider;
   const result: FirebaseSignInResponse = {
     name: res.user.displayName,
     uid: res.user.uid,
     isNewUser: res.additionalUserInfo.isNewUser,
-    authProvider: res.credential.providerId
+    authProvider: providerId
   };
   return result;
 };
