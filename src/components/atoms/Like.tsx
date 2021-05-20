@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
-import { HeartIcon } from '../atoms/Icons';
+import { HeartIcon, HeartOutlineIcon } from '../atoms/Icons';
 
 type Props = {
-  onClick: () => Promise<void>;
+  likeState: boolean;
+  onClick: () => void;
 }
 
-export const Like: React.VFC<Props> = ({ onClick }) => {
-  const [style, setStyle] = useState<string>('text-main');
-
+export const Like: React.VFC<Props> = ({ likeState, onClick }) => {
   return (
-    <HeartIcon onClick={onClick} />
+    <div
+      className="text-4xl cursor-pointer"
+      onClick={onClick}
+    >
+      {likeState
+        ? <HeartIcon className="text-main" />
+        : <HeartOutlineIcon className="text-gray-700" />
+      }
+    </div>
   );
 };

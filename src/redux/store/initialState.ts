@@ -10,7 +10,9 @@ export const initialState: State = {
     modal: {
       type: null,
       title: '',
-      message: ''
+      message: '',
+      link: null,
+      buttonText: ''
     }
   },
   users: {

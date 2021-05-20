@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { raiseModalAction } from '../../../redux/utilities/actions';
 import { ModalState } from '../../../redux/types';
+import { modalTemplates } from '../../../lib/modals';
 
 export const HandleFirebase: React.VFC = () => {
   const router = useRouter();
@@ -19,21 +20,11 @@ export const HandleFirebase: React.VFC = () => {
         case 'verifyEmail':
           verifyEmail(actionCode)
             .then(() => {
-              const modal: ModalState = {
-                type: 'success',
-                title: '登録が完了しました！',
-                message: '本人確認が完了し、アカウントが有効化されました。これ以降、ご登録いただいたメールアドレスとパスワードでログインできます。続けてログインを行ってください。'
-              };
-              dispatch(raiseModalAction(modal));
+              dispatch(raiseModalAction(modalTemplates.finishVerified));
               router.push('/users/login');
             })
             .catch(() => {
-              const modal: ModalState = {
-                type: 'success',
-                title: 'アカウントは既に有効です！',
-                message: '既に本人確認が完了しています。ログインしてください。'
-              };
-              dispatch(raiseModalAction(modal));
+              dispatch(raiseModalAction(modalTemplates.alreadyVerified));
               router.push('/users/login');
             })
           break;

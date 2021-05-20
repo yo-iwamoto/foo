@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SearchBar } from '../organisms';
 import { Spacer } from '../utilities';
-import { PrimaryButton, Image, Link } from '../atoms';
+import { LinkButton, Image, Link } from '../atoms';
 
 export const Top: React.VFC = () => {
   const text = 'ひとりで食事をするお店を探していますか？\nFooでぴったりのお店を見つけましょう',
@@ -29,11 +29,7 @@ export const Top: React.VFC = () => {
         />
       </div>
       <Spacer h={28} />
-      <Link href="/about">
-        <a>
-          <PrimaryButton text="Fooについて" width={64} />
-        </a>
-      </Link>
+        <LinkButton primary text="Fooについて" width={64} href="/about" />
       <Spacer h={12} />
     </div>
   );

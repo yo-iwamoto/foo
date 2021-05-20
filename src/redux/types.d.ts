@@ -12,11 +12,13 @@ type ToastState = {
   message: string;
 };
 
-type ModalType = 'mail' | 'success';
+type ModalType = 'mail' | 'success' | 'registration';
 type ModalState = {
   type: ModalType | null;
   title: string;
   message: string;
+  link: string | null;
+  buttonText: string;
 };
 
 export type UserState = {

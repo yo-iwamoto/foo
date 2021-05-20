@@ -44,35 +44,38 @@ export const LogIn: React.VFC = () => {
   const { isLoading } = useSelector<State, UtilityState>(state => state.utilities, shallowEqual);
 
   useEffect(() => {
+    dispatch(startLoadingAction());
     const userCredential = auth.getRedirectResult()
       .then(userCredential => {
         if (userCredential.user) {
-          dispatch(startLoadingAction());
           const { authProvider, isNewUser, ...resource } = catchOAuthRedirect(userCredential);
           signIn.logIn(resource)
             .then(res => {
               const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};
               dispatch(logInAction(actionPayload));
-              dispatch(endLoadingAction());
               router.push('/users/mypage');
             })
             .catch(err => {
               throw err;
               dispatch(endLoadingAction());
             })
+        } else {
+          dispatch(endLoadingAction());
         }
       })
       .catch(err => {
         throw err;
+        dispatch(endLoadingAction());
       })
   }, []);
 
   if (isLoading) {
     return (
       <div className="py-10 px-4 sm:px-0 text-center">
-        <SubHeading>ログインしています・・・</SubHeading>
-        <Spacer h={6} />
+        <Spacer h={28} />
         <Loader />
+        <Spacer h={12} />
+        <h1 className="text-center">ログインしています...</h1>
       </div>
     );
   } else {
