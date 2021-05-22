@@ -7,3 +7,4 @@ export { Map } from './Map';
 export { Modal } from './Modal';
 export { SearchBar } from './SearchBar';
 export { SignUpForm } from './SignUpForm';
+export { Toast } from './Toast';

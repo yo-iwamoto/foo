@@ -1,5 +1,5 @@
 import React from 'react';
-import { Top } from '../components/templates';
+import { Top } from '@/components/templates';
 
 const Page: React.VFC = () => <Top />;
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HeartIcon, HeartOutlineIcon } from '../atoms/Icons';
+import { HeartIcon, HeartOutlineIcon } from '@/components/atoms/Icons';
 
 type Props = {
   likeState: boolean;

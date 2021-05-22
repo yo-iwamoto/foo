@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from '../atoms';
-import { Spacer } from '../utilities';
+import { Link } from '@/components/atoms';
+import { Spacer } from '@/components/utilities';
 
 type Props = {
   href: string;

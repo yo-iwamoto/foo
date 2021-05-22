@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { FirebasePayload } from '../../api/types';
+import { FirebasePayload } from '@/types';
 
-import { TextField, SubmitButton } from '../atoms';
-import { ColumnFlexContainer, Spacer } from '../utilities';
+import { TextField, SubmitButton } from '@/components/atoms';
+import { ColumnFlexContainer, Spacer } from '@/components/utilities';
 
 type Props = {
   firebaseAuth: (payload: FirebasePayload, name: string) => Promise<void>;

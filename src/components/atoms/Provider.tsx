@@ -1,6 +1,6 @@
 import React from 'react';
-import { AuthProvider } from '../../redux/types';
-import { EnvelopeIcon } from '../atoms/Icons';
+import { AuthProvider } from '@/redux/types';
+import { EnvelopeIcon } from '@/components/atoms/Icons';
 
 type Props = {
   provider: AuthProvider | null;

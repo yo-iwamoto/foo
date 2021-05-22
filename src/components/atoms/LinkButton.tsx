@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { Link } from '../atoms';
+import { Link } from '@/components/atoms';
 
 type ButtonAttributes = JSX.IntrinsicElements['button'];
 

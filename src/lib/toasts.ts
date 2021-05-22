@@ -1,4 +1,4 @@
-import { ToastState } from '../redux/types';
+import { ToastState } from '@/redux/types';
 
 const success: ToastState = {
   type: 'success',

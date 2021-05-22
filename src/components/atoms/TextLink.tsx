@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '../atoms';
+import { Link } from '@/components/atoms';
 
 type Props = {
   href: string;

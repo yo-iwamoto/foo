@@ -1,7 +1,7 @@
 import React from 'react';
-import { Heading } from '../../atoms';
-import { GitHubIcon, TwitterIcon } from '../../atoms/Icons';
-import { Spacer } from '../../utilities';
+import { Heading } from '@/components/atoms';
+import { GitHubIcon, TwitterIcon } from '@/components/atoms/Icons';
+import { Spacer } from '@/components/utilities';
 
 export const Manager: React.VFC = () => {
   return (

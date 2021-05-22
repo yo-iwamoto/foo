@@ -5,9 +5,9 @@ import {
 } from 'redux';
 import { createLogger } from 'redux-logger';
 
-import { UtilitiesReducer } from '../utilities/reducers';
-import { UsersReducer } from '../users/reducers';
-import { ShopsReducer } from '../shops/reducers';
+import { UtilitiesReducer } from '@/redux/utilities/reducers';
+import { UsersReducer } from '@/redux/users/reducers';
+import { ShopsReducer } from '@/redux/shops/reducers';
 
 const createStore = () => {
   const middleWares = [];

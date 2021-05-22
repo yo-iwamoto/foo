@@ -6,7 +6,7 @@ import {
   ToastState,
   ToastType,
   UtilityState,
-} from '../types';
+} from '@/redux/types';
 
 type UtilityActionResponse = ActionResponse<UtilityState>;
 

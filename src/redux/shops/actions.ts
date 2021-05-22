@@ -1,6 +1,6 @@
 import * as ActionTypes from './actionTypes';
-import { ActionResponse, ShopState } from '../types';
-import { Shop } from '../../types';
+import { ActionResponse, ShopState } from '@/redux/types';
+import { Shop } from '@/types';
 
 type ShopActionResponse = ActionResponse<ShopState>;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DrawerMenu } from '../../types';
+import { DrawerMenu } from '@/types';
 import cn from 'classnames';
 import {
   HomeIcon,
@@ -8,30 +8,23 @@ import {
   TimesIcon,
   SignOutIcon,
   UserIcon,
-} from '../atoms/Icons';
-import { IconTextLink } from '../atoms';
-import { ColumnFlexContainer, Spacer } from '../utilities';
-import { useDispatch } from 'react-redux';
-import { logOutAction } from '../../redux/users/actions';
+} from '@/components/atoms/Icons';
+import { IconTextLink } from '@/components/atoms';
+import { ColumnFlexContainer, Spacer } from '@/components/utilities';
 
 type Props = {
   show: boolean;
+  close: () => void;
   isLoggedIn: boolean;
-  onClose: () => void;
+  logOut: () => void;
 };
 
 export const NavigationDrawer: React.VFC<Props> = ({
   show,
+  close,
   isLoggedIn,
-  onClose,
+  logOut,
 }) => {
-  const dispatch = useDispatch(),
-    logOut = (): void => {
-      onClose();
-      localStorage.removeItem('Access-Token');
-      dispatch(logOutAction());
-    };
-
   const menus: DrawerMenu[] = [
     { text: 'トップ', href: '/', icon: <HomeIcon color="white" size={40} /> },
     {
@@ -73,7 +66,7 @@ export const NavigationDrawer: React.VFC<Props> = ({
         [opened]: show,
       })}
     >
-      <div className="ml-auto w-8 mt-6 mr-6 cursor-pointer" onClick={onClose}>
+      <div className="ml-auto w-8 mt-6 mr-6 cursor-pointer" onClick={close}>
         <TimesIcon color="white" size="40" />
       </div>
       <div className="mt-16 flex flex-col justify-between items-start">
@@ -81,7 +74,7 @@ export const NavigationDrawer: React.VFC<Props> = ({
           <div key={index} className="w-full pl-16 lg:pl-10">
             <IconTextLink
               {...menu}
-              onClick={menu.text === 'ログアウト' ? logOut : onClose}
+              onClick={menu.text === 'ログアウト' ? logOut : close}
             >
               {menu.icon}
             </IconTextLink>

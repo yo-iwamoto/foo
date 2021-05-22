@@ -1,12 +1,12 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { firebaseError } from './firebaseErrors';
+import { firebaseError } from '@/api/authentication/firebaseErrors';
 import {
   FirebasePayload,
   FirebaseSignInResponse,
   VerificationPayload,
-} from '../types';
-import { AuthProvider } from '../../redux/types';
+} from '@/types';
+import { AuthProvider } from '@/redux/types';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

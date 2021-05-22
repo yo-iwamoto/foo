@@ -1,6 +1,6 @@
 import React from 'react';
-import { Heading } from '../../atoms';
-import { Spacer } from '../../utilities';
+import { Heading } from '@/components/atoms';
+import { Spacer } from '@/components/utilities';
 
 export const PrivacyPolicy: React.VFC = () => {
   return (

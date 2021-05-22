@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from '../atoms';
+import { Image } from '@/components/atoms';
 
 type Props = {
   provider: 'google' | 'twitter';

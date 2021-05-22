@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { logInAction, LogInActionPayload } from '../../../redux/users/actions';
+import { logInAction, LogInActionPayload } from '@/redux/users/actions';
 import {
   startLoadingAction,
   endLoadingAction,
-} from '../../../redux/utilities/actions';
+} from '@/redux/utilities/actions';
 
 import {
   auth,
@@ -13,22 +13,21 @@ import {
   firebaseSignIn,
   googleProvider,
   twitterProvider,
-} from '../../../api/authentication/firebase';
-import { signIn } from '../../../api/users';
+} from '@/api/authentication/firebase';
+import { signIn } from '@/api/users';
 import { useRouter } from 'next/router';
 
 import {
   Heading,
   SubHeading,
   TextLink,
-  GoogleSignIn,
   Loader,
   OAuthIcon,
-} from '../../atoms';
-import { LogInForm } from '../../organisms';
-import { ColumnFlexContainer, Spacer } from '../../utilities';
-import { FirebasePayload, FirebaseSignInResponse } from '../../../api/types';
-import { State, UserState, UtilityState } from '../../../redux/types';
+} from '@/components/atoms';
+import { LogInForm } from '@/components/organisms';
+import { ColumnFlexContainer, Spacer } from '@/components/utilities';
+import { FirebasePayload, FirebaseSignInResponse } from '@/types';
+import { State, UserState, UtilityState } from '@/redux/types';
 
 export const LogIn: React.VFC = () => {
   const router = useRouter(),
@@ -105,7 +104,7 @@ export const LogIn: React.VFC = () => {
     return (
       <div className="py-10 px-4 sm:px-0 text-center">
         <Spacer h={28} />
-        <Loader />
+        <Loader isLoading={isLoading} />
         <Spacer h={12} />
         <h1 className="text-center">ログインしています...</h1>
       </div>

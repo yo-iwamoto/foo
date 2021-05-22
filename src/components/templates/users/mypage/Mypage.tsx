@@ -1,31 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import {
-  ModalState,
-  ShopState,
-  State,
-  UserState,
-} from '../../../../redux/types';
-import {
-  raiseModalAction,
-  raiseToastAction,
-} from '../../../../redux/utilities/actions';
-import { modalTemplates } from '../../../../lib/modals';
-import {
-  endNewUserAction,
-  updateUserAction,
-} from '../../../../redux/users/actions';
-import { TableRow } from '../../../../types';
-import { providerName } from '../../../../lib/providerName';
+import { ModalState, ShopState, State, UserState } from '@/redux/types';
+import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
+import { modalTemplates } from '@/lib/modals';
+import { endNewUserAction, updateUserAction } from '@/redux/users/actions';
+import { TableRow } from '@/types';
+import { providerName } from '@/lib/providerName';
 
-import { Heading, Link, TextField } from '../../../atoms';
-import { SectionTitle, Table } from '../../../molecules';
-import { CardList, EditControl } from '../../../organisms';
-import { Spacer } from '../../../utilities';
-import { updateName } from '../../../../api/users';
-import { UpdateNameResource } from '../../../../api/types';
-import { toastTemplates } from '../../../../lib/toasts';
-import { clearShopsAction } from '../../../../redux/shops/actions';
+import { Heading, Link, TextField } from '@/components/atoms';
+import { SectionTitle, Table } from '@/components/molecules';
+import { CardList, EditControl } from '@/components/organisms';
+import { Spacer } from '@/components/utilities';
+import { updateName } from '@/api/users';
+import { UpdateNameResource } from '@/types';
+import { toastTemplates } from '@/lib/toasts';
+import { clearShopsAction } from '@/redux/shops/actions';
 
 export const Mypage: React.VFC = () => {
   const dispatch = useDispatch();

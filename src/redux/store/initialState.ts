@@ -1,4 +1,4 @@
-import { State } from '../types';
+import { State } from '@/redux/types';
 
 export const initialState: State = {
   utilities: {
