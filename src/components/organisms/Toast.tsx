@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { State, UtilityState } from '../../redux/types';
 import cn from 'classnames';
 import { CheckCircleIcon, TimesCircleIcon } from '../atoms/Icons';
 import { Spacer } from '../utilities';
-import { closeToastAction } from '../../redux/utilities/actions';
+import { ToastState } from 'src/redux/types';
 
-export const Toast: React.VFC = () => {
-  const { toast } = useSelector<State, UtilityState>(
-    (state) => state.utilities,
-    shallowEqual,
-  );
-  const dispatch = useDispatch();
+type Props = {
+  toast: ToastState;
+  closeToast: () => void;
+};
+
+export const Toast: React.VFC<Props> = ({ toast, closeToast }) => {
   const [hide, setHide] = useState<boolean>(true);
 
   useEffect(() => {
@@ -19,7 +17,7 @@ export const Toast: React.VFC = () => {
     setTimeout(() => {
       setHide(true);
       setTimeout(() => {
-        dispatch(closeToastAction());
+        closeToast();
       }, 1000);
     }, 3000);
   }, []);
@@ -40,11 +38,7 @@ export const Toast: React.VFC = () => {
         })}
       >
         <div className="flex items-center h-full">
-          {
-            toast.type === 'success' ? <span>🎉</span> : <span>🤔</span>
-            // ? <CheckCircleIcon className="text-green-500 text-xl" />
-            // : <TimesCircleIcon className="text-red-500 text-xl" />
-          }
+          {toast.type === 'success' ? <span>🎉</span> : <span>🤔</span>}
           <Spacer w={3} />
           <p>{toast.message}</p>
         </div>

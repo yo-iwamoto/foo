@@ -173,7 +173,7 @@ export const ResultMap: React.VFC = () => {
       {isLoading ? (
         <>
           <Spacer h={28} />
-          <Loader />
+          <Loader isLoading={isLoading} />
           <Spacer h={12} />
           <h1 className="text-center">すてきなお店を探しています...</h1>
         </>

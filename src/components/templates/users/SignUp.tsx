@@ -104,7 +104,7 @@ export const SignUp: React.VFC = () => {
     return (
       <div className="py-10 px-4 sm:px-0 text-center">
         <Spacer h={28} />
-        <Loader />
+        <Loader isLoading={isLoading} />
         <Spacer h={12} />
         <h1 className="text-center">アカウントを作成しています...</h1>
       </div>

@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { State, UtilityState } from '../../redux/types';
-import { closeModalAction } from '../../redux/utilities/actions';
-
+import { ModalState } from '../../redux/types';
 import { Button, LinkButton } from '../atoms';
 import {
   TimesIcon,
@@ -12,16 +9,12 @@ import {
 } from '../atoms/Icons';
 import { Spacer } from '../utilities';
 
-export const Modal: React.VFC = () => {
-  const { modal } = useSelector<State, UtilityState>(
-    (state) => state.utilities,
-  );
+type Props = {
+  modal: ModalState;
+  close: () => void;
+};
 
-  const dispatch = useDispatch();
-  const closeModal = (): void => {
-    dispatch(closeModalAction());
-  };
-
+export const Modal: React.VFC<Props> = ({ modal, close }) => {
   const ModalIcon: React.VFC = () => {
     switch (modal.type) {
       case 'mail':
@@ -44,11 +37,7 @@ export const Modal: React.VFC = () => {
       <div className="fixed w-4/5 sm:w-1/2 lg:w-1/3 min-h-3/5 md:min-h-1/2 z-40 bg-white rounded-lg top-1/6 left-1/10 sm:left-1/4 lg:left-1/3 opacity-100 p-8">
         <div className="flex flex-col">
           <div className="flex justify-end">
-            <TimesIcon
-              className="cursor-pointer"
-              onClick={closeModal}
-              size={30}
-            />
+            <TimesIcon className="cursor-pointer" onClick={close} size={30} />
           </div>
           <Spacer h={6} />
           <div className="flex justify-center">
@@ -63,16 +52,12 @@ export const Modal: React.VFC = () => {
           <Spacer h={6} />
           {modal.type === 'registration' ? (
             <div className="flex items-center justify-between">
-              <Button
-                text="しない"
-                className="w-2/5 h-12"
-                onClick={closeModal}
-              />
+              <Button text="しない" className="w-2/5 h-12" onClick={close} />
               <LinkButton
                 primary
                 text="ログイン"
                 className="w-2/5 h-12"
-                onClick={closeModal}
+                onClick={close}
                 href={modal.link ? modal.link : undefined}
               />
             </div>
@@ -80,7 +65,7 @@ export const Modal: React.VFC = () => {
             <LinkButton
               primary
               text={modal.buttonText}
-              onClick={closeModal}
+              onClick={close}
               href={modal.link ? modal.link : undefined}
               className="h-12"
             />
