@@ -7,7 +7,7 @@ export const Footer: React.VFC = () => {
   const menus: NavMenu[] = [
     { text: 'プライバシーポリシー', href: '/about/privacy_policy' },
     { text: '管理者について', href: '/about/manager' },
-    { text: 'お問い合わせ', href: '/about/contact' }
+    { text: 'お問い合わせ', href: '/about/contact' },
   ];
 
   return (
@@ -16,9 +16,11 @@ export const Footer: React.VFC = () => {
         {menus.map((menu, index) => (
           <div key={index}>
             <TextLink {...menu} key={index + 1} />
-            {(menu.text !== 'お問い合わせ') &&
-              <span key={index + 2} className="px-1 font-thin">/</span>
-            }
+            {menu.text !== 'お問い合わせ' && (
+              <span key={index + 2} className="px-1 font-thin">
+                /
+              </span>
+            )}
           </div>
         ))}
       </RowFlexContainer>
@@ -36,4 +38,4 @@ export const Footer: React.VFC = () => {
       </div>
     </footer>
   );
-}
+};

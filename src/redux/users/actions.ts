@@ -5,12 +5,14 @@ type UserActionResponse = ActionResponse<UserState>;
 
 export type LogInActionPayload = Omit<UserState, 'isLoggedIn'>;
 
-export const logInAction = (payload: LogInActionPayload): UserActionResponse => ({
+export const logInAction = (
+  payload: LogInActionPayload,
+): UserActionResponse => ({
   type: ActionTypes.LOG_IN,
   payload: {
     isLoggedIn: true,
-    ...payload
-  }
+    ...payload,
+  },
 });
 
 export const logOutAction = (): UserActionResponse => ({
@@ -20,18 +22,20 @@ export const logOutAction = (): UserActionResponse => ({
     uid: '',
     name: '',
     isNewUser: false,
-    authProvider: null
-  }
+    authProvider: null,
+  },
 });
 
 export const endNewUserAction = (): UserActionResponse => ({
   type: ActionTypes.END_NEW_USER,
   payload: {
-    isNewUser: false
-  }
+    isNewUser: false,
+  },
 });
 
-export const updateUserAction = (payload: Partial<UserState>): UserActionResponse => ({
+export const updateUserAction = (
+  payload: Partial<UserState>,
+): UserActionResponse => ({
   type: ActionTypes.UPDATE_USER,
-  payload: payload
+  payload: payload,
 });

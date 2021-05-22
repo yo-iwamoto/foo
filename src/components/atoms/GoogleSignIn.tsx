@@ -3,7 +3,7 @@ import { Image } from '../atoms';
 
 type Props = {
   onClick: () => Promise<void>;
-}
+};
 
 export const GoogleSignIn: React.VFC<Props> = ({ onClick }) => {
   const imageUrl = '/images/google_auth.png';

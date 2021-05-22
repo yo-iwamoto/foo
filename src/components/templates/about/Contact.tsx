@@ -9,4 +9,4 @@ export const Contact: React.VFC = () => {
       <Heading>お問い合わせ</Heading>
     </>
   );
-}
+};

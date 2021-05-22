@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { ModalState, ShopState, State, UserState } from '../../../../redux/types';
-import { raiseModalAction, raiseToastAction } from '../../../../redux/utilities/actions';
+import {
+  ModalState,
+  ShopState,
+  State,
+  UserState,
+} from '../../../../redux/types';
+import {
+  raiseModalAction,
+  raiseToastAction,
+} from '../../../../redux/utilities/actions';
 import { modalTemplates } from '../../../../lib/modals';
-import { endNewUserAction, updateUserAction } from '../../../../redux/users/actions';
+import {
+  endNewUserAction,
+  updateUserAction,
+} from '../../../../redux/users/actions';
 import { TableRow } from '../../../../types';
 import { providerName } from '../../../../lib/providerName';
 
@@ -14,12 +25,19 @@ import { Spacer } from '../../../utilities';
 import { updateName } from '../../../../api/users';
 import { UpdateNameResource } from '../../../../api/types';
 import { toastTemplates } from '../../../../lib/toasts';
+import { clearShopsAction } from '../../../../redux/shops/actions';
 
 export const Mypage: React.VFC = () => {
   const dispatch = useDispatch();
 
-  const user = useSelector<State, UserState>(state => state.users, shallowEqual);
-  const shops = useSelector<State, ShopState>(state => state.shops, shallowEqual);
+  const user = useSelector<State, UserState>(
+    (state) => state.users,
+    shallowEqual,
+  );
+  const shops = useSelector<State, ShopState>(
+    (state) => state.shops,
+    shallowEqual,
+  );
 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [nickName, setNickname] = useState<string>(user.name);
@@ -29,11 +47,11 @@ export const Mypage: React.VFC = () => {
       dispatch(raiseModalAction(modalTemplates.firstVisit));
       dispatch(endNewUserAction());
     }
-  }, [user.isNewUser])
+  }, [user.isNewUser]);
 
   const accountTable: TableRow[] = [
     { key: 'ニックネーム', value: user.name },
-    { key: 'ログイン方法', value: providerName(user.authProvider) }
+    { key: 'ログイン方法', value: providerName(user.authProvider) },
   ];
 
   const onClickEditIcon = (): void => {
@@ -62,40 +80,47 @@ export const Mypage: React.VFC = () => {
 
   return (
     <>
-      {user.isLoggedIn
-        ? <div className="mx-auto py-8 px-4 sm:px-10 md:px-12 max-w-6xl">
-            <Heading>マイページ</Heading>
-            <Spacer h={12} />
-            <section>
-              <SectionTitle title="アカウント">
-                <EditControl
-                  editMode={editMode}
-                  edit={onClickEditIcon}
-                  cancel={cancelEdit}
-                  save={applyEdit}
-                />
-              </SectionTitle>
-              {editMode
-                ? <>
-                    <Spacer h={4} />
-                    <div className="flex justify-start items-center px-4">
-                      <p className="font-bold w-1/2 md:w-1/3">ニックネーム</p>
-                      <TextField value={nickName} placeholder="ニックネーム" onChange={onChangeNickname} className="w-1/2 md:w-2/3" />
-                    </div>
-                  </>
-                : <Table content={accountTable} />
-              }
-            </section>
-            <Spacer h={12} />
-            <section>
-              <SectionTitle title="お気に入りリスト">
-                <p>{shops.shops.length} 件</p>
-              </SectionTitle>
-              <CardList shops={shops.shops} />
-            </section>
-          </div>
-        : <div/>
-      }
+      {user.isLoggedIn ? (
+        <div className="mx-auto py-8 px-4 sm:px-10 md:px-12 max-w-6xl">
+          <Heading>マイページ</Heading>
+          <Spacer h={12} />
+          <section>
+            <SectionTitle title="アカウント">
+              <EditControl
+                editMode={editMode}
+                edit={onClickEditIcon}
+                cancel={cancelEdit}
+                save={applyEdit}
+              />
+            </SectionTitle>
+            {editMode ? (
+              <>
+                <Spacer h={4} />
+                <div className="flex justify-start items-center px-4">
+                  <p className="font-bold w-1/2 md:w-1/3">ニックネーム</p>
+                  <TextField
+                    value={nickName}
+                    placeholder="ニックネーム"
+                    onChange={onChangeNickname}
+                    className="w-1/2 md:w-2/3"
+                  />
+                </div>
+              </>
+            ) : (
+              <Table content={accountTable} />
+            )}
+          </section>
+          <Spacer h={12} />
+          <section>
+            <SectionTitle title="お気に入りリスト">
+              <p>{shops.shops.length} 件</p>
+            </SectionTitle>
+            <CardList shops={shops.shops} />
+          </section>
+        </div>
+      ) : (
+        <div />
+      )}
     </>
   );
-}
+};

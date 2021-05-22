@@ -1,0 +1,8 @@
+/.next/
+/.vscode/
+.prettierrc
+.next.config.js
+.next-env.d.ts
+package.json
+postcss.config.js
+.eslintrc.json

@@ -7,7 +7,7 @@ const baseURL = isDevelopment
 
 export const axios = axiosModule.create({ baseURL });
 
-axios.interceptors.request.use(config => {
+axios.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem('Access-Token');
   if (accessToken) {
     config.headers.common['Access-Token'] = accessToken;

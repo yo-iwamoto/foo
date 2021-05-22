@@ -1,27 +1,34 @@
 import * as ActionTypes from './actionTypes';
-import { ActionResponse, ModalState, ModalType, ToastState, ToastType, UtilityState } from '../types';
+import {
+  ActionResponse,
+  ModalState,
+  ModalType,
+  ToastState,
+  ToastType,
+  UtilityState,
+} from '../types';
 
 type UtilityActionResponse = ActionResponse<UtilityState>;
 
 export const startLoadingAction = (): UtilityActionResponse => ({
   type: ActionTypes.START_LOADING,
   payload: {
-    isLoading: true
-  }
+    isLoading: true,
+  },
 });
 
 export const endLoadingAction = (): UtilityActionResponse => ({
   type: ActionTypes.END_LOADING,
   payload: {
-    isLoading: false
-  }
+    isLoading: false,
+  },
 });
 
 export const raiseToastAction = (toast: ToastState): UtilityActionResponse => ({
   type: ActionTypes.RAISE_TOAST,
   payload: {
-    toast: toast
-  }
+    toast: toast,
+  },
 });
 
 export const closeToastAction = (): UtilityActionResponse => ({
@@ -29,16 +36,16 @@ export const closeToastAction = (): UtilityActionResponse => ({
   payload: {
     toast: {
       type: null,
-      message: ''
-    }
-  }
+      message: '',
+    },
+  },
 });
 
 export const raiseModalAction = (modal: ModalState): UtilityActionResponse => ({
   type: ActionTypes.RAISE_MODAL,
   payload: {
-    modal: modal
-  }
+    modal: modal,
+  },
 });
 
 export const closeModalAction = (): UtilityActionResponse => ({
@@ -49,7 +56,7 @@ export const closeModalAction = (): UtilityActionResponse => ({
       title: '',
       message: '',
       link: null,
-      buttonText: ''
-    }
-  }
+      buttonText: '',
+    },
+  },
 });

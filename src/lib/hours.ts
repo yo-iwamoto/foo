@@ -2,7 +2,14 @@ const date = new Date();
 
 const hour = date.getHours();
 
-type TimeFrame = 'earlyMorning' | 'morning' | 'lunchTime' | 'afterNoon' | 'dinnerTime' | 'dinner' | 'midnight';
+type TimeFrame =
+  | 'earlyMorning'
+  | 'morning'
+  | 'lunchTime'
+  | 'afterNoon'
+  | 'dinnerTime'
+  | 'dinner'
+  | 'midnight';
 
 export const timeFrame = (): TimeFrame => {
   switch (true) {
@@ -25,6 +32,6 @@ export const timeFrame = (): TimeFrame => {
       return 'midnight';
       break;
     default:
-      return 'morning'
+      return 'morning';
   }
 };

@@ -6,12 +6,11 @@ import { ColumnFlexContainer, Spacer } from '../utilities';
 
 type Props = {
   firebaseAuth: (payload: FirebasePayload) => Promise<void>;
-}
+};
 
 export const LogInForm: React.VFC<Props> = ({ firebaseAuth }) => {
-
   const [email, setEmail] = useState<string>(''),
-        [password, setPassword] = useState<string>('');
+    [password, setPassword] = useState<string>('');
 
   type Placeholder = 'メールアドレス' | 'パスワード';
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -39,9 +38,22 @@ export const LogInForm: React.VFC<Props> = ({ firebaseAuth }) => {
     <form onSubmit={submitHandler} className="w-4/5 sm:w-3/5 md:w-2/5 mx-auto">
       <Spacer h={12} />
       <ColumnFlexContainer>
-        <TextField type="text" value={email} placeholder="メールアドレス" autoComplete="email" onChange={changeHandler} fullwidth />
+        <TextField
+          type="text"
+          value={email}
+          placeholder="メールアドレス"
+          autoComplete="email"
+          onChange={changeHandler}
+          fullwidth
+        />
         <Spacer h={6} />
-        <TextField type="password" value={password} placeholder="パスワード" onChange={changeHandler} fullwidth />
+        <TextField
+          type="password"
+          value={password}
+          placeholder="パスワード"
+          onChange={changeHandler}
+          fullwidth
+        />
         <Spacer h={6} />
         <SubmitButton text="ログイン" />
       </ColumnFlexContainer>

@@ -13,5 +13,5 @@ export const providerName = (provider: AuthProvider): string => {
       break;
     default:
       return '';
-  };
+  }
 };

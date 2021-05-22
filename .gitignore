@@ -1,5 +1,6 @@
 /node_modules/
 /.idea/
+/.vscode/
 /.next/
 /.env
 next.config.js

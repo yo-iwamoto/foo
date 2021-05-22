@@ -12,27 +12,38 @@ type Props = {
   onClick: (s: string) => void;
 };
 
-export const MapMarker: React.VFC<Props> = ({ position, name, address, hid, onClick }) => {
+export const MapMarker: React.VFC<Props> = ({
+  position,
+  name,
+  address,
+  hid,
+  onClick,
+}) => {
   const imageUrl = '/images/pin.svg';
   const [mouseOver, setMouseOver] = useState<boolean>(false);
-  
-  const defaultStyle = '-translate-y-12 transition transition-transform transform origin-bottom';
+
+  const defaultStyle =
+    '-translate-y-12 transition transition-transform transform origin-bottom';
   const hoverStyle = defaultStyle + ' scale-150';
 
   return (
-    <OverlayView position={position} mapPaneName={OverlayView.FLOAT_PANE} >
+    <OverlayView position={position} mapPaneName={OverlayView.FLOAT_PANE}>
       <div
         className={cn({
           [defaultStyle]: !mouseOver,
-          [hoverStyle]: mouseOver
+          [hoverStyle]: mouseOver,
         })}
       >
         <Image
           src={imageUrl}
           width={40}
           height={53}
-          onMouseOver={() => {setMouseOver(true)}}
-          onMouseLeave={() => {setMouseOver(false)}}
+          onMouseOver={() => {
+            setMouseOver(true);
+          }}
+          onMouseLeave={() => {
+            setMouseOver(false);
+          }}
           onClick={() => onClick(hid)}
         />
       </div>

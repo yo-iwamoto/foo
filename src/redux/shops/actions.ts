@@ -4,18 +4,21 @@ import { Shop } from '../../types';
 
 type ShopActionResponse = ActionResponse<ShopState>;
 
-export const getShopsAction = (shops: Shop[], page: number): ShopActionResponse => ({
+export const getShopsAction = (
+  shops: Shop[],
+  page: number,
+): ShopActionResponse => ({
   type: ActionTypes.GET_SHOPS,
   payload: {
     shops,
-    page
-  }
+    page,
+  },
 });
 
 export const clearShopsAction = (): ShopActionResponse => ({
   type: ActionTypes.CLEAR_SHOPS,
   payload: {
     shops: [],
-    page: 0
-  }
+    page: 0,
+  },
 });

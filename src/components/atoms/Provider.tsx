@@ -7,7 +7,5 @@ type Props = {
 };
 
 export const Provider: React.VFC<Props> = ({ provider }) => {
-  return (
-    <EnvelopeIcon />
-  );
+  return <EnvelopeIcon />;
 };

@@ -25,7 +25,7 @@ export const HandleFirebase: React.VFC = () => {
             .catch(() => {
               dispatch(raiseModalAction(modalTemplates.alreadyVerified));
               router.push('/users/login');
-            })
+            });
           break;
         case 'resetPassword':
           break;
@@ -33,9 +33,7 @@ export const HandleFirebase: React.VFC = () => {
           router.push('/');
       }
     }
-  }, [actionCode, lang, mode])
+  }, [actionCode, lang, mode]);
 
-  return (
-    <div></div>
-  );
+  return <div></div>;
 };

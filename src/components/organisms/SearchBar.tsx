@@ -21,8 +21,8 @@ export const SearchBar: React.VFC<Props> = ({ value, onChange, onSubmit }) => {
           placeholder="焼き鳥、吉祥寺、カフェ ..."
           onChange={onChange}
         />
-      <SearchCircle onClick={onSubmit} />
+        <SearchCircle onClick={onSubmit} />
       </form>
     </div>
   );
-}
+};

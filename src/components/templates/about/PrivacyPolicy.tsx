@@ -9,4 +9,4 @@ export const PrivacyPolicy: React.VFC = () => {
       <Heading>プライバシーポリシー</Heading>
     </>
   );
-}
+};
