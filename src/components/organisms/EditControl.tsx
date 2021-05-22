@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from '../atoms';
-import { EditIcon } from '../atoms/Icons';
-import { Spacer } from '../utilities';
+import { Button } from '@/components/atoms';
+import { EditIcon } from '@/components/atoms/Icons';
+import { Spacer } from '@/components/utilities';
 
 type Props = {
   editMode: boolean;

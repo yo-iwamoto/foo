@@ -1,7 +1,7 @@
 import * as Actions from './actions';
 import * as ActionTypes from './actionTypes';
-import { ActionResponse, ShopState } from '../types';
-import { initialState } from '../store/initialState';
+import { ActionResponse, ShopState } from '@/redux/types';
+import { initialState } from '@/redux/store/initialState';
 
 export const ShopsReducer = (
   state: ShopState = initialState.shops,

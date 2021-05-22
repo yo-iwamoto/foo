@@ -1,6 +1,5 @@
 export { Heading } from './typography/Heading';
 export { SubHeading } from './typography/SubHeading';
-export { GoogleSignIn } from './GoogleSignIn';
 export { IconTextLink } from './IconTextLink';
 export { Image } from './Image';
 export { Like } from './Like';

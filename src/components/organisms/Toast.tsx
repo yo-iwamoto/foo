@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
-import { CheckCircleIcon, TimesCircleIcon } from '../atoms/Icons';
-import { Spacer } from '../utilities';
-import { ToastState } from 'src/redux/types';
+import { CheckCircleIcon, TimesCircleIcon } from '@/components/atoms/Icons';
+import { Spacer } from '@/components/utilities';
+import { ToastState } from '@/redux/types';
 
 type Props = {
   toast: ToastState;

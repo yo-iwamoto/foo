@@ -1,7 +1,6 @@
-import { axios } from '../axios';
+import { axios } from '@/api/axios';
 import { AxiosResponse, AxiosError } from 'axios';
-import { Shop } from '../../types';
-import { LikeResponse, GetLikesResponse } from '../types';
+import { Shop, LikeResponse, GetLikesResponse } from '@/types';
 
 export const likeShop = async (hotpepper_id: string): Promise<string> => {
   try {

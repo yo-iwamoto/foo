@@ -1,4 +1,4 @@
-import { ModalState } from '../redux/types';
+import { ModalState } from '@/redux/types';
 
 const like: ModalState = {
   type: 'registration',

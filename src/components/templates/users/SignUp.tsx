@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { logInAction, LogInActionPayload } from '../../../redux/users/actions';
+import { logInAction, LogInActionPayload } from '@/redux/users/actions';
 import {
   startLoadingAction,
   endLoadingAction,
   raiseModalAction,
-} from '../../../redux/utilities/actions';
+} from '@/redux/utilities/actions';
 
 import {
   firebaseSignIn,
@@ -14,23 +14,22 @@ import {
   googleProvider,
   catchOAuthRedirect,
   auth,
-} from '../../../api/authentication/firebase';
-import { signIn } from '../../../api/users';
+} from '@/api/authentication/firebase';
+import { signIn } from '@/api/users';
 import { useRouter } from 'next/router';
 
 import {
   Heading,
   SubHeading,
   TextLink,
-  GoogleSignIn,
   Loader,
   OAuthIcon,
-} from '../../atoms';
-import { SignUpForm } from '../../organisms';
-import { Spacer } from '../../utilities';
-import { FirebasePayload } from '../../../api/types';
-import { ModalState, State, UtilityState } from '../../../redux/types';
-import { modalTemplates } from '../../../lib/modals';
+} from '@/components/atoms';
+import { SignUpForm } from '@/components/organisms';
+import { Spacer } from '@/components/utilities';
+import { FirebasePayload } from '@/types';
+import { ModalState, State, UtilityState } from '@/redux/types';
+import { modalTemplates } from '@/lib/modals';
 
 export const SignUp: React.VFC = () => {
   const router = useRouter(),

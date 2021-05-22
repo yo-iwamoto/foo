@@ -1,5 +1,5 @@
 import React from 'react';
-import { About } from '../../components/templates';
+import { About } from '@/components/templates';
 
 const Page: React.VFC = () => <About />;
 

@@ -1,9 +1,9 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Layout } from '../components/templates/Layout';
-import '../styles.css';
+import { Layout } from '@/components/templates/Layout';
+import '@/styles.css';
 import { Provider } from 'react-redux';
-import { store } from '../redux/store/store';
+import { store } from '@/redux/store/store';
 
 const App = ({ Component, pageProps, router }: AppProps) => {
   return (

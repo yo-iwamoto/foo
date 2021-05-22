@@ -1,5 +1,5 @@
 import * as ActionTypes from './actionTypes';
-import { ActionResponse, UserState } from '../types';
+import { ActionResponse, UserState } from '@/redux/types';
 
 type UserActionResponse = ActionResponse<UserState>;
 

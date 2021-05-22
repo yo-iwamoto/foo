@@ -1,7 +1,7 @@
 import * as Actions from './actions';
 import * as ActionTypes from './actionTypes';
-import { ActionResponse, UtilityState } from '../types';
-import { initialState } from '../store/initialState';
+import { ActionResponse, UtilityState } from '@/redux/types';
+import { initialState } from '@/redux/store/initialState';
 
 export const UtilitiesReducer = (
   state: UtilityState = initialState.utilities,

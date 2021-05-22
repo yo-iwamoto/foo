@@ -1,4 +1,4 @@
-import { Shop } from '../types';
+import { Shop } from '@/types';
 import { State } from './store/initialState';
 
 export type AuthProvider = 'firebase' | 'google.com' | 'twitter.com' | null;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Shop, ShopPhoto, ShopUrls } from '../../types';
+import { Shop, ShopPhoto, ShopUrls } from '@/types';
 
-import { Image, Like } from '../atoms';
-import { ExternalLinkIcon } from '../atoms/Icons';
-import { Spacer } from '../utilities';
+import { Image, Like } from '@/components/atoms';
+import { ExternalLinkIcon } from '@/components/atoms/Icons';
+import { Spacer } from '@/components/utilities';
 
 type Props = {
   shop: Shop | undefined;

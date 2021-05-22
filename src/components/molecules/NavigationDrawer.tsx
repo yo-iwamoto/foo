@@ -1,5 +1,5 @@
 import React from 'react';
-import { DrawerMenu } from '../../types';
+import { DrawerMenu } from '@/types';
 import cn from 'classnames';
 import {
   HomeIcon,
@@ -8,9 +8,9 @@ import {
   TimesIcon,
   SignOutIcon,
   UserIcon,
-} from '../atoms/Icons';
-import { IconTextLink } from '../atoms';
-import { ColumnFlexContainer, Spacer } from '../utilities';
+} from '@/components/atoms/Icons';
+import { IconTextLink } from '@/components/atoms';
+import { ColumnFlexContainer, Spacer } from '@/components/utilities';
 
 type Props = {
   show: boolean;

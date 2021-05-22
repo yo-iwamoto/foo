@@ -4,8 +4,8 @@ import {
   GoogleMap,
   GoogleMapProps,
 } from '@react-google-maps/api';
-import { Position, Shop } from '../../types';
-import { MapMarker } from '../atoms';
+import { Position, Shop } from '@/types';
+import { MapMarker } from '@/components/atoms';
 
 type Props = {
   currentPosition: Position;

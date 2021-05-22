@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SearchCircle } from '../atoms';
+import { SearchCircle } from '@/components/atoms';
 
 type Props = {
   value: string;

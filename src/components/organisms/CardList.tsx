@@ -1,6 +1,6 @@
 import React from 'react';
-import { Shop } from '../../types';
-import { Card } from '../molecules';
+import { Shop } from '@/types';
+import { Card } from '@/components/molecules';
 
 type Props = {
   shops: Shop[];

@@ -1,6 +1,6 @@
 import React from 'react';
-import { SubHeading } from '../atoms';
-import { Spacer } from '../utilities';
+import { SubHeading } from '@/components/atoms';
+import { Spacer } from '@/components/utilities';
 
 type Props = {
   title: string;

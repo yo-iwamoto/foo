@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { ModalState } from '../../redux/types';
-import { Button, LinkButton } from '../atoms';
+import { ModalState } from '@/redux/types';
+import { Button, LinkButton } from '@/components/atoms';
 import {
   TimesIcon,
   PlaneIcon,
   CheckCircleIcon,
   UtensilsIcon,
-} from '../atoms/Icons';
-import { Spacer } from '../utilities';
+} from '@/components/atoms/Icons';
+import { Spacer } from '@/components/utilities';
 
 type Props = {
   modal: ModalState;

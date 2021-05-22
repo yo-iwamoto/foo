@@ -1,6 +1,6 @@
-import { axios } from '../axios';
+import { axios } from '@/api/axios';
 import { AxiosError, AxiosResponse } from 'axios';
-import { FooSignInResource, UpdateNameResource, UserResponse } from '../types';
+import { FooSignInResource, UpdateNameResource, UserResponse } from '@/types';
 
 const authGenerator =
   (method: 'login' | 'signup') =>

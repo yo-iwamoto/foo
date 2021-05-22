@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { OverlayView } from '@react-google-maps/api';
 import cn from 'classnames';
-import { Position } from '../../types';
-import { Image } from '../atoms';
+import { Position } from '@/types';
+import { Image } from '@/components/atoms';
 
 type Props = {
   position: Position;

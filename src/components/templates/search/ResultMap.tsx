@@ -1,31 +1,31 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/router';
 
-import { Shop } from '../../../types';
-import { searchWithKeywordAndPosition } from '../../../api/externals/shops';
-import { getLikes, likeShop, removeLike } from '../../../api/shops';
+import { Shop } from '@/types';
+import { searchWithKeywordAndPosition } from '@/api/externals/shops';
+import { getLikes, likeShop, removeLike } from '@/api/shops';
 
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import {
   startLoadingAction,
   endLoadingAction,
   raiseModalAction,
-} from '../../../redux/utilities/actions';
-import { getShopsAction } from '../../../redux/shops/actions';
+} from '@/redux/utilities/actions';
+import { getShopsAction } from '@/redux/shops/actions';
 import {
   State,
   ShopState,
   UtilityState,
   UserState,
   ModalState,
-} from '../../../redux/types';
-import { Position } from '../../../types';
-import { modalTemplates } from '../../../lib/modals';
+} from '@/redux/types';
+import { Position } from '@/types';
+import { modalTemplates } from '@/lib/modals';
 
-import { Loader, SubHeading, Image } from '../../atoms';
-import { Card } from '../../molecules';
-import { Map, SearchBar } from '../../organisms';
-import { Spacer } from '../../utilities';
+import { Loader, SubHeading, Image } from '@/components/atoms';
+import { Card } from '@/components/molecules';
+import { Map, SearchBar } from '@/components/organisms';
+import { Spacer } from '@/components/utilities';
 
 interface GeolocationData {
   coords: {
