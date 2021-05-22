@@ -2,13 +2,29 @@ import React, { useEffect } from 'react';
 
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { logInAction, LogInActionPayload } from '../../../redux/users/actions';
-import { startLoadingAction, endLoadingAction } from '../../../redux/utilities/actions';
+import {
+  startLoadingAction,
+  endLoadingAction,
+} from '../../../redux/utilities/actions';
 
-import { auth, catchOAuthRedirect, firebaseSignIn, googleProvider, twitterProvider } from '../../../api/authentication/firebase';
+import {
+  auth,
+  catchOAuthRedirect,
+  firebaseSignIn,
+  googleProvider,
+  twitterProvider,
+} from '../../../api/authentication/firebase';
 import { signIn } from '../../../api/users';
 import { useRouter } from 'next/router';
 
-import { Heading, SubHeading, TextLink, GoogleSignIn, Loader, OAuthIcon } from '../../atoms';
+import {
+  Heading,
+  SubHeading,
+  TextLink,
+  GoogleSignIn,
+  Loader,
+  OAuthIcon,
+} from '../../atoms';
 import { LogInForm } from '../../organisms';
 import { ColumnFlexContainer, Spacer } from '../../utilities';
 import { FirebasePayload, FirebaseSignInResponse } from '../../../api/types';
@@ -16,23 +32,29 @@ import { State, UserState, UtilityState } from '../../../redux/types';
 
 export const LogIn: React.VFC = () => {
   const router = useRouter(),
-        dispatch = useDispatch();
+    dispatch = useDispatch();
 
   const googleLogIn = (): void => {
     auth.signInWithRedirect(googleProvider);
   };
 
   const twitterLogIn = (): void => {
-    auth.signInWithRedirect(twitterProvider)
+    auth.signInWithRedirect(twitterProvider);
   };
 
   const firebaseAuth = async (payload: FirebasePayload): Promise<void> => {
     try {
-      const response = await firebaseSignIn.logIn(payload) as FirebaseSignInResponse;
+      const response = (await firebaseSignIn.logIn(
+        payload,
+      )) as FirebaseSignInResponse;
       const { authProvider, isNewUser, ...logInResource } = response;
       dispatch(startLoadingAction());
       const res = await signIn.logIn(logInResource);
-      const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};
+      const actionPayload: LogInActionPayload = {
+        ...res.user,
+        isNewUser,
+        authProvider,
+      };
       dispatch(logInAction(actionPayload));
       dispatch(endLoadingAction());
       router.push('/users/mypage');
@@ -41,32 +63,42 @@ export const LogIn: React.VFC = () => {
     }
   };
 
-  const { isLoading } = useSelector<State, UtilityState>(state => state.utilities, shallowEqual);
+  const { isLoading } = useSelector<State, UtilityState>(
+    (state) => state.utilities,
+    shallowEqual,
+  );
 
   useEffect(() => {
     dispatch(startLoadingAction());
-    const userCredential = auth.getRedirectResult()
-      .then(userCredential => {
+    const userCredential = auth
+      .getRedirectResult()
+      .then((userCredential) => {
         if (userCredential.user) {
-          const { authProvider, isNewUser, ...resource } = catchOAuthRedirect(userCredential);
-          signIn.logIn(resource)
-            .then(res => {
-              const actionPayload: LogInActionPayload = {...res.user, isNewUser, authProvider};
+          const { authProvider, isNewUser, ...resource } =
+            catchOAuthRedirect(userCredential);
+          signIn
+            .logIn(resource)
+            .then((res) => {
+              const actionPayload: LogInActionPayload = {
+                ...res.user,
+                isNewUser,
+                authProvider,
+              };
               dispatch(logInAction(actionPayload));
               router.push('/users/mypage');
             })
-            .catch(err => {
+            .catch((err) => {
               throw err;
               dispatch(endLoadingAction());
-            })
+            });
         } else {
           dispatch(endLoadingAction());
         }
       })
-      .catch(err => {
+      .catch((err) => {
         throw err;
         dispatch(endLoadingAction());
-      })
+      });
   }, []);
 
   if (isLoading) {
@@ -94,11 +126,10 @@ export const LogIn: React.VFC = () => {
         <Spacer h={6} />
         <p>
           まだアカウントを持っていませんか？
-          <br/>
+          <br />
           <TextLink href="/users/signup" text="新規会員登録" color="main" />
         </p>
       </div>
     );
   }
-
 };

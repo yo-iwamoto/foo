@@ -12,7 +12,7 @@ export const Spacer: React.VFC<Props> = ({ h, w }) => {
       <div
         className={cn({
           [`h-${h}`]: h,
-          [`w-${w}`]: w
+          [`w-${w}`]: w,
         })}
       />
       {false && <div className="h-2 h-4 h-6 h-8 h-12 h-28 w-3 w-4 w-6" />}

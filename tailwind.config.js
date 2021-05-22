@@ -6,7 +6,7 @@ module.exports = {
   variants: {
     extend: {
       translate: ['active'],
-    }
+    },
   },
   theme: {
     extend: {
@@ -14,10 +14,10 @@ module.exports = {
         main: '#cd5954',
         text: '#fef0ea',
         back: '#fef0ea',
-        accent: '#ffff89'
+        accent: '#ffff89',
       },
       fontFamily: {
-        'main': ['My Galano Grotesque', 'sans-serif']
+        main: ['My Galano Grotesque', 'sans-serif'],
       },
       inset: {
         '1/10': '10%',
@@ -25,12 +25,12 @@ module.exports = {
       },
       minHeight: {
         '3/5': '60%',
-        '1/2': '50%'
+        '1/2': '50%',
       },
-    }
+    },
   },
   variants: {
     extend: {},
   },
   plugins: [],
-}
+};

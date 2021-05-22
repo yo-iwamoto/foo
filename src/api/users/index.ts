@@ -2,21 +2,23 @@ import { axios } from '../axios';
 import { AxiosError, AxiosResponse } from 'axios';
 import { FooSignInResource, UpdateNameResource, UserResponse } from '../types';
 
-const authGenerator = (method: 'login' | 'signup') => async (resource: FooSignInResource): Promise<UserResponse> => {
-  try {
-    const isLogin = method === 'login';
-    const path = isLogin ? '/sessions' : '/users';
-    const res: AxiosResponse<UserResponse> = await axios.post(path, resource);
-    localStorage.setItem('Access-Token', res.headers['access-token']);
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
+const authGenerator =
+  (method: 'login' | 'signup') =>
+  async (resource: FooSignInResource): Promise<UserResponse> => {
+    try {
+      const isLogin = method === 'login';
+      const path = isLogin ? '/sessions' : '/users';
+      const res: AxiosResponse<UserResponse> = await axios.post(path, resource);
+      localStorage.setItem('Access-Token', res.headers['access-token']);
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  };
 
 export const signIn = {
   signUp: authGenerator('signup'),
-  logIn: authGenerator('login')
+  logIn: authGenerator('login'),
 };
 
 export const autoLogIn = async (): Promise<UserResponse> => {
@@ -28,12 +30,17 @@ export const autoLogIn = async (): Promise<UserResponse> => {
   }
 };
 
-export const updateName = async (resource: UpdateNameResource): Promise<UserResponse> => {
+export const updateName = async (
+  resource: UpdateNameResource,
+): Promise<UserResponse> => {
   try {
     const params = {
-      name: resource.name
+      name: resource.name,
     };
-    const res: AxiosResponse<UserResponse> = await axios.patch(`/users/${resource.uid}`, params);
+    const res: AxiosResponse<UserResponse> = await axios.patch(
+      `/users/${resource.uid}`,
+      params,
+    );
     return res.data;
   } catch (err) {
     throw err;

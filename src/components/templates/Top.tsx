@@ -6,9 +6,11 @@ import { LinkButton, Image, Link } from '../atoms';
 
 export const Top: React.VFC = () => {
   const router = useRouter();
-  const mainCopy = 'ひとりで食事をするお店を探していますか？\nFooでぴったりのお店を見つけましょう';
+  const mainCopy =
+    'ひとりで食事をするお店を探していますか？\nFooでぴったりのお店を見つけましょう';
   const imageUrl = '/images/meal.png';
-  const initialStyle = 'text-center opacity-0 translate-y-2 transition-all duration-1000 transform';
+  const initialStyle =
+    'text-center opacity-0 translate-y-2 transition-all duration-1000 transform';
 
   const [animationStyle, setAnimationStyle] = useState<string>(initialStyle);
 
@@ -27,7 +29,7 @@ export const Top: React.VFC = () => {
 
   useEffect(() => {
     setAnimationStyle(animationStyle.replace('opacity-0 translate-y-2', ''));
-  }, [animationStyle])
+  }, [animationStyle]);
 
   return (
     <div className={animationStyle}>
@@ -36,22 +38,19 @@ export const Top: React.VFC = () => {
         {mainCopy}
       </h1>
       <Spacer h={6} />
-      <SearchBar
-        value={text}
-        onChange={onChange}
-        onSubmit={onSubmit}
-      />
+      <SearchBar value={text} onChange={onChange} onSubmit={onSubmit} />
       <Spacer h={6} />
       <div className="w-64 mx-auto">
-        <Image
-          src={imageUrl}
-          width={300}
-          height={300}
-        />
+        <Image src={imageUrl} width={300} height={300} />
       </div>
       <Spacer h={28} />
-        <LinkButton primary text="Fooについて" className="w-64 h-12" href="/about" />
+      <LinkButton
+        primary
+        text="Fooについて"
+        className="w-64 h-12"
+        href="/about"
+      />
       <Spacer h={12} />
     </div>
   );
-}
+};

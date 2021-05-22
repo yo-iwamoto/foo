@@ -3,13 +3,13 @@ import React from 'react';
 export interface NavMenu {
   text: string;
   href: string;
-};
+}
 
 export interface DrawerMenu {
   text: string;
   href: string;
   icon: React.ReactNode;
-};
+}
 
 export interface Shop {
   id: string;
@@ -36,29 +36,29 @@ export interface Shop {
   urls: ShopUrls;
   wifi: AriOrNashi;
   like: boolean | undefined;
-};
+}
 
 export interface ShopPhoto {
   pc: {
     l: string;
   };
-};
+}
 
 export interface ShopUrls {
   pc: string;
-};
+}
 
 type AriOrNashi = 'あり' | 'なし';
 
 export interface HotpepperResponse {
   results_available: number;
   shop: Shop[];
-};
+}
 
 export interface Position {
   lat: number;
   lng: number;
-};
+}
 
 export type TableRow = {
   key: string;

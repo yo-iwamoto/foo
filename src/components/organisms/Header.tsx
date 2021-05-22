@@ -6,10 +6,9 @@ import { State, UserState } from '../../redux/types';
 
 type Props = {
   onOpen: React.MouseEventHandler;
-}
+};
 
 export const Header: React.VFC<Props> = ({ onOpen }) => {
-
   return (
     <header className="bg-main flex justify-between items-center px-4">
       <div className="w-16">
@@ -33,4 +32,4 @@ export const Header: React.VFC<Props> = ({ onOpen }) => {
       />
     </header>
   );
-}
+};

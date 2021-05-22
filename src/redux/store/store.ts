@@ -1,7 +1,7 @@
 import {
   createStore as reduxCreateStore,
   combineReducers,
-  applyMiddleware
+  applyMiddleware,
 } from 'redux';
 import { createLogger } from 'redux-logger';
 
@@ -14,7 +14,7 @@ const createStore = () => {
   if (process.env.NODE_ENV === 'development') {
     const logger = createLogger({
       collapsed: true,
-      diff: true
+      diff: true,
     });
     middleWares.push(logger);
   }
@@ -23,11 +23,9 @@ const createStore = () => {
     combineReducers({
       utilities: UtilitiesReducer,
       users: UsersReducer,
-      shops: ShopsReducer
+      shops: ShopsReducer,
     }),
-    applyMiddleware(
-      ...middleWares
-    )
+    applyMiddleware(...middleWares),
   );
 };
 

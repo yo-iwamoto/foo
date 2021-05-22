@@ -7,9 +7,5 @@ type Props = {
 };
 
 export const Link: React.VFC<Props> = ({ href, children }) => {
-  return (
-    <NextLink href={href}>
-      {children}
-    </NextLink>
-  );
+  return <NextLink href={href}>{children}</NextLink>;
 };

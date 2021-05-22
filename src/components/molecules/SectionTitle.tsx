@@ -1,6 +1,6 @@
 import React from 'react';
 import { SubHeading } from '../atoms';
-import { Spacer } from '../utilities'
+import { Spacer } from '../utilities';
 
 type Props = {
   title: string;
@@ -15,7 +15,7 @@ export const SectionTitle: React.VFC<Props> = ({ title, children }) => {
         {children}
       </div>
       <Spacer h={2} />
-      <hr/>
+      <hr />
       <Spacer h={6} />
     </>
   );

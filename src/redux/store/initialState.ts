@@ -5,27 +5,27 @@ export const initialState: State = {
     isLoading: false,
     toast: {
       type: null,
-      message: ''
+      message: '',
     },
     modal: {
       type: null,
       title: '',
       message: '',
       link: null,
-      buttonText: ''
-    }
+      buttonText: '',
+    },
   },
   users: {
     isLoggedIn: false,
     uid: '',
     name: '',
     isNewUser: false,
-    authProvider: null
+    authProvider: null,
   },
   shops: {
     shops: [],
-    page: 0
-  }
+    page: 0,
+  },
 };
 
 // const emptyShop = {

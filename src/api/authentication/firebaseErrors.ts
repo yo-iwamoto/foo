@@ -5,5 +5,5 @@ export const firebaseError = {
   weakPassword: 'auth/weak-password',
   wrongPassword: 'auth/wrong-password',
   invalidPassword: 'auth/invalid-password',
-  noUser: 'auth/user-not-found'
+  noUser: 'auth/user-not-found',
 };

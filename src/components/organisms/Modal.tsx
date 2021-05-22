@@ -4,11 +4,18 @@ import { State, UtilityState } from '../../redux/types';
 import { closeModalAction } from '../../redux/utilities/actions';
 
 import { Button, LinkButton } from '../atoms';
-import { TimesIcon, PlaneIcon, CheckCircleIcon, UtensilsIcon } from '../atoms/Icons';
+import {
+  TimesIcon,
+  PlaneIcon,
+  CheckCircleIcon,
+  UtensilsIcon,
+} from '../atoms/Icons';
 import { Spacer } from '../utilities';
 
 export const Modal: React.VFC = () => {
-  const { modal } = useSelector<State, UtilityState>(state => state.utilities);
+  const { modal } = useSelector<State, UtilityState>(
+    (state) => state.utilities,
+  );
 
   const dispatch = useDispatch();
   const closeModal = (): void => {
@@ -26,37 +33,58 @@ export const Modal: React.VFC = () => {
       case 'registration':
         return <UtensilsIcon className="text-main" size={90} />;
         break;
+      default:
+        return <div></div>;
     }
   };
 
   return (
     <div className="absolute w-full h-full text-gray-700">
-      <div
-        className="fixed w-full h-full z-30 bg-black opacity-40"
-      />
-      <div
-        className="fixed w-4/5 sm:w-1/2 lg:w-1/3 min-h-3/5 md:min-h-1/2 z-40 bg-white rounded-lg top-1/6 left-1/10 sm:left-1/4 lg:left-1/3 opacity-100 p-8"
-      >
+      <div className="fixed w-full h-full z-30 bg-black opacity-40" />
+      <div className="fixed w-4/5 sm:w-1/2 lg:w-1/3 min-h-3/5 md:min-h-1/2 z-40 bg-white rounded-lg top-1/6 left-1/10 sm:left-1/4 lg:left-1/3 opacity-100 p-8">
         <div className="flex flex-col">
           <div className="flex justify-end">
-            <TimesIcon className="cursor-pointer" onClick={closeModal} size={30} />
+            <TimesIcon
+              className="cursor-pointer"
+              onClick={closeModal}
+              size={30}
+            />
           </div>
           <Spacer h={6} />
           <div className="flex justify-center">
-          <ModalIcon />
+            <ModalIcon />
           </div>
           <Spacer h={8} />
-          <h1 className="text-lg sm:text-xl text-center font-bold whitespace-nowrap">{modal.title}</h1>
+          <h1 className="text-lg sm:text-xl text-center font-bold whitespace-nowrap">
+            {modal.title}
+          </h1>
           <Spacer h={6} />
           <p className="text-sm whitespace-pre-wrap">{modal.message}</p>
           <Spacer h={6} />
-          {modal.type === 'registration'
-            ? <div className="flex items-center justify-between">
-                <Button text="しない" className="w-2/5 h-12" onClick={closeModal} />
-                <LinkButton primary text="ログイン" className="w-2/5 h-12" onClick={closeModal} href={modal.link ? modal.link : null} />
-              </div>
-            : <LinkButton primary text={modal.buttonText} onClick={closeModal} href={modal.link ? modal.link : null} className="h-12" />
-          }
+          {modal.type === 'registration' ? (
+            <div className="flex items-center justify-between">
+              <Button
+                text="しない"
+                className="w-2/5 h-12"
+                onClick={closeModal}
+              />
+              <LinkButton
+                primary
+                text="ログイン"
+                className="w-2/5 h-12"
+                onClick={closeModal}
+                href={modal.link ? modal.link : undefined}
+              />
+            </div>
+          ) : (
+            <LinkButton
+              primary
+              text={modal.buttonText}
+              onClick={closeModal}
+              href={modal.link ? modal.link : undefined}
+              className="h-12"
+            />
+          )}
         </div>
       </div>
     </div>
