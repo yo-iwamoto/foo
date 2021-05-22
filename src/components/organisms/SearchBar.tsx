@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SearchCircle } from '@/components/atoms';
+import { Flex } from '../utilities';
 
 type Props = {
   value: string;
@@ -9,7 +10,7 @@ type Props = {
 
 export const SearchBar: React.VFC<Props> = ({ value, onChange, onSubmit }) => {
   return (
-    <div className="flex flex-col p-2 w-3/4 md:w-2/4 mx-auto">
+    <Flex col className="p-2 w-3/4 md:w-2/4 mx-auto">
       <form
         className="bg-white items-center justify-between w-full flex rounded-full shadow-lg p-2 sticky border border-gray focus-within:border-main transition-colors"
         onSubmit={onSubmit}
@@ -23,6 +24,6 @@ export const SearchBar: React.VFC<Props> = ({ value, onChange, onSubmit }) => {
         />
         <SearchCircle onClick={onSubmit} />
       </form>
-    </div>
+    </Flex>
   );
 };

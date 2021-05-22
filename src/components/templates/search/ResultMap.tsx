@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 
 import { Shop } from '@/types';
@@ -12,17 +12,11 @@ import {
   raiseModalAction,
 } from '@/redux/utilities/actions';
 import { getShopsAction } from '@/redux/shops/actions';
-import {
-  State,
-  ShopState,
-  UtilityState,
-  UserState,
-  ModalState,
-} from '@/redux/types';
+import { State, ShopState, UtilityState, UserState } from '@/redux/types';
 import { Position } from '@/types';
 import { modalTemplates } from '@/lib/modals';
 
-import { Loader, SubHeading, Image } from '@/components/atoms';
+import { Loader } from '@/components/atoms';
 import { Card } from '@/components/molecules';
 import { Map, SearchBar } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';

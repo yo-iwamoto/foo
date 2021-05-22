@@ -18,17 +18,11 @@ import {
 import { signIn } from '@/api/users';
 import { useRouter } from 'next/router';
 
-import {
-  Heading,
-  SubHeading,
-  TextLink,
-  Loader,
-  OAuthIcon,
-} from '@/components/atoms';
+import { Heading, TextLink, Loader, OAuthIcon } from '@/components/atoms';
 import { SignUpForm } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
 import { FirebasePayload } from '@/types';
-import { ModalState, State, UtilityState } from '@/redux/types';
+import { State, UtilityState } from '@/redux/types';
 import { modalTemplates } from '@/lib/modals';
 
 export const SignUp: React.VFC = () => {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Shop, HotpepperResponse, Position } from '@/types';
+import { HotpepperResponse, Position } from '@/types';
 
 const key = process.env.NEXT_PUBLIC_API_KEY;
 const production = process.env.NODE_ENV === 'production';

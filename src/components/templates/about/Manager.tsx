@@ -1,7 +1,7 @@
 import React from 'react';
 import { Heading } from '@/components/atoms';
 import { GitHubIcon, TwitterIcon } from '@/components/atoms/Icons';
-import { Spacer } from '@/components/utilities';
+import { Flex, Spacer } from '@/components/utilities';
 
 export const Manager: React.VFC = () => {
   return (
@@ -15,21 +15,20 @@ export const Manager: React.VFC = () => {
         です
       </p>
       <Spacer h={6} />
-      <div className="flex justify-between items-center w-64 mx-auto">
-        <div className="flex flex-col items-center">
+      <Flex jBetween aCenter className="w-64 mx-auto">
+        <Flex col aCenter>
           <a href="https://github.com/you-5805" target="_blank">
             <GitHubIcon size="64" />
           </a>
           <p className="text-lg">@you-5805</p>
-        </div>
-
-        <div className="flex flex-col items-center">
+        </Flex>
+        <Flex col aCenter>
           <a href="https://twitter.com/you_5805" target="_blank">
             <TwitterIcon size="64" color="skyblue" />
           </a>
           <p className="text-lg">@you_5805</p>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
     </>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
-import { CheckCircleIcon, TimesCircleIcon } from '@/components/atoms/Icons';
-import { Spacer } from '@/components/utilities';
+import { Flex, Spacer } from '@/components/utilities';
 import { ToastState } from '@/redux/types';
 
 type Props = {
@@ -37,11 +36,11 @@ export const Toast: React.VFC<Props> = ({ toast, closeToast }) => {
           ['border-red-500 bg-red-100']: toast.type === 'error',
         })}
       >
-        <div className="flex items-center h-full">
+        <Flex aCenter className="h-full">
           {toast.type === 'success' ? <span>🎉</span> : <span>🤔</span>}
           <Spacer w={3} />
           <p>{toast.message}</p>
-        </div>
+        </Flex>
       </div>
     </div>
   );

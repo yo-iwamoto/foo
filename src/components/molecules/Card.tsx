@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Shop, ShopPhoto, ShopUrls } from '@/types';
+import React, { useState } from 'react';
+import { Shop } from '@/types';
 
 import { Image, Like } from '@/components/atoms';
-import { ExternalLinkIcon } from '@/components/atoms/Icons';
-import { Spacer } from '@/components/utilities';
+import { Spacer, Flex } from '@/components/utilities';
 
 type Props = {
   shop: Shop | undefined;
@@ -36,25 +35,23 @@ export const Card: React.VFC<Props> = ({ shop, like, removeLike }) => {
       <div className="w-full mx-auto p-4 shadow-lg rounded-lg text-left leading-loose">
         <div className="w-full flex justify-between items-start">
           <img src={shop.photo.pc.l} className="max-h-40 rounded-lg" />
-          <a
-            className="flex items-center hover:underline"
-            target="_blank"
-            href={shop.urls.pc}
-          >
-            <Image
-              src={hotpepperImageUrl}
-              height={40}
-              width={40}
-              className="rounded-lg"
-            />
+          <a className="hover:underline" target="_blank" href={shop.urls.pc}>
+            <Flex aCenter>
+              <Image
+                src={hotpepperImageUrl}
+                height={40}
+                width={40}
+                className="rounded-lg"
+              />
+            </Flex>
           </a>
         </div>
         <Spacer h={4} />
-        <div className="flex justify-between items-center">
+        <Flex jBetween aCenter>
           <div className="font-bold text-xl">{shop.name}</div>
           <Spacer w={4} />
           <Like likeState={likeState} onClick={onClick} />
-        </div>
+        </Flex>
         <p>{shop.catch}</p>
       </div>
     );

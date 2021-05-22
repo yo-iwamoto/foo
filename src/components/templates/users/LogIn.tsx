@@ -25,9 +25,9 @@ import {
   OAuthIcon,
 } from '@/components/atoms';
 import { LogInForm } from '@/components/organisms';
-import { ColumnFlexContainer, Spacer } from '@/components/utilities';
+import { Spacer } from '@/components/utilities';
 import { FirebasePayload, FirebaseSignInResponse } from '@/types';
-import { State, UserState, UtilityState } from '@/redux/types';
+import { State, UtilityState } from '@/redux/types';
 
 export const LogIn: React.VFC = () => {
   const router = useRouter(),

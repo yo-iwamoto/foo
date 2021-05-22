@@ -10,7 +10,7 @@ import {
   closeModalAction,
   closeToastAction,
 } from 'src/redux/utilities/actions';
-import { ModalState, State, UserState, UtilityState } from '@/redux/types';
+import { State, UserState, UtilityState } from '@/redux/types';
 
 import { Router } from 'next/router';
 import cn from 'classnames';

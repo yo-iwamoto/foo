@@ -1,8 +1,6 @@
 import React from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { Image, Link } from '@/components/atoms';
-import { shallowEqual, useSelector } from 'react-redux';
-import { State, UserState } from '@/redux/types';
 
 type Props = {
   onOpen: React.MouseEventHandler;

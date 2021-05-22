@@ -1,5 +1,5 @@
 import { axios } from '@/api/axios';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { FooSignInResource, UpdateNameResource, UserResponse } from '@/types';
 
 const authGenerator =
