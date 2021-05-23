@@ -24,7 +24,6 @@ export const initialState: State = {
   },
   shops: {
     shops: [],
-    page: 0,
   },
 };
 

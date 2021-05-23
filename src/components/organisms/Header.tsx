@@ -1,8 +1,6 @@
 import React from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { Image, Link } from '@/components/atoms';
-import { shallowEqual, useSelector } from 'react-redux';
-import { State, UserState } from '@/redux/types';
 
 type Props = {
   onOpen: React.MouseEventHandler;
@@ -10,7 +8,7 @@ type Props = {
 
 export const Header: React.VFC<Props> = ({ onOpen }) => {
   return (
-    <header className="bg-main flex justify-between items-center px-4">
+    <header className="bg-main flex justify-between items-center px-4 py-1">
       <div className="w-16">
         <Link href="/">
           <a>

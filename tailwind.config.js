@@ -19,6 +19,10 @@ module.exports = {
       fontFamily: {
         main: ['My Galano Grotesque', 'sans-serif'],
       },
+      width: {
+        '19/20': '95%',
+        '1/20': '5%',
+      },
       inset: {
         '1/10': '10%',
         '1/6': '16.6%',
@@ -26,6 +30,10 @@ module.exports = {
       minHeight: {
         '3/5': '60%',
         '1/2': '50%',
+      },
+      minWidth: {
+        24: '6rem',
+        28: '7rem',
       },
     },
   },

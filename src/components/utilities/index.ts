@@ -1,3 +1,2 @@
-export { ColumnFlexContainer } from './ColumnFlexContainer';
+export { Flex } from './Flex';
 export { Spacer } from './Spacer';
-export { RowFlexContainer } from './RowFlexContainer';

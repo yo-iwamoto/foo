@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  LoadScriptNext,
-  GoogleMap,
-  GoogleMapProps,
-} from '@react-google-maps/api';
+import { LoadScriptNext, GoogleMap } from '@react-google-maps/api';
 import { Position, Shop } from '@/types';
 import { MapMarker } from '@/components/atoms';
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FirebasePayload } from '@/types';
 
 import { TextField, SubmitButton } from '@/components/atoms';
-import { ColumnFlexContainer, Spacer } from '@/components/utilities';
+import { Flex, Spacer } from '@/components/utilities';
 
 type Props = {
   firebaseAuth: (payload: FirebasePayload, name: string) => Promise<void>;
@@ -54,7 +54,7 @@ export const SignUpForm: React.VFC<Props> = ({ firebaseAuth }) => {
   return (
     <form onSubmit={submitHandler} className="w-4/5 sm:w-3/5 md:w-2/5 mx-auto">
       <Spacer h={12} />
-      <ColumnFlexContainer>
+      <Flex col jBetween aCenter className="w-full">
         <TextField
           type="text"
           value={name}
@@ -89,7 +89,7 @@ export const SignUpForm: React.VFC<Props> = ({ firebaseAuth }) => {
         />
         <Spacer h={6} />
         <SubmitButton text="登録する" />
-      </ColumnFlexContainer>
+      </Flex>
     </form>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Skelton from 'react-loading-skeleton';
 import { Heading, SubHeading, Image } from '@/components/atoms';
 import { Spacer } from '@/components/utilities';
 
@@ -27,7 +28,8 @@ export const About: React.VFC = () => {
           <p>
             行ったことがないお店は雰囲気が分からず、「ひとり客は自分だけかも…？」と、少し入りにくく感じてしまうもの。
             <br />
-            Fooでは、ユーザーが、ひとりで食べに行ったお店に「フー」することができます。
+            Fooでは、ユーザーが、ひとりで食べに行ったお店に Foo (フー)
+            することができます。
             他のユーザーの声を参考に、お店を選んでみましょう。
           </p>
         </div>
@@ -46,9 +48,7 @@ export const About: React.VFC = () => {
           <SubHeading>気に入ったお店を、みんなに教える。</SubHeading>
           <Spacer h={6} />
           <p>
-            もし、行ったお店をとても気に入って、みんなに教えたいのなら、Fooではあなたが行ったお店やそのリストを
-            <br />
-            簡単にシェアすることができます。
+            もし、行ったお店をとても気に入って、みんなに教えたいのなら、Fooではあなたが行ったお店やそのリストを、簡単にシェアすることができます。
           </p>
         </div>
       </section>

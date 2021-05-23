@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HeartIcon, HeartOutlineIcon } from '@/components/atoms/Icons';
 
 type Props = {

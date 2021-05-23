@@ -1,4 +1,3 @@
-import * as Actions from './actions';
 import * as ActionTypes from './actionTypes';
 import { ActionResponse, ShopState } from '@/redux/types';
 import { initialState } from '@/redux/store/initialState';

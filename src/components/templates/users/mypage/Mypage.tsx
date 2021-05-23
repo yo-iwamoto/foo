@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { ModalState, ShopState, State, UserState } from '@/redux/types';
+import { ShopState, State, UserState } from '@/redux/types';
 import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
 import { modalTemplates } from '@/lib/modals';
 import { endNewUserAction, updateUserAction } from '@/redux/users/actions';
 import { TableRow } from '@/types';
 import { providerName } from '@/lib/providerName';
 
-import { Heading, Link, TextField } from '@/components/atoms';
+import { Heading, TextField } from '@/components/atoms';
 import { SectionTitle, Table } from '@/components/molecules';
 import { CardList, EditControl } from '@/components/organisms';
-import { Spacer } from '@/components/utilities';
+import { Flex, Spacer } from '@/components/utilities';
 import { updateName } from '@/api/users';
 import { UpdateNameResource } from '@/types';
 import { toastTemplates } from '@/lib/toasts';
-import { clearShopsAction } from '@/redux/shops/actions';
+import { clearShopsAction, getShopsAction } from '@/redux/shops/actions';
+import { likedShopIndex, removeLike } from '@/api/shops';
+import { getShopsById } from '@/api/externals/shops';
 
 export const Mypage: React.VFC = () => {
   const dispatch = useDispatch();
@@ -31,12 +33,30 @@ export const Mypage: React.VFC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [nickName, setNickname] = useState<string>(user.name);
 
+  const getShops = async (): Promise<void> => {
+    if (user.uid) {
+      likedShopIndex(user.uid).then((res) => {
+        let ids: string[] = [];
+        res.map((shop) => {
+          ids.push(shop.hotpepper_id);
+        });
+        if (ids.length !== 0) {
+          getShopsById(ids).then((res) => {
+            dispatch(getShopsAction(res.shop));
+          });
+        }
+      });
+    }
+  };
+
   useEffect(() => {
+    dispatch(clearShopsAction());
     if (user.isNewUser) {
       dispatch(raiseModalAction(modalTemplates.firstVisit));
       dispatch(endNewUserAction());
     }
-  }, [user.isNewUser]);
+    getShops();
+  }, [user.isNewUser, user.uid]);
 
   const accountTable: TableRow[] = [
     { key: 'ニックネーム', value: user.name },
@@ -51,20 +71,19 @@ export const Mypage: React.VFC = () => {
     setNickname(user.name);
   };
   const applyEdit = async (): Promise<void> => {
-    try {
-      const resource: UpdateNameResource = { uid: user.uid, name: nickName };
-      const res = await updateName(resource);
-      dispatch(updateUserAction({ name: res.user.name }));
-      dispatch(raiseToastAction(toastTemplates.successEditing));
-      setEditMode(false);
-    } catch (err) {
-      throw err;
-      setEditMode(false);
-      setNickname(user.name);
-    }
+    const resource: UpdateNameResource = { uid: user.uid, name: nickName };
+    const res = await updateName(resource);
+    dispatch(updateUserAction({ name: res.user.name }));
+    dispatch(raiseToastAction(toastTemplates.successEditing));
+    setEditMode(false);
   };
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setNickname(e.target.value);
+  };
+
+  const remove = async (id: string): Promise<void> => {
+    await removeLike(id);
+    getShops();
   };
 
   return (
@@ -85,7 +104,7 @@ export const Mypage: React.VFC = () => {
             {editMode ? (
               <>
                 <Spacer h={4} />
-                <div className="flex justify-start items-center px-4">
+                <Flex jStart aCenter className="px-4">
                   <p className="font-bold w-1/2 md:w-1/3">ニックネーム</p>
                   <TextField
                     value={nickName}
@@ -93,7 +112,7 @@ export const Mypage: React.VFC = () => {
                     onChange={onChangeNickname}
                     className="w-1/2 md:w-2/3"
                   />
-                </div>
+                </Flex>
               </>
             ) : (
               <Table content={accountTable} />
@@ -104,7 +123,7 @@ export const Mypage: React.VFC = () => {
             <SectionTitle title="お気に入りリスト">
               <p>{shops.shops.length} 件</p>
             </SectionTitle>
-            <CardList shops={shops.shops} />
+            <CardList shops={shops.shops} remove={remove} />
           </section>
         </div>
       ) : (

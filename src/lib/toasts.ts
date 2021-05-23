@@ -15,8 +15,20 @@ const successEditing: ToastState = {
   message: '変更を保存しました',
 };
 
+const logIn: ToastState = {
+  type: 'success',
+  message: 'ログインしました',
+};
+
+const logOut: ToastState = {
+  type: 'success',
+  message: 'ログアウトしました',
+};
+
 export const toastTemplates = {
   success,
   error,
   successEditing,
+  logIn,
+  logOut,
 };

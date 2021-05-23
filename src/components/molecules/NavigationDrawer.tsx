@@ -10,7 +10,7 @@ import {
   UserIcon,
 } from '@/components/atoms/Icons';
 import { IconTextLink } from '@/components/atoms';
-import { ColumnFlexContainer, Spacer } from '@/components/utilities';
+import { Spacer } from '@/components/utilities';
 
 type Props = {
   show: boolean;

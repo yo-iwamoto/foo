@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { SearchBar } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
-import { LinkButton, Image, Link } from '@/components/atoms';
+import { LinkButton, Image } from '@/components/atoms';
 
 export const Top: React.VFC = () => {
   const router = useRouter();

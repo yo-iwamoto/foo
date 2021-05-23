@@ -6,6 +6,7 @@ import {
   startLoadingAction,
   endLoadingAction,
   raiseModalAction,
+  raiseToastAction,
 } from '@/redux/utilities/actions';
 
 import {
@@ -18,18 +19,13 @@ import {
 import { signIn } from '@/api/users';
 import { useRouter } from 'next/router';
 
-import {
-  Heading,
-  SubHeading,
-  TextLink,
-  Loader,
-  OAuthIcon,
-} from '@/components/atoms';
+import { Heading, TextLink, Loader, OAuthIcon } from '@/components/atoms';
 import { SignUpForm } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
 import { FirebasePayload } from '@/types';
-import { ModalState, State, UtilityState } from '@/redux/types';
+import { State, UtilityState } from '@/redux/types';
 import { modalTemplates } from '@/lib/modals';
+import { toastTemplates } from '@/lib/toasts';
 
 export const SignUp: React.VFC = () => {
   const router = useRouter(),
@@ -83,19 +79,20 @@ export const SignUp: React.VFC = () => {
                 authProvider,
               };
               dispatch(logInAction(actionPayload));
+              dispatch(raiseToastAction(toastTemplates.logIn));
               router.push('/users/mypage');
             })
             .catch((err) => {
-              throw err;
               dispatch(endLoadingAction());
+              throw err;
             });
         } else {
           dispatch(endLoadingAction());
         }
       })
       .catch((err) => {
-        throw err;
         dispatch(endLoadingAction());
+        throw err;
       });
   }, []);
 

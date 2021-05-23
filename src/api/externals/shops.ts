@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { Shop, HotpepperResponse, Position } from '@/types';
+import axios, { AxiosResponse } from 'axios';
+import { HotpepperResult, HotpepperResponse, Position, Shop } from '@/types';
 
 const key = process.env.NEXT_PUBLIC_API_KEY;
 const production = process.env.NODE_ENV === 'production';
@@ -15,7 +15,7 @@ export const searchWithKeywordAndPosition = async (
   keyword: string,
   position: Position,
   range: number,
-): Promise<HotpepperResponse> => {
+): Promise<HotpepperResult> => {
   const params = {
     ...position,
     key: key,
@@ -24,6 +24,29 @@ export const searchWithKeywordAndPosition = async (
     format: 'json',
     count: 30,
   };
-  const res = await axios.get(baseUrl, { params: params });
-  return res.data.results;
+  try {
+    const res = (await axios.get(baseUrl, {
+      params: params,
+    })) as AxiosResponse<HotpepperResponse>;
+    return res.data.results;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getShopsById = async (ids: string[]): Promise<HotpepperResult> => {
+  const params = {
+    key: key,
+    id: ids.join(),
+    format: 'json',
+  };
+  console.log(params.id, ids);
+  try {
+    const res = (await axios.get(baseUrl, {
+      params: params,
+    })) as AxiosResponse<HotpepperResponse>;
+    return res.data.results;
+  } catch (err) {
+    throw err;
+  }
 };

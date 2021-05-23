@@ -3,7 +3,6 @@ import { verifyEmail } from '@/api/authentication/firebase';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { raiseModalAction } from '@/redux/utilities/actions';
-import { ModalState } from '@/redux/types';
 import { modalTemplates } from '@/lib/modals';
 
 export const HandleFirebase: React.VFC = () => {

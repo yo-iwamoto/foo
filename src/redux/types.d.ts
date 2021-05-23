@@ -39,7 +39,6 @@ export type UtilityState = {
 
 export type ShopState = {
   shops: Shop[];
-  page: number;
 };
 
 export type State = {
