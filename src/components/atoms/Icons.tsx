@@ -15,7 +15,7 @@ import {
   FaCheckCircle,
   FaUtensils,
   FaEnvelope,
-  FaRegEnvelope,
+  FaTrashAlt,
   FaEdit,
   FaTimesCircle,
 } from 'react-icons/fa';
@@ -90,6 +90,10 @@ export const EditIcon: React.VFC<IconBaseProps> = (props) => {
 
 export const TimesCircleIcon: React.VFC<IconBaseProps> = (props) => {
   return <FaTimesCircle {...props} />;
+};
+
+export const TrashIcon: React.VFC<IconBaseProps> = (props) => {
+  return <FaTrashAlt {...props} />;
 };
 
 export const HamburgerIcon: React.VFC<IconBaseProps> = (props) => {

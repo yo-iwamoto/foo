@@ -9,6 +9,7 @@ import {
 import {
   closeModalAction,
   closeToastAction,
+  raiseToastAction,
 } from 'src/redux/utilities/actions';
 import { State, UserState, UtilityState } from '@/redux/types';
 
@@ -17,6 +18,7 @@ import cn from 'classnames';
 
 import { NavigationDrawer } from '@/components/molecules';
 import { Header, Footer, Modal, Toast } from '@/components/organisms';
+import { toastTemplates } from '@/lib/toasts';
 
 type Props = {
   children: React.ReactNode;
@@ -69,6 +71,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
     closeDrawer();
     localStorage.removeItem('Access-Token');
     dispatch(logOutAction());
+    dispatch(raiseToastAction(toastTemplates.logOut));
   };
 
   // Modal & Toast Control

@@ -13,6 +13,7 @@ type Props = {
   aCenter?: boolean;
   aEnd?: boolean;
   className?: string;
+  onClick?: () => void;
   children: React.ReactNode;
 };
 
@@ -28,6 +29,7 @@ export const Flex: React.VFC<Props> = ({
   aCenter,
   aEnd,
   className,
+  onClick,
   children,
 }) => {
   return (
@@ -47,6 +49,7 @@ export const Flex: React.VFC<Props> = ({
         ['items-end']: aEnd,
         [className!]: className,
       })}
+      onClick={onClick}
     >
       {children}
     </div>

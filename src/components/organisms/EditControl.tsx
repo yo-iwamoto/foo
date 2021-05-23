@@ -27,7 +27,15 @@ export const EditControl: React.VFC<Props> = ({
           <Button primary text="保存" onClick={save} className="px-2" />
         </Flex>
       ) : (
-        <EditIcon className="cursor-pointer" size={32} onClick={edit} />
+        <Flex
+          aStart
+          className="cursor-pointer text-gray-700 hover:text-gray-600"
+          onClick={edit}
+        >
+          <EditIcon size={24} />
+          <Spacer w={1} />
+          <span>編集する</span>
+        </Flex>
       )}
     </>
   );

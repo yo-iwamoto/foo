@@ -51,6 +51,10 @@ export interface ShopUrls {
 type AriOrNashi = 'あり' | 'なし';
 
 export interface HotpepperResponse {
+  results: HotpepperResult;
+}
+
+export interface HotpepperResult {
   results_available: number;
   shop: Shop[];
 }
@@ -84,7 +88,7 @@ export interface FooSignInResource {
   uid: string;
 }
 
-export type UserResponse = {
+export type FooUser = {
   user: {
     name: string;
     uid: string;
@@ -105,3 +109,11 @@ export type UpdateNameResource = {
   uid: string;
   name: string;
 };
+
+export interface FooShop {
+  hotpepper_id: string;
+}
+
+export interface LikedShopIndexResponse {
+  shops: FooShop[];
+}

@@ -1,6 +1,12 @@
 import { axios } from '@/api/axios';
 import { AxiosResponse } from 'axios';
-import { Shop, LikeResponse, GetLikesResponse } from '@/types';
+import {
+  Shop,
+  LikeResponse,
+  GetLikesResponse,
+  LikedShopIndexResponse,
+  FooShop,
+} from '@/types';
 
 export const likeShop = async (hotpepper_id: string): Promise<string> => {
   try {
@@ -36,6 +42,17 @@ export const getLikes = async (shops: Shop[]): Promise<boolean[]> => {
       params,
     )) as AxiosResponse<GetLikesResponse>;
     return res.data!.result;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const likedShopIndex = async (uid: string): Promise<FooShop[]> => {
+  try {
+    const res = (await axios.get(
+      `/users/${uid}/likes`,
+    )) as AxiosResponse<LikedShopIndexResponse>;
+    return res.data.shops;
   } catch (err) {
     throw err;
   }

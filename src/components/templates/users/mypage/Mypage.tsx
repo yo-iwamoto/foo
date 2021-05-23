@@ -14,6 +14,9 @@ import { Flex, Spacer } from '@/components/utilities';
 import { updateName } from '@/api/users';
 import { UpdateNameResource } from '@/types';
 import { toastTemplates } from '@/lib/toasts';
+import { clearShopsAction, getShopsAction } from '@/redux/shops/actions';
+import { likedShopIndex, removeLike } from '@/api/shops';
+import { getShopsById } from '@/api/externals/shops';
 
 export const Mypage: React.VFC = () => {
   const dispatch = useDispatch();
@@ -30,12 +33,30 @@ export const Mypage: React.VFC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [nickName, setNickname] = useState<string>(user.name);
 
+  const getShops = async (): Promise<void> => {
+    if (user.uid) {
+      likedShopIndex(user.uid).then((res) => {
+        let ids: string[] = [];
+        res.map((shop) => {
+          ids.push(shop.hotpepper_id);
+        });
+        if (ids.length !== 0) {
+          getShopsById(ids).then((res) => {
+            dispatch(getShopsAction(res.shop));
+          });
+        }
+      });
+    }
+  };
+
   useEffect(() => {
+    dispatch(clearShopsAction());
     if (user.isNewUser) {
       dispatch(raiseModalAction(modalTemplates.firstVisit));
       dispatch(endNewUserAction());
     }
-  }, [user.isNewUser]);
+    getShops();
+  }, [user.isNewUser, user.uid]);
 
   const accountTable: TableRow[] = [
     { key: 'ニックネーム', value: user.name },
@@ -58,6 +79,11 @@ export const Mypage: React.VFC = () => {
   };
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setNickname(e.target.value);
+  };
+
+  const remove = async (id: string): Promise<void> => {
+    await removeLike(id);
+    getShops();
   };
 
   return (
@@ -97,7 +123,7 @@ export const Mypage: React.VFC = () => {
             <SectionTitle title="お気に入りリスト">
               <p>{shops.shops.length} 件</p>
             </SectionTitle>
-            <CardList shops={shops.shops} />
+            <CardList shops={shops.shops} remove={remove} />
           </section>
         </div>
       ) : (

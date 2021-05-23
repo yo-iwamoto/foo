@@ -8,7 +8,7 @@ type Props = {
 
 export const Header: React.VFC<Props> = ({ onOpen }) => {
   return (
-    <header className="bg-main flex justify-between items-center px-4">
+    <header className="bg-main flex justify-between items-center px-4 py-1">
       <div className="w-16">
         <Link href="/">
           <a>

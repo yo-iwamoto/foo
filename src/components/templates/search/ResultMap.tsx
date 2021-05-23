@@ -16,7 +16,7 @@ import { State, ShopState, UtilityState, UserState } from '@/redux/types';
 import { Position } from '@/types';
 import { modalTemplates } from '@/lib/modals';
 
-import { Loader } from '@/components/atoms';
+import Skelton from 'react-loading-skeleton';
 import { Card } from '@/components/molecules';
 import { Map, SearchBar } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
@@ -76,12 +76,12 @@ export const ResultMap: React.VFC = () => {
             getShops.map((shop, index) => {
               shop.like = likes[index];
             });
-            dispatch(getShopsAction(getShops, 1));
+            dispatch(getShopsAction(getShops));
             setShopsCount(res.results_available);
             dispatch(endLoadingAction());
           });
         } else {
-          dispatch(getShopsAction(getShops, 1));
+          dispatch(getShopsAction(getShops));
           setShopsCount(res.results_available);
           dispatch(endLoadingAction());
         }
@@ -122,7 +122,7 @@ export const ResultMap: React.VFC = () => {
             shop.like = true;
           }
         });
-        dispatch(getShopsAction(result, 1));
+        dispatch(getShopsAction(result));
         return true;
       } catch (err) {
         throw err;
@@ -142,7 +142,7 @@ export const ResultMap: React.VFC = () => {
           shop.like = false;
         }
       });
-      dispatch(getShopsAction(result, 1));
+      dispatch(getShopsAction(result));
     } catch (err) {
       throw err;
     }
@@ -166,10 +166,16 @@ export const ResultMap: React.VFC = () => {
     <>
       {isLoading ? (
         <>
-          <Spacer h={28} />
-          <Loader isLoading={isLoading} />
-          <Spacer h={12} />
-          <h1 className="text-center">すてきなお店を探しています...</h1>
+          <Skelton style={{ height: '500px' }} />
+          <Spacer h={6} />
+          <Skelton
+            style={{
+              height: '60px',
+              width: '300px',
+              margin: 'auto',
+              display: 'block',
+            }}
+          />
         </>
       ) : (
         <>

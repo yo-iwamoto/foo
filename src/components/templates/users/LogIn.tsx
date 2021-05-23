@@ -5,6 +5,7 @@ import { logInAction, LogInActionPayload } from '@/redux/users/actions';
 import {
   startLoadingAction,
   endLoadingAction,
+  raiseToastAction,
 } from '@/redux/utilities/actions';
 
 import {
@@ -28,6 +29,7 @@ import { LogInForm } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
 import { FirebasePayload, FirebaseSignInResponse } from '@/types';
 import { State, UtilityState } from '@/redux/types';
+import { toastTemplates } from '@/lib/toasts';
 
 export const LogIn: React.VFC = () => {
   const router = useRouter(),
@@ -56,6 +58,7 @@ export const LogIn: React.VFC = () => {
       };
       dispatch(logInAction(actionPayload));
       dispatch(endLoadingAction());
+      dispatch(raiseToastAction(toastTemplates.logIn));
       router.push('/users/mypage');
     } catch {
       dispatch(endLoadingAction());
@@ -84,19 +87,20 @@ export const LogIn: React.VFC = () => {
                 authProvider,
               };
               dispatch(logInAction(actionPayload));
+              dispatch(raiseToastAction(toastTemplates.logIn));
               router.push('/users/mypage');
             })
             .catch((err) => {
-              throw err;
               dispatch(endLoadingAction());
+              throw err;
             });
         } else {
           dispatch(endLoadingAction());
         }
       })
       .catch((err) => {
-        throw err;
         dispatch(endLoadingAction());
+        throw err;
       });
   }, []);
 
