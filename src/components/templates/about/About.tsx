@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import Skelton from 'react-loading-skeleton';
+import React from 'react';
 import { Heading, SubHeading, Image } from '@/components/atoms';
 import { Spacer } from '@/components/utilities';
+import { useFadeIn } from '@/hooks/useFadeIn';
 
 export const About: React.VFC = () => {
+  const [fadeInStyle] = useFadeIn();
   const waiterImageUrl = '/images/waiter.png';
   const shareImageUrl = '/images/share.png';
-  const initialStyle =
-    'opacity-0 translate-y-2 transition-all duration-1000 transform';
-  const [animationStyle, setAnimationStyle] = useState<string>(initialStyle);
-  useEffect(() => {
-    setAnimationStyle(animationStyle.replace('opacity-0 translate-y-2', ''));
-  }, [animationStyle]);
 
   return (
-    <div className={animationStyle}>
+    <div className={fadeInStyle()}>
       <Spacer h={6} />
       <Heading>
         <span className="text-main">Foo</span>

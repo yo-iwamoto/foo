@@ -3,12 +3,12 @@ import cn from 'classnames';
 
 type ButtonAttributes = JSX.IntrinsicElements['button'];
 
-type ExtraAttributes = {
+type AdditionalAttributes = {
   text: string;
   primary?: boolean;
 };
 
-type Props = ExtraAttributes & Omit<ButtonAttributes, 'value'>;
+type Props = AdditionalAttributes & Omit<ButtonAttributes, 'value'>;
 
 export const Button: React.VFC<Props> = ({
   text,

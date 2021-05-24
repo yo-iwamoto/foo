@@ -1,30 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FirebasePayload } from '@/types';
 
 import { TextField, SubmitButton } from '@/components/atoms';
 import { Flex, Spacer } from '@/components/utilities';
+import { useInput } from '@/hooks/useInput';
 
 type Props = {
   firebaseAuth: (payload: FirebasePayload) => Promise<void>;
 };
 
 export const LogInForm: React.VFC<Props> = ({ firebaseAuth }) => {
-  const [email, setEmail] = useState<string>(''),
-    [password, setPassword] = useState<string>('');
-
-  type Placeholder = 'メールアドレス' | 'パスワード';
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = e.target.value;
-    const placeholder = e.target.placeholder as Placeholder;
-    switch (placeholder) {
-      case 'メールアドレス':
-        setEmail(value);
-        break;
-      case 'パスワード':
-        setPassword(value);
-        break;
-    }
-  };
+  const [email, onChangeEmail] = useInput<string>('');
+  const [password, onChangePassword] = useInput<string>('');
 
   const submitHandler = (e: React.FormEvent): void => {
     e.preventDefault();
@@ -43,7 +30,7 @@ export const LogInForm: React.VFC<Props> = ({ firebaseAuth }) => {
           value={email}
           placeholder="メールアドレス"
           autoComplete="email"
-          onChange={changeHandler}
+          onChange={onChangeEmail}
           fullwidth
         />
         <Spacer h={6} />
@@ -51,7 +38,7 @@ export const LogInForm: React.VFC<Props> = ({ firebaseAuth }) => {
           type="password"
           value={password}
           placeholder="パスワード"
-          onChange={changeHandler}
+          onChange={onChangePassword}
           fullwidth
         />
         <Spacer h={6} />

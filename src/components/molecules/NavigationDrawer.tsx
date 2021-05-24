@@ -14,14 +14,14 @@ import { Spacer } from '@/components/utilities';
 
 type Props = {
   show: boolean;
-  close: () => void;
+  toggleDrawer: () => void;
   isLoggedIn: boolean;
   logOut: () => void;
 };
 
 export const NavigationDrawer: React.VFC<Props> = ({
   show,
-  close,
+  toggleDrawer,
   isLoggedIn,
   logOut,
 }) => {
@@ -66,7 +66,10 @@ export const NavigationDrawer: React.VFC<Props> = ({
         [opened]: show,
       })}
     >
-      <div className="ml-auto w-8 mt-6 mr-6 cursor-pointer" onClick={close}>
+      <div
+        className="ml-auto w-8 mt-6 mr-6 cursor-pointer"
+        onClick={toggleDrawer}
+      >
         <TimesIcon color="white" size="40" />
       </div>
       <div className="mt-16 flex flex-col justify-between items-start">
@@ -74,7 +77,7 @@ export const NavigationDrawer: React.VFC<Props> = ({
           <div key={index} className="w-full pl-16 lg:pl-10">
             <IconTextLink
               {...menu}
-              onClick={menu.text === 'ログアウト' ? logOut : close}
+              onClick={menu.text === 'ログアウト' ? logOut : toggleDrawer}
             >
               {menu.icon}
             </IconTextLink>
