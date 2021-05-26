@@ -1,6 +1,5 @@
 ## 概要
 
----
 
 ひとりご飯の検索サイト，Foo のフロントレポジトリです．Next.js + TypeScript で書いています．
 
@@ -10,7 +9,6 @@ https://www.notion.so/Foo-d5ddbe46840c44e895dc849f5fde7a13
 
 ## 構成
 
----
 
 | 技術                    | 採用理由 / 目的                                                                   |
 | :---------------------- | :-------------------------------------------------------------------------------- |
@@ -31,7 +29,6 @@ react-spinners, react-loading-skeleton：アニメーション実装の工数削
 
 ## 開発にあたって
 
----
 
 ### 導入
 
@@ -58,3 +55,8 @@ $ yarn check-types // tscの型検査
 - GoogleMap API キー
 
 ### バックエンドデータモデル
+元データはこのリポジトリの```root/foo.pu```にUMLで作成しています．
+Resourceはテーブルではなく，Polymorphic実装の関連を擬似的に表現したものです．
+
+<img src="https://user-images.githubusercontent.com/56625097/119692407-57087800-be86-11eb-94fc-d4010899b602.png" width="300" />
+
