@@ -1,0 +1,60 @@
+@startuml er
+
+rectangle Firebase {
+  entity userCredential {
+    uid: string
+    email: string
+  }
+}
+
+rectangle Foo {
+  entity User {
+    + id [PK]
+    ---
+    uid: string
+    name: string
+  }
+
+  entity Shop {
+    + id [PK]
+    ---
+    hotpepper_id: string
+  }
+
+  entity Like {
+    + id [PK]
+    ---
+    # user_id [FK]
+    # shop_id [FK]
+  }
+
+  entity Foo {
+    + id [PK]
+    ---
+    # user_id [FK]
+    # shop_id [FK]
+  }
+
+  entity ShopGroup {
+    + id [PK]
+    ---
+    # user_id [FK]
+    ---
+    name: string
+    order: int
+  }
+
+  entity Resource {}
+}
+
+userCredential ||--|| User
+User ||--o{ Like
+User ||--o{ Foo
+Shop ||--o{ Like
+Shop ||--o{ Foo
+User ||--o{ ShopGroup
+ShopGroup ||--o{ Resource
+Resource ||--|| Like
+Resource ||--|| Foo
+
+@enduml

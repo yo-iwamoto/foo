@@ -4,6 +4,10 @@
 
 ひとりご飯の検索サイト，Foo のフロントレポジトリです．Next.js + TypeScript で書いています．
 
+## 開発ロードマップ
+
+https://www.notion.so/Foo-d5ddbe46840c44e895dc849f5fde7a13
+
 ## 構成
 
 ---
@@ -52,3 +56,5 @@ $ yarn check-types // tscの型検査
 - リクルート WEB サービス API キー
 - Firebase プロジェクト諸変数
 - GoogleMap API キー
+
+### バックエンドデータモデル
