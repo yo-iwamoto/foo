@@ -61,14 +61,12 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
   // Drawer Control
 
   const [showDrawer, setShowDrawer] = useState<boolean>(false);
+  const toggleDrawer = (): void => {
+    setShowDrawer((prev) => !prev);
+  };
 
-  const closeDrawer = () => setShowDrawer(false);
-  const openDrawer = () => setShowDrawer(true);
-  const closedDrawer =
-    'bg-gray-800 w-screen opacity-40 h-full hidden transition-all z-20 fixed';
-  const openedDrawer = closedDrawer.replace('hidden', '');
   const logOut = (): void => {
-    closeDrawer();
+    toggleDrawer();
     localStorage.removeItem('Access-Token');
     dispatch(logOutAction());
     dispatch(raiseToastAction(toastTemplates.logOut));
@@ -92,18 +90,19 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
       {toast.type && <Toast toast={toast} closeToast={closeToast} />}
       <div
         className={cn({
-          [closedDrawer]: !showDrawer,
-          [openedDrawer]: showDrawer,
+          ['bg-gray-800 w-screen opacity-40 h-full transition-all z-20 fixed']:
+            true,
+          ['hidden']: !showDrawer,
         })}
-        onClick={closeDrawer}
+        onClick={toggleDrawer}
       />
       <NavigationDrawer
         show={showDrawer}
-        close={closeDrawer}
+        toggleDrawer={toggleDrawer}
         isLoggedIn={user.isLoggedIn}
         logOut={logOut}
       />
-      <Header onOpen={openDrawer} />
+      <Header toggleDrawer={toggleDrawer} />
       <main className="text-gray-700 font-main min-h-screen">{children}</main>
       <Footer />
     </div>

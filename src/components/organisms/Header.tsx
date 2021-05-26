@@ -3,10 +3,10 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { Image, Link } from '@/components/atoms';
 
 type Props = {
-  onOpen: React.MouseEventHandler;
+  toggleDrawer: React.MouseEventHandler;
 };
 
-export const Header: React.VFC<Props> = ({ onOpen }) => {
+export const Header: React.VFC<Props> = ({ toggleDrawer }) => {
   return (
     <header className="bg-main flex justify-between items-center px-4 py-1">
       <div className="w-16">
@@ -26,7 +26,7 @@ export const Header: React.VFC<Props> = ({ onOpen }) => {
         color="white"
         size="30"
         className="cursor-pointer"
-        onClick={onOpen}
+        onClick={toggleDrawer}
       />
     </header>
   );

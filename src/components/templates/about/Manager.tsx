@@ -2,10 +2,12 @@ import React from 'react';
 import { Heading } from '@/components/atoms';
 import { GitHubIcon, TwitterIcon } from '@/components/atoms/Icons';
 import { Flex, Spacer } from '@/components/utilities';
+import { useFadeIn } from '@/hooks/useFadeIn';
 
 export const Manager: React.VFC = () => {
+  const [fadeInStyle] = useFadeIn();
   return (
-    <>
+    <div className={fadeInStyle()}>
       <Spacer h={6} />
       <Heading>管理者について</Heading>
       <Spacer h={6} />
@@ -29,6 +31,6 @@ export const Manager: React.VFC = () => {
           <p className="text-lg">@you_5805</p>
         </Flex>
       </Flex>
-    </>
+    </div>
   );
 };
