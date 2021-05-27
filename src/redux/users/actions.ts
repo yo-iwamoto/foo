@@ -5,9 +5,7 @@ type UserActionResponse = ActionResponse<UserState>;
 
 export type LogInActionPayload = Omit<UserState, 'isLoggedIn'>;
 
-export const logInAction = (
-  payload: LogInActionPayload,
-): UserActionResponse => ({
+export const logInAction = (payload: LogInActionPayload): UserActionResponse => ({
   type: ActionTypes.LOG_IN,
   payload: {
     isLoggedIn: true,
@@ -33,9 +31,7 @@ export const endNewUserAction = (): UserActionResponse => ({
   },
 });
 
-export const updateUserAction = (
-  payload: Partial<UserState>,
-): UserActionResponse => ({
+export const updateUserAction = (payload: Partial<UserState>): UserActionResponse => ({
   type: ActionTypes.UPDATE_USER,
   payload: payload,
 });

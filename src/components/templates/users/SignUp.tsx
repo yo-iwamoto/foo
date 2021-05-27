@@ -1,53 +1,39 @@
 import React, { useEffect } from 'react';
 
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { logInAction, LogInActionPayload } from '@/redux/users/actions';
-import {
-  startLoadingAction,
-  endLoadingAction,
-  raiseModalAction,
-  raiseToastAction,
-} from '@/redux/utilities/actions';
+import { logInAction } from '@/redux/users/actions';
+import { startLoadingAction, endLoadingAction, raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
 
-import {
-  firebaseSignIn,
-  twitterProvider,
-  googleProvider,
-  catchOAuthRedirect,
-  auth,
-} from '@/api/authentication/firebase';
-import { signIn } from '@/api/users';
+import { apiController } from '@/api';
 import { useRouter } from 'next/router';
 
 import { Heading, TextLink, Loader, OAuthIcon } from '@/components/atoms';
 import { SignUpForm } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
-import { FirebasePayload } from '@/types';
-import { State, UtilityState } from '@/redux/types';
+import { FirebaseSignInPayload } from '@/types';
+import { State, UserState, UtilityState } from '@/redux/types';
 import { modalTemplates } from '@/lib/modals';
 import { toastTemplates } from '@/lib/toasts';
+import { auth } from '@/api/firebase';
 
 export const SignUp: React.VFC = () => {
   const router = useRouter(),
     dispatch = useDispatch();
 
   const googleSignUp = (): void => {
-    auth.signInWithRedirect(googleProvider);
+    apiController.firebase.googleSignIn();
   };
 
   const twitterSignUp = (): void => {
-    auth.signInWithRedirect(twitterProvider);
+    apiController.firebase.twitterSignIn();
   };
 
-  const firebaseAuth = async (
-    payload: FirebasePayload,
-    name: string,
-  ): Promise<void> => {
+  const firebaseAuth = async (payload: FirebaseSignInPayload, name: string): Promise<void> => {
     try {
       dispatch(startLoadingAction());
-      const uid = (await firebaseSignIn.signUp(payload)) as string;
+      const uid = (await apiController.firebase.signUp(payload)) as string;
       const resource = { name, uid };
-      await signIn.signUp(resource);
+      await apiController.users.signUp(resource);
       localStorage.removeItem('Access-Token');
       dispatch(raiseModalAction(modalTemplates.checkEmail));
       dispatch(endLoadingAction());
@@ -57,28 +43,19 @@ export const SignUp: React.VFC = () => {
     }
   };
 
-  const { isLoading } = useSelector<State, UtilityState>(
-    (state) => state.utilities,
-    shallowEqual,
-  );
+  const { isLoading } = useSelector<State, UtilityState>((state) => state.utilities, shallowEqual);
+  const { isNewUser } = useSelector<State, UserState>((state) => state.users, shallowEqual);
 
   useEffect(() => {
     dispatch(startLoadingAction());
-    const userCredential = auth
-      .getRedirectResult()
+    auth.getRedirectResult()
       .then((userCredential) => {
         if (userCredential.user) {
-          const { authProvider, isNewUser, ...resource } =
-            catchOAuthRedirect(userCredential);
-          signIn
+          const { authProvider, isNewUser, ...resource } = apiController.firebase.catchOAuthRedirect(userCredential);
+          apiController.users
             .signUp(resource)
             .then((res) => {
-              const actionPayload: LogInActionPayload = {
-                ...res.user,
-                isNewUser,
-                authProvider,
-              };
-              dispatch(logInAction(actionPayload));
+              dispatch(logInAction({ ...res.user, isNewUser, authProvider }));
               dispatch(raiseToastAction(toastTemplates.logIn));
               router.push('/users/mypage');
             })
@@ -102,7 +79,11 @@ export const SignUp: React.VFC = () => {
         <Spacer h={28} />
         <Loader isLoading={isLoading} />
         <Spacer h={12} />
-        <h1 className="text-center">アカウントを作成しています...</h1>
+        {isNewUser ? (
+          <h1 className="text-center">アカウントを作成しています...</h1>
+        ) : (
+          <h1 className="text-center">ログインしています...</h1>
+        )}
       </div>
     );
   } else {
@@ -113,11 +94,7 @@ export const SignUp: React.VFC = () => {
         <div className="flex flex-col sm:flex-row mx-auto w-full sm:w-2/3 md:w-1/2 lg:w-1/3 justify-between">
           <OAuthIcon provider="google" method="signup" onClick={googleSignUp} />
           <Spacer h={4} w={4} />
-          <OAuthIcon
-            provider="twitter"
-            method="signup"
-            onClick={twitterSignUp}
-          />
+          <OAuthIcon provider="twitter" method="signup" onClick={twitterSignUp} />
         </div>
         <Spacer h={6} />
         <p>必要情報を入力して、登録するをクリックしてください。</p>

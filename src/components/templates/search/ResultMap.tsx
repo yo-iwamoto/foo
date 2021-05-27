@@ -1,25 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 
-import { Shop } from '@/types';
-import { searchWithKeywordAndPosition } from '@/api/externals/shops';
-import { getLikes, likeShop, removeLike } from '@/api/shops';
+import { apiController } from '@/api';
 
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import {
-  startLoadingAction,
-  endLoadingAction,
-  raiseModalAction,
-} from '@/redux/utilities/actions';
+import { startLoadingAction, endLoadingAction, raiseModalAction } from '@/redux/utilities/actions';
 import { getShopsAction } from '@/redux/shops/actions';
 import { State, ShopState, UtilityState, UserState } from '@/redux/types';
 import { Position } from '@/types';
 import { modalTemplates } from '@/lib/modals';
 
 import Skelton from 'react-loading-skeleton';
-import { Card } from '@/components/molecules';
 import { Map, SearchBar } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
+import { ResultList } from '@/components/organisms/ResultList';
 
 interface GeolocationData {
   coords: {
@@ -32,24 +26,13 @@ export const ResultMap: React.VFC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { shops } = useSelector<State, ShopState>(
-    (state) => state.shops,
-    shallowEqual,
-  );
-  const { isLoading } = useSelector<State, UtilityState>(
-    (state) => state.utilities,
-    shallowEqual,
-  );
-  const { isLoggedIn } = useSelector<State, UserState>(
-    (state) => state.users,
-    shallowEqual,
-  );
+  const { shops } = useSelector<State, ShopState>((state) => state.shops, shallowEqual);
+  const { isLoading } = useSelector<State, UtilityState>((state) => state.utilities, shallowEqual);
+  const { isLoggedIn } = useSelector<State, UserState>((state) => state.users, shallowEqual);
 
   const initialPosition: Position = { lat: 35.68812, lng: 139.7671 };
 
-  const [currentPosition, setCurrentPosition] =
-    useState<Position>(initialPosition);
-  const [selectedShop, setSelectedShop] = useState<Shop | undefined>(undefined);
+  const [currentPosition, setCurrentPosition] = useState<Position>(initialPosition);
   const [shopsCount, setShopsCount] = useState<number>(0);
 
   const handleSuccess = (data: GeolocationData): void => {
@@ -69,23 +52,29 @@ export const ResultMap: React.VFC = () => {
     const query = router.query.word as string;
     if (query) {
       const keyword = query.replace(/\s+/g, ' ');
-      searchWithKeywordAndPosition(keyword, searchPosition, 5).then((res) => {
-        const getShops = res.shop;
-        if (isLoggedIn) {
-          getLikes(getShops).then((likes) => {
-            getShops.map((shop, index) => {
-              shop.like = likes[index];
+      apiController.hotpepper
+        .index({
+          keyword: keyword,
+          position: searchPosition,
+          range: 5,
+        })
+        .then((res) => {
+          const getShops = res.shop;
+          if (isLoggedIn) {
+            apiController.shops.likes.index(getShops).then((likes) => {
+              getShops.map((shop, index) => {
+                shop.like = likes[index];
+              });
+              dispatch(getShopsAction(getShops));
+              setShopsCount(res.results_available);
+              dispatch(endLoadingAction());
             });
+          } else {
             dispatch(getShopsAction(getShops));
             setShopsCount(res.results_available);
             dispatch(endLoadingAction());
-          });
-        } else {
-          dispatch(getShopsAction(getShops));
-          setShopsCount(res.results_available);
-          dispatch(endLoadingAction());
-        }
-      });
+          }
+        });
     } else {
       if (shops.length !== 0) {
         setTimeout(search.bind(undefined, initialPosition), 1000);
@@ -109,13 +98,13 @@ export const ResultMap: React.VFC = () => {
       return shop.id === hotpepper_id;
     })[0];
     setCurrentPosition({ lat: shop.lat, lng: shop.lng });
-    setSelectedShop(shop);
+    console.log(shop);
   };
 
   const like = async (id: string): Promise<boolean> => {
     if (isLoggedIn) {
       try {
-        await likeShop(id);
+        await apiController.shops.likes.create(id);
         const result = shops;
         result.map((shop) => {
           if (shop.id === id) {
@@ -135,7 +124,7 @@ export const ResultMap: React.VFC = () => {
 
   const remove = async (id: string): Promise<void> => {
     try {
-      await removeLike(id);
+      await apiController.shops.likes.destroy(id);
       let result = shops;
       result.map((shop) => {
         if (shop.id === id) {
@@ -179,17 +168,14 @@ export const ResultMap: React.VFC = () => {
         </>
       ) : (
         <>
-          <Map
-            currentPosition={currentPosition}
-            shops={shops}
-            onClickPin={onClickPin}
-          />
+          <Map currentPosition={currentPosition} shops={shops} />
           <Spacer h={6} />
           <SearchBar value={text} onChange={onChange} onSubmit={onSubmit} />
-          <Spacer h={6} />
-          <div className="px-4 w-full md:w-3/5 lg:w-2/5 mx-auto" ref={ref}>
+          <Spacer h={3} />
+          <div className="px-4 w-full md:w-4/5 lg:w-1/2 mx-auto" ref={ref}>
             <h1>3km以内に{shopsCount}件のお店が見つかりました</h1>
-            <Card shop={selectedShop} like={like} removeLike={remove} />
+            <Spacer h={4} />
+            <ResultList shops={shops} like={like} remove={remove} />
           </div>
           <Spacer h={8} />
         </>

@@ -1,4 +1,4 @@
-import { AuthProvider } from '@/redux/types';
+import { AuthProvider } from '@/types';
 
 export const providerName = (provider: AuthProvider): string => {
   switch (provider) {

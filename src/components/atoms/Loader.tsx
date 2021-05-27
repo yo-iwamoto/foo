@@ -13,7 +13,5 @@ export const Loader: React.VFC<Props> = ({ isLoading }) => {
       display: block;
     `;
 
-  return (
-    <SyncLoader color={color} css={override} loading={isLoading} size={16} />
-  );
+  return <SyncLoader color={color} css={override} loading={isLoading} size={16} />;
 };

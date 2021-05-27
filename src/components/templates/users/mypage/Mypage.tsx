@@ -11,37 +11,29 @@ import { Heading, TextField } from '@/components/atoms';
 import { SectionTitle, Table } from '@/components/molecules';
 import { CardList, EditControl } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
-import { updateName } from '@/api/users';
 import { UpdateNameResource } from '@/types';
 import { toastTemplates } from '@/lib/toasts';
 import { clearShopsAction, getShopsAction } from '@/redux/shops/actions';
-import { likedShopIndex, removeLike } from '@/api/shops';
-import { getShopsById } from '@/api/externals/shops';
+import { apiController } from '@/api';
 
 export const Mypage: React.VFC = () => {
   const dispatch = useDispatch();
 
-  const user = useSelector<State, UserState>(
-    (state) => state.users,
-    shallowEqual,
-  );
-  const shops = useSelector<State, ShopState>(
-    (state) => state.shops,
-    shallowEqual,
-  );
+  const user = useSelector<State, UserState>((state) => state.users, shallowEqual);
+  const shops = useSelector<State, ShopState>((state) => state.shops, shallowEqual);
 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [nickName, setNickname] = useState<string>(user.name);
 
   const getShops = async (): Promise<void> => {
     if (user.uid) {
-      likedShopIndex(user.uid).then((res) => {
+      apiController.users.likes.index(user.uid).then((res) => {
         let ids: string[] = [];
         res.map((shop) => {
           ids.push(shop.hotpepper_id);
         });
         if (ids.length !== 0) {
-          getShopsById(ids).then((res) => {
+          apiController.hotpepper.index({ ids }).then((res) => {
             dispatch(getShopsAction(res.shop));
           });
         }
@@ -72,17 +64,19 @@ export const Mypage: React.VFC = () => {
   };
   const applyEdit = async (): Promise<void> => {
     const resource: UpdateNameResource = { uid: user.uid, name: nickName };
-    const res = await updateName(resource);
-    dispatch(updateUserAction({ name: res.user.name }));
-    dispatch(raiseToastAction(toastTemplates.successEditing));
-    setEditMode(false);
+    if (resource.name) {
+      const res = await apiController.users.updateName(resource);
+      dispatch(updateUserAction({ name: res.user.name }));
+      dispatch(raiseToastAction(toastTemplates.successEditing));
+      setEditMode(false);
+    }
   };
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setNickname(e.target.value);
   };
 
   const remove = async (id: string): Promise<void> => {
-    await removeLike(id);
+    await apiController.shops.likes.destroy(id);
     getShops();
   };
 
@@ -94,12 +88,7 @@ export const Mypage: React.VFC = () => {
           <Spacer h={12} />
           <section>
             <SectionTitle title="アカウント">
-              <EditControl
-                editMode={editMode}
-                edit={onClickEditIcon}
-                cancel={cancelEdit}
-                save={applyEdit}
-              />
+              <EditControl editMode={editMode} edit={onClickEditIcon} cancel={cancelEdit} save={applyEdit} />
             </SectionTitle>
             {editMode ? (
               <>

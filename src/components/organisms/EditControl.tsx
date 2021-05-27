@@ -10,12 +10,7 @@ type Props = {
   save: () => Promise<void>;
 };
 
-export const EditControl: React.VFC<Props> = ({
-  editMode,
-  edit,
-  cancel,
-  save,
-}) => {
+export const EditControl: React.VFC<Props> = ({ editMode, edit, cancel, save }) => {
   return (
     <>
       {editMode ? (
@@ -27,11 +22,7 @@ export const EditControl: React.VFC<Props> = ({
           <Button primary text="保存" onClick={save} className="px-2" />
         </Flex>
       ) : (
-        <Flex
-          aStart
-          className="cursor-pointer text-gray-700 hover:text-gray-600"
-          onClick={edit}
-        >
+        <Flex aStart className="cursor-pointer text-gray-700 hover:text-gray-600" onClick={edit}>
           <EditIcon size={24} />
           <Spacer w={1} />
           <span>編集する</span>

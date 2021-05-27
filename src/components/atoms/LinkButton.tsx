@@ -12,13 +12,7 @@ type ExtraAttributes = {
 
 type Props = ExtraAttributes & Omit<ButtonAttributes, 'value'>;
 
-export const LinkButton: React.VFC<Props> = ({
-  text,
-  href,
-  primary,
-  onClick,
-  className,
-}) => {
+export const LinkButton: React.VFC<Props> = ({ text, href, primary, onClick, className }) => {
   return (
     <Link href={href ? href : ''}>
       <button

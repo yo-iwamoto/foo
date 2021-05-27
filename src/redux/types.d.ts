@@ -1,7 +1,6 @@
 import { Shop } from '@/types';
+import { AuthProvider } from '@/types';
 import { State } from './store/initialState';
-
-export type AuthProvider = 'firebase' | 'google.com' | 'twitter.com' | null;
 
 interface ActionResponse<T> {
   type: string;

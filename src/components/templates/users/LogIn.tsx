@@ -2,61 +2,38 @@ import React, { useEffect } from 'react';
 
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { logInAction, LogInActionPayload } from '@/redux/users/actions';
-import {
-  startLoadingAction,
-  endLoadingAction,
-  raiseToastAction,
-} from '@/redux/utilities/actions';
+import { startLoadingAction, endLoadingAction, raiseToastAction } from '@/redux/utilities/actions';
 
-import {
-  auth,
-  catchOAuthRedirect,
-  firebaseSignIn,
-  googleProvider,
-  twitterProvider,
-} from '@/api/authentication/firebase';
-import { signIn } from '@/api/users';
+import { apiController } from '@/api';
 import { useRouter } from 'next/router';
 
-import {
-  Heading,
-  SubHeading,
-  TextLink,
-  Loader,
-  OAuthIcon,
-} from '@/components/atoms';
+import { Heading, TextLink, Loader, OAuthIcon } from '@/components/atoms';
 import { LogInForm } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
-import { FirebasePayload, FirebaseSignInResponse } from '@/types';
+import { FirebaseSignInPayload, FirebaseSignInResponse } from '@/types';
 import { State, UtilityState } from '@/redux/types';
 import { toastTemplates } from '@/lib/toasts';
+import { auth } from '@/api/firebase';
 
 export const LogIn: React.VFC = () => {
   const router = useRouter(),
     dispatch = useDispatch();
 
   const googleLogIn = (): void => {
-    auth.signInWithRedirect(googleProvider);
+    apiController.firebase.googleSignIn();
   };
 
   const twitterLogIn = (): void => {
-    auth.signInWithRedirect(twitterProvider);
+    apiController.firebase.twitterSignIn();
   };
 
-  const firebaseAuth = async (payload: FirebasePayload): Promise<void> => {
+  const firebaseAuth = async (payload: FirebaseSignInPayload): Promise<void> => {
     try {
-      const response = (await firebaseSignIn.logIn(
-        payload,
-      )) as FirebaseSignInResponse;
+      const response = (await apiController.firebase.logIn(payload)) as FirebaseSignInResponse;
       const { authProvider, isNewUser, ...logInResource } = response;
       dispatch(startLoadingAction());
-      const res = await signIn.logIn(logInResource);
-      const actionPayload: LogInActionPayload = {
-        ...res.user,
-        isNewUser,
-        authProvider,
-      };
-      dispatch(logInAction(actionPayload));
+      const res = await apiController.users.logIn(logInResource);
+      dispatch(logInAction({ ...res.user, isNewUser, authProvider }));
       dispatch(endLoadingAction());
       dispatch(raiseToastAction(toastTemplates.logIn));
       router.push('/users/mypage');
@@ -65,20 +42,15 @@ export const LogIn: React.VFC = () => {
     }
   };
 
-  const { isLoading } = useSelector<State, UtilityState>(
-    (state) => state.utilities,
-    shallowEqual,
-  );
+  const { isLoading } = useSelector<State, UtilityState>((state) => state.utilities, shallowEqual);
 
   useEffect(() => {
     dispatch(startLoadingAction());
-    const userCredential = auth
-      .getRedirectResult()
+    auth.getRedirectResult()
       .then((userCredential) => {
         if (userCredential.user) {
-          const { authProvider, isNewUser, ...resource } =
-            catchOAuthRedirect(userCredential);
-          signIn
+          const { authProvider, isNewUser, ...resource } = apiController.firebase.catchOAuthRedirect(userCredential);
+          apiController.users
             .logIn(resource)
             .then((res) => {
               const actionPayload: LogInActionPayload = {

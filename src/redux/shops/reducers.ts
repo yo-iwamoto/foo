@@ -2,10 +2,7 @@ import * as ActionTypes from './actionTypes';
 import { ActionResponse, ShopState } from '@/redux/types';
 import { initialState } from '@/redux/store/initialState';
 
-export const ShopsReducer = (
-  state: ShopState = initialState.shops,
-  action: ActionResponse<ShopState>,
-): ShopState => {
+export const ShopsReducer = (state: ShopState = initialState.shops, action: ActionResponse<ShopState>): ShopState => {
   switch (action.type) {
     case ActionTypes.GET_SHOPS:
       return {

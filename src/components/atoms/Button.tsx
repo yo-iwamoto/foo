@@ -10,12 +10,7 @@ type AdditionalAttributes = {
 
 type Props = AdditionalAttributes & Omit<ButtonAttributes, 'value'>;
 
-export const Button: React.VFC<Props> = ({
-  text,
-  primary,
-  onClick,
-  className,
-}) => {
+export const Button: React.VFC<Props> = ({ text, primary, onClick, className }) => {
   return (
     <button
       className={cn({
