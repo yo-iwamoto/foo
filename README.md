@@ -5,7 +5,7 @@
 
 ## 開発ロードマップ
 
-https://www.notion.so/Foo-d5ddbe46840c44e895dc849f5fde7a13
+[Foo 開発ロードマップ - Notion / Yo Iwamoto](https://www.notion.so/Foo-d5ddbe46840c44e895dc849f5fde7a13)
 
 ## 構成
 
