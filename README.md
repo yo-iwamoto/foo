@@ -2,7 +2,6 @@
 
 
 ひとりご飯の検索サイト，Foo のフロントレポジトリです．Next.js + TypeScript で書いています．  
-個人管理かつ開発段階のため，ブランチは```develop``` => ```main```のみ利用しています．
 
 ## 開発ロードマップ
 
@@ -38,6 +37,8 @@ $ git clone https://github.com/you-5805/foo
 $ cd foo && yarn install
 $ yarn dev
 ```
+
+個人管理かつ開発段階のため，ブランチは```develop``` => ```main```のみ利用しています．
 
 ### lint 等
 
