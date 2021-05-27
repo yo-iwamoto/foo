@@ -30,7 +30,7 @@ export const Toast: React.VFC<Props> = ({ toast, closeToast }) => {
     >
       <div
         className={cn({
-          ['fixed left-auto top-8 right-4 md:right-8 w-4/5 sm:w-3/4 md:w-1/2 lg:w-2/5 h-12 rounded-lg p-2 border-2']:
+          ['fixed left-auto top-8 right-4 md:right-8 w-4/5 sm:w-3/4 md:w-1/2 lg:w-2/5 h-12 rounded-lg p-2 border shadow-lg']:
             true,
           ['border-green-300 bg-green-100']: toast.type === 'success',
           ['border-red-500 bg-red-100']: toast.type === 'error',

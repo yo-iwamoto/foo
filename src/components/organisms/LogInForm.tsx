@@ -1,12 +1,12 @@
 import React from 'react';
-import { FirebasePayload } from '@/types';
+import { FirebaseSignInPayload } from '@/types';
 
 import { TextField, SubmitButton } from '@/components/atoms';
 import { Flex, Spacer } from '@/components/utilities';
 import { useInput } from '@/hooks/useInput';
 
 type Props = {
-  firebaseAuth: (payload: FirebasePayload) => Promise<void>;
+  firebaseAuth: (payload: FirebaseSignInPayload) => Promise<void>;
 };
 
 export const LogInForm: React.VFC<Props> = ({ firebaseAuth }) => {
@@ -34,13 +34,7 @@ export const LogInForm: React.VFC<Props> = ({ firebaseAuth }) => {
           fullwidth
         />
         <Spacer h={6} />
-        <TextField
-          type="password"
-          value={password}
-          placeholder="パスワード"
-          onChange={onChangePassword}
-          fullwidth
-        />
+        <TextField type="password" value={password} placeholder="パスワード" onChange={onChangePassword} fullwidth />
         <Spacer h={6} />
         <SubmitButton text="ログイン" />
       </Flex>

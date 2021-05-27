@@ -9,12 +9,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const IconTextLink: React.VFC<Props> = ({
-  href,
-  text,
-  children,
-  onClick,
-}) => {
+export const IconTextLink: React.VFC<Props> = ({ href, text, children, onClick }) => {
   return (
     <div onClick={onClick}>
       <Link href={href}>

@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { Shop } from '@/types';
 
-import { Image, Like } from '@/components/atoms';
-import { Spacer, Flex } from '@/components/utilities';
+import { Flex } from '@/components/utilities';
+import { Like } from '../atoms';
 
 type Props = {
   shop: Shop | undefined;
   like: (id: string) => Promise<boolean>;
-  removeLike: (id: string) => Promise<void>;
+  remove: (id: string) => Promise<void>;
 };
 
-export const Card: React.VFC<Props> = ({ shop, like, removeLike }) => {
+export const Card: React.VFC<Props> = ({ shop, like, remove }) => {
   if (shop) {
     const [likeState, setLikeState] = useState<boolean>(shop.like!);
     const onClick = async (): Promise<void> => {
       if (likeState) {
-        removeLike(shop.id);
+        remove(shop.id);
         setLikeState(false);
       } else {
         try {
@@ -32,36 +32,24 @@ export const Card: React.VFC<Props> = ({ shop, like, removeLike }) => {
     const hotpepperImageUrl = '/images/hot_pepper.png';
 
     return (
-      <div className="w-full mx-auto p-4 shadow-lg rounded-lg text-left leading-loose">
-        <div className="w-full flex justify-between items-start">
-          <img src={shop.photo.pc.l} className="max-h-40 rounded-lg" />
-          <a className="hover:underline" target="_blank" href={shop.urls.pc}>
-            <Flex aCenter>
-              <Image
-                src={hotpepperImageUrl}
-                height={40}
-                width={40}
-                className="rounded-lg"
-              />
-            </Flex>
+      <Flex aCenter className="w-full border-main mx-auto shadow-lg rounded-lg text-left leading-loose h-24 sm:h-28">
+        <Flex jStart className="w-19/20">
+          <a className="hover:opacity-80 h-24 sm:h-28 block" target="_blank" href={shop.urls.pc}>
+            <img src={shop.photo.pc.l} className="h-full min-w-24 sm:min-w-28 overflow-hidden block rounded-l-lg" />
           </a>
-        </div>
-        <Spacer h={4} />
-        <Flex jBetween aCenter>
-          <div className="font-bold text-xl">{shop.name}</div>
-          <Spacer w={4} />
-          <Like likeState={likeState} onClick={onClick} />
+          <Flex aCenter jBetween className="w-full p-3 overflow-hidden">
+            <a className="hover:underline w-auto block leading-normal" target="_blank" href={shop.urls.pc}>
+              <h3 className="font-bold text-sm sm:text-lg whitespace-nowrap overflow-ellipsis">{shop.name}</h3>
+              <p className="text-xs sm:text-sm">{shop.catch}</p>
+            </a>
+          </Flex>
         </Flex>
-        <p>{shop.catch}</p>
-      </div>
+        {/* <div className="text-md sm:text-lg block transform -translate-x-1 w-1/20 cursor-pointer hover:text-main">
+          <Like likeState={likeState} onClick={onClick} />
+        </div> */}
+      </Flex>
     );
   } else {
-    return (
-      <div className="w-full mx-auto p-4 shadow-lg rounded-lg text-left leading-loose">
-        <h1 className="font-bold">
-          ピンをクリックして詳細を見ることができます
-        </h1>
-      </div>
-    );
+    return <div />;
   }
 };

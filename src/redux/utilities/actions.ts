@@ -1,12 +1,5 @@
 import * as ActionTypes from './actionTypes';
-import {
-  ActionResponse,
-  ModalState,
-  ModalType,
-  ToastState,
-  ToastType,
-  UtilityState,
-} from '@/redux/types';
+import { ActionResponse, ModalState, ModalType, ToastState, ToastType, UtilityState } from '@/redux/types';
 
 type UtilityActionResponse = ActionResponse<UtilityState>;
 

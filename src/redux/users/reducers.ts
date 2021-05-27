@@ -3,10 +3,7 @@ import * as ActionTypes from './actionTypes';
 import { ActionResponse, UserState } from '@/redux/types';
 import { initialState } from '@/redux/store/initialState';
 
-export const UsersReducer = (
-  state: UserState = initialState.users,
-  action: ActionResponse<UserState>,
-): UserState => {
+export const UsersReducer = (state: UserState = initialState.users, action: ActionResponse<UserState>): UserState => {
   switch (action.type) {
     case ActionTypes.LOG_IN:
       return {

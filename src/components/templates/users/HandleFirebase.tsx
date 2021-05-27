@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { verifyEmail } from '@/api/authentication/firebase';
+import { apiController } from '@/api';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { raiseModalAction } from '@/redux/utilities/actions';
@@ -16,7 +16,8 @@ export const HandleFirebase: React.VFC = () => {
     if (mode) {
       switch (mode) {
         case 'verifyEmail':
-          verifyEmail(actionCode)
+          apiController.firebase
+            .handleActionCode({ actionCode })
             .then(() => {
               dispatch(raiseModalAction(modalTemplates.finishVerified));
               router.push('/users/login');

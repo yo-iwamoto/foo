@@ -1,12 +1,7 @@
 import React from 'react';
 import { ModalState } from '@/redux/types';
 import { Button, LinkButton } from '@/components/atoms';
-import {
-  TimesIcon,
-  PlaneIcon,
-  CheckCircleIcon,
-  UtensilsIcon,
-} from '@/components/atoms/Icons';
+import { TimesIcon, PlaneIcon, CheckCircleIcon, UtensilsIcon } from '@/components/atoms/Icons';
 import { Flex, Spacer } from '@/components/utilities';
 
 type Props = {
@@ -41,9 +36,7 @@ export const Modal: React.VFC<Props> = ({ modal, close }) => {
             <ModalIcon />
           </Flex>
           <Spacer h={8} />
-          <h1 className="text-xl sm:text-2xl text-center font-bold whitespace-nowrap">
-            {modal.title}
-          </h1>
+          <h1 className="text-xl sm:text-2xl text-center font-bold whitespace-nowrap">{modal.title}</h1>
           <Spacer h={6} />
           <p className="text-md whitespace-pre-wrap">{modal.message}</p>
           <Spacer h={6} />

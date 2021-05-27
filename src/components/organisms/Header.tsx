@@ -12,22 +12,11 @@ export const Header: React.VFC<Props> = ({ toggleDrawer }) => {
       <div className="w-16">
         <Link href="/">
           <a>
-            <Image
-              src="/images/LogoWhite.png"
-              alt="foo"
-              width={240}
-              height={184}
-              className="transform translate-y-1"
-            />
+            <Image src="/images/LogoWhite.png" alt="foo" width={240} height={184} className="transform translate-y-1" />
           </a>
         </Link>
       </div>
-      <GiHamburgerMenu
-        color="white"
-        size="30"
-        className="cursor-pointer"
-        onClick={toggleDrawer}
-      />
+      <GiHamburgerMenu color="white" size="30" className="cursor-pointer" onClick={toggleDrawer} />
     </header>
   );
 };

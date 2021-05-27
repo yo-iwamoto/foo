@@ -1,8 +1,4 @@
-import {
-  createStore as reduxCreateStore,
-  combineReducers,
-  applyMiddleware,
-} from 'redux';
+import { createStore as reduxCreateStore, combineReducers, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 
 import { UtilitiesReducer } from '@/redux/utilities/reducers';

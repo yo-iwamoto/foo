@@ -1,14 +1,7 @@
 import React from 'react';
 import { DrawerMenu } from '@/types';
 import cn from 'classnames';
-import {
-  HomeIcon,
-  SignInIcon,
-  UserPlusIcon,
-  TimesIcon,
-  SignOutIcon,
-  UserIcon,
-} from '@/components/atoms/Icons';
+import { HomeIcon, SignInIcon, UserPlusIcon, TimesIcon, SignOutIcon, UserIcon } from '@/components/atoms/Icons';
 import { IconTextLink } from '@/components/atoms';
 import { Spacer } from '@/components/utilities';
 
@@ -19,12 +12,7 @@ type Props = {
   logOut: () => void;
 };
 
-export const NavigationDrawer: React.VFC<Props> = ({
-  show,
-  toggleDrawer,
-  isLoggedIn,
-  logOut,
-}) => {
+export const NavigationDrawer: React.VFC<Props> = ({ show, toggleDrawer, isLoggedIn, logOut }) => {
   const menus: DrawerMenu[] = [
     { text: 'トップ', href: '/', icon: <HomeIcon color="white" size={40} /> },
     {
@@ -66,19 +54,13 @@ export const NavigationDrawer: React.VFC<Props> = ({
         [opened]: show,
       })}
     >
-      <div
-        className="ml-auto w-8 mt-6 mr-6 cursor-pointer"
-        onClick={toggleDrawer}
-      >
+      <div className="ml-auto w-8 mt-6 mr-6 cursor-pointer" onClick={toggleDrawer}>
         <TimesIcon color="white" size="40" />
       </div>
       <div className="mt-16 flex flex-col justify-between items-start">
         {menus.map((menu, index) => (
           <div key={index} className="w-full pl-16 lg:pl-10">
-            <IconTextLink
-              {...menu}
-              onClick={menu.text === 'ログアウト' ? logOut : toggleDrawer}
-            >
+            <IconTextLink {...menu} onClick={menu.text === 'ログアウト' ? logOut : toggleDrawer}>
               {menu.icon}
             </IconTextLink>
             <Spacer h={6} />
