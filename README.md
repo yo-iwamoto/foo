@@ -17,8 +17,7 @@
 | TypeScript              | JavaScript の型付け，開発の効率化                                                 |
 | Redux                   | 状態管理ライブラリとして情報量が十分だったため                                    |
 | Tailwind CSS            | コンポーネント志向のフロント開発との相性の良さ，拡張性の高さ，簡潔さ              |
-| ESLint                  | コード解析のため                                                                  |
-| Prettier                | コードフォーマットのため                                                          |
+| ESLint / Prettier       | コード解析 / コードフォーマットのため                                    |
 | Firebase Authentication | 個人情報分離，OAuth の簡易実装・メール認証ユーザーとの一元管理                    |
 | Express                 | ローカル環境からプロキシを設定して外部 API にアクセスするためのカスタムサーバー用 |
 | GoogleMap API           | 地図利用 API としての機能の豊富さ                                                 |
