@@ -1,10 +1,10 @@
-import { Button } from "../components/atoms";
+import { Button } from '../components/atoms';
 
 export default {
-  title: 'Button'
+  title: 'Button',
 };
 
-export const showButton = () => {
+export const showButton = (): JSX.Element => {
   return (
     <>
       <Button text="BASE" />

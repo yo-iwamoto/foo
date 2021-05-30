@@ -19,7 +19,7 @@ export const SearchBar: React.VFC<Props> = ({ value, onChange, onSubmit }) => {
           value={value}
           className="font-bold rounded-full w-full py-4 pl-4 leading-tight focus:outline-none focus:shadow-outline text-xs sm:text-sm md:text-md"
           type="text"
-          placeholder="焼き鳥、吉祥寺、カフェ ..."
+          placeholder="焼き鳥、カフェ ..."
           onChange={onChange}
         />
         <SearchCircle onClick={onSubmit} />

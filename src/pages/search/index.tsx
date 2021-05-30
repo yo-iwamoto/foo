@@ -1,6 +1,6 @@
 import React from 'react';
-import { ResultMap } from '@/components/templates';
+import { Search } from '@/components/templates';
 
-const Page: React.VFC = () => <ResultMap />;
+const Page: React.VFC = () => <Search />;
 
 export default Page;

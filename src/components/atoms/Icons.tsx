@@ -18,11 +18,12 @@ import {
   FaTrashAlt,
   FaEdit,
   FaTimesCircle,
+  FaMapPin,
+  FaClock,
+  FaChevronUp,
 } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import { GiHamburgerMenu } from 'react-icons/gi';
-
-type Props = IconBaseProps;
 
 export const GitHubIcon: React.VFC<IconBaseProps> = (props) => {
   return <FaGithub {...props} />;
@@ -92,8 +93,20 @@ export const TimesCircleIcon: React.VFC<IconBaseProps> = (props) => {
   return <FaTimesCircle {...props} />;
 };
 
+export const PinIcon: React.VFC<IconBaseProps> = (props) => {
+  return <FaMapPin {...props} />;
+};
+
+export const ClockIcon: React.VFC<IconBaseProps> = (props) => {
+  return <FaClock {...props} />;
+};
+
 export const TrashIcon: React.VFC<IconBaseProps> = (props) => {
   return <FaTrashAlt {...props} />;
+};
+
+export const UpChevronIcon: React.VFC<IconBaseProps> = (props) => {
+  return <FaChevronUp {...props} />;
 };
 
 export const HamburgerIcon: React.VFC<IconBaseProps> = (props) => {

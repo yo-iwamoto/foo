@@ -3,7 +3,7 @@ export { Contact } from './about/Contact';
 export { Manager } from './about/Manager';
 export { PrivacyPolicy } from './about/PrivacyPolicy';
 export { Mypage } from './users/mypage/Mypage';
-export { ResultMap } from './search/ResultMap';
+export { Search } from './search/Search';
 export { SignUp } from './users/SignUp';
 export { HandleFirebase } from './users/HandleFirebase';
 export { LogIn } from './users/LogIn';
