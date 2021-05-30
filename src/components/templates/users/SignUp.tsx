@@ -32,8 +32,7 @@ export const SignUp: React.VFC = () => {
     try {
       dispatch(startLoadingAction());
       const uid = (await apiController.firebase.signUp(payload)) as string;
-      const resource = { name, uid };
-      await apiController.users.signUp(resource);
+      await apiController.users.signUp({ name, uid });
       localStorage.removeItem('Access-Token');
       dispatch(raiseModalAction(modalTemplates.checkEmail));
       dispatch(endLoadingAction());
@@ -48,7 +47,8 @@ export const SignUp: React.VFC = () => {
 
   useEffect(() => {
     dispatch(startLoadingAction());
-    auth.getRedirectResult()
+    auth
+      .getRedirectResult()
       .then((userCredential) => {
         if (userCredential.user) {
           const { authProvider, isNewUser, ...resource } = apiController.firebase.catchOAuthRedirect(userCredential);
