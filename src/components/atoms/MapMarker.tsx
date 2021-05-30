@@ -18,11 +18,11 @@ export const MapMarker: React.VFC<Props> = ({ position, name, address, hid, onCl
   return (
     <OverlayView position={position} mapPaneName={OverlayView.FLOAT_PANE}>
       <Flex aEnd className="hover:text-blue-500 hover:opacity-80 cursor-pointer -translate-y-12" onClick={onClick}>
-        <div className=" transition transform">
+        <div className="transition transform">
           <Image src={imageUrl} width={40} height={53} />
         </div>
-        <Spacer w={2} />
-        <p className="font-bold text-lg hover:opacity-100">{name}</p>
+        {/* <Spacer w={2} />
+        <p className="font-bold text-lg hover:opacity-100 bg-white rounded-lg">{name}</p> */}
       </Flex>
     </OverlayView>
   );

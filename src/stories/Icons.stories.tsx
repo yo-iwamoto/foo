@@ -26,7 +26,7 @@ export default {
   title: 'Icons',
 };
 
-export const showIcons = () => {
+export const showIcons = (): JSX.Element => {
   const iconProps: IconBaseProps = {
     size: 30,
     cursor: 'pointer',

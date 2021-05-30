@@ -3,7 +3,7 @@ import { HeartIcon, HeartOutlineIcon } from '@/components/atoms/Icons';
 
 type Props = {
   likeState: boolean;
-  onClick: () => void;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 };
 
 export const Like: React.VFC<Props> = ({ likeState, onClick }) => {

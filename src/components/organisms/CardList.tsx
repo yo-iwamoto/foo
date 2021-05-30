@@ -1,19 +1,20 @@
 import React from 'react';
 import { Shop } from '@/types';
-import { MiniCard } from '@/components/molecules';
+import { Card } from '@/components/molecules';
 import { Spacer } from '../utilities';
 
 type Props = {
   shops: Shop[];
+  like: (id: string) => Promise<void>;
   remove: (id: string) => Promise<void>;
 };
 
-export const CardList: React.VFC<Props> = ({ shops, remove }) => {
+export const CardList: React.VFC<Props> = ({ shops, like, remove }) => {
   return (
-    <div className="w-full md:w-4/5 lg:w-2/3 mx-auto">
+    <div className="w-full mx-auto">
       {shops.map((shop, index) => (
         <div key={index}>
-          <MiniCard shop={shop} removeLike={remove} />
+          <Card shop={shop} like={like} remove={remove} />
           <Spacer h={3} />
         </div>
       ))}

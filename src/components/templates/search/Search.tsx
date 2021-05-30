@@ -13,7 +13,7 @@ import { modalTemplates } from '@/lib/modals';
 import Skelton from 'react-loading-skeleton';
 import { Map, SearchBar } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
-import { ResultList } from '@/components/organisms/ResultList';
+import { CardList } from '@/components/organisms/CardList';
 
 interface GeolocationData {
   coords: {
@@ -22,7 +22,7 @@ interface GeolocationData {
   };
 }
 
-export const ResultMap: React.VFC = () => {
+export const Search: React.VFC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -35,17 +35,14 @@ export const ResultMap: React.VFC = () => {
   const [currentPosition, setCurrentPosition] = useState<Position>(initialPosition);
   const [shopsCount, setShopsCount] = useState<number>(0);
 
-  const handleSuccess = (data: GeolocationData): void => {
+  const handleGeolocationSuccess = (data: GeolocationData): void => {
+    console.log('handle');
     const position: Position = {
       lat: data.coords.latitude,
       lng: data.coords.longitude,
     };
     setCurrentPosition(position);
     search(position);
-  };
-
-  const handleError = (err: any) => {
-    throw err;
   };
 
   const search = (searchPosition: Position) => {
@@ -84,7 +81,9 @@ export const ResultMap: React.VFC = () => {
 
   useEffect(() => {
     dispatch(startLoadingAction());
-    navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
+    navigator.geolocation.getCurrentPosition(handleGeolocationSuccess, (err: any) => {
+      throw err;
+    });
   }, [router.query.word]);
 
   const ref = useRef<HTMLDivElement>(null);
@@ -101,7 +100,7 @@ export const ResultMap: React.VFC = () => {
     console.log(shop);
   };
 
-  const like = async (id: string): Promise<boolean> => {
+  const like = async (id: string): Promise<void> => {
     if (isLoggedIn) {
       try {
         await apiController.shops.likes.create(id);
@@ -112,13 +111,11 @@ export const ResultMap: React.VFC = () => {
           }
         });
         dispatch(getShopsAction(result));
-        return true;
       } catch (err) {
         throw err;
       }
     } else {
       dispatch(raiseModalAction(modalTemplates.like));
-      return false;
     }
   };
 
@@ -172,10 +169,10 @@ export const ResultMap: React.VFC = () => {
           <Spacer h={6} />
           <SearchBar value={text} onChange={onChange} onSubmit={onSubmit} />
           <Spacer h={3} />
-          <div className="px-4 w-full md:w-4/5 lg:w-1/2 mx-auto" ref={ref}>
+          <div className="px-4 w-full md:w-3/4 lg:w-3/5 mx-auto" ref={ref}>
             <h1>3km以内に{shopsCount}件のお店が見つかりました</h1>
             <Spacer h={4} />
-            <ResultList shops={shops} like={like} remove={remove} />
+            <CardList shops={shops} like={like} remove={remove} />
           </div>
           <Spacer h={8} />
         </>

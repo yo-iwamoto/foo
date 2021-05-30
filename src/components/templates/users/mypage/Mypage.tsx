@@ -34,6 +34,9 @@ export const Mypage: React.VFC = () => {
         });
         if (ids.length !== 0) {
           apiController.hotpepper.index({ ids }).then((res) => {
+            res.shop.map((shop) => {
+              shop.like = true;
+            });
             dispatch(getShopsAction(res.shop));
           });
         }
@@ -47,7 +50,11 @@ export const Mypage: React.VFC = () => {
       dispatch(raiseModalAction(modalTemplates.firstVisit));
       dispatch(endNewUserAction());
     }
-    getShops();
+    if (shops.shops.length !== 1) {
+      getShops();
+    } else {
+      clearShopsAction();
+    }
   }, [user.isNewUser, user.uid]);
 
   const accountTable: TableRow[] = [
@@ -80,10 +87,15 @@ export const Mypage: React.VFC = () => {
     getShops();
   };
 
+  const like = async (id: string): Promise<void> => {
+    await apiController.shops.likes.create(id);
+    getShops();
+  };
+
   return (
     <>
       {user.isLoggedIn ? (
-        <div className="mx-auto py-8 px-4 sm:px-10 md:px-12 max-w-6xl">
+        <div className="mx-auto py-8 w-11/12 sm:w-3/4 lg:w-3/5 xl:w-1/2">
           <Heading>マイページ</Heading>
           <Spacer h={12} />
           <section>
@@ -112,7 +124,7 @@ export const Mypage: React.VFC = () => {
             <SectionTitle title="お気に入りリスト">
               <p>{shops.shops.length} 件</p>
             </SectionTitle>
-            <CardList shops={shops.shops} remove={remove} />
+            <CardList shops={shops.shops} like={like} remove={remove} />
           </section>
         </div>
       ) : (
