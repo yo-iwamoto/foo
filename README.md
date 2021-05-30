@@ -4,7 +4,8 @@
 ひとりご飯の検索サイト，Foo のフロントレポジトリです．Next.js + TypeScript で書いています．  
 
 Foo - ひとりご飯の検索サイト：https://foo-search.net  
-Storybook：https://foo-storybook.netlify.app
+Storybook：https://foo-storybook.netlify.app  
+※ Storybookは現在作成中です．
 
 ## 開発ロードマップ
 
