@@ -46,7 +46,8 @@ export const LogIn: React.VFC = () => {
 
   useEffect(() => {
     dispatch(startLoadingAction());
-    auth.getRedirectResult()
+    auth
+      .getRedirectResult()
       .then((userCredential) => {
         if (userCredential.user) {
           const { authProvider, isNewUser, ...resource } = apiController.firebase.catchOAuthRedirect(userCredential);
