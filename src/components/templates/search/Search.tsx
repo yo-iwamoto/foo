@@ -11,9 +11,8 @@ import { Position } from '@/types';
 import { modalTemplates } from '@/lib/modals';
 
 import Skelton from 'react-loading-skeleton';
-import { Map, SearchBar } from '@/components/organisms';
-import { Spacer } from '@/components/utilities';
-import { Card } from '@/components/organisms';
+import { Map, SearchBar, ShopCard } from '@/components/organisms';
+import { Flex, Spacer } from '@/components/utilities';
 import { useLikes } from '@/hooks/useLikes';
 import { useInput } from '@/hooks/useInput';
 
@@ -36,6 +35,7 @@ export const Search: React.VFC = () => {
 
   const [currentPosition, setCurrentPosition] = useState<Position>(initialPosition);
   const [shopsCount, setShopsCount] = useState<number>(0);
+  const [selectedId, setSelectedId] = useState<string>('');
 
   const search = async (data: GeolocationData): Promise<void> => {
     const query = router.query.word as string;
@@ -53,7 +53,6 @@ export const Search: React.VFC = () => {
       });
       setShopsCount(results_available);
       const likedShops = await apiController.shops.likes.index(shop);
-      console.log(likedShops);
       const result = shop;
       result.map((shop, index) => {
         shop.like = likedShops[index];
@@ -69,19 +68,6 @@ export const Search: React.VFC = () => {
       throw err;
     });
   }, [router.query.word]);
-
-  const ref = useRef<HTMLDivElement>(null);
-
-  // const onClickPin = (hotpepper_id: string): void => {
-  //   ref!.current!.scrollIntoView({
-  //     behavior: 'smooth',
-  //     block: 'start',
-  //   });
-  //   const shop = shops.filter((shop) => {
-  //     return shop.id === hotpepper_id;
-  //   })[0];
-  //   setCurrentPosition({ lat: shop.lat, lng: shop.lng });
-  // };
 
   // likes controll
 
@@ -111,6 +97,16 @@ export const Search: React.VFC = () => {
     }
   };
 
+  const select = (id: string): void => {
+    const shop = shops.find((shop) => shop.id === id);
+    const position: Position = {
+      lat: shop!.lat,
+      lng: shop!.lng,
+    };
+    setCurrentPosition(position);
+    setSelectedId(id);
+  };
+
   return (
     <>
       {isLoading ? (
@@ -128,19 +124,27 @@ export const Search: React.VFC = () => {
         </>
       ) : (
         <>
-          <Map currentPosition={currentPosition} shops={shops} />
+          <Map currentPosition={currentPosition} shops={shops} select={select} selected={selectedId} />
           <Spacer h={6} />
           <SearchBar value={text} onChange={onChangeText} onSubmit={onSubmit} />
           <Spacer h={3} />
-          <div className="px-4 w-full md:w-3/4 lg:w-3/5 mx-auto" ref={ref}>
+          <div className="px-4 w-full">
             <h1>3km以内に{shopsCount}件のお店が見つかりました</h1>
             <Spacer h={4} />
-            <div>
+            <div className="flex overflow-x-scroll scroll-hidden">
               {shops.map((shop, index) => (
-                <div key={index}>
-                  <Card shop={shop} like={isLoggedIn ? like : suggestLogIn} remove={remove} />
-                  <Spacer h={3} />
-                </div>
+                <Flex key={index}>
+                  <Spacer w={2} />
+                  <ShopCard
+                    shop={shop}
+                    like={isLoggedIn ? like : suggestLogIn}
+                    remove={remove}
+                    select={select}
+                    selected={selectedId}
+                    square
+                  />
+                  <Spacer w={2} />
+                </Flex>
               ))}
             </div>
           </div>

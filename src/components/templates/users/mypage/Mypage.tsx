@@ -9,7 +9,7 @@ import { providerName } from '@/lib/providerName';
 
 import { Heading, TextField } from '@/components/atoms';
 import { SectionTitle, Table } from '@/components/molecules';
-import { Card, EditControl } from '@/components/organisms';
+import { ShopCard, EditControl } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
 import { UpdateNameResource } from '@/types';
 import { toastTemplates } from '@/lib/toasts';
@@ -154,7 +154,7 @@ export const Mypage: React.VFC = () => {
             <div>
               {shops.map((shop, index) => (
                 <div key={index}>
-                  <Card shop={shop} like={like} remove={remove} />
+                  <ShopCard shop={shop} like={like} remove={remove} />
                   <Spacer h={3} />
                 </div>
               ))}
