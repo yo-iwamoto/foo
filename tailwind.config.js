@@ -3,11 +3,6 @@ const colors = require('tailwindcss/colors');
 module.exports = {
   purge: ['./src/**/*.{ts,tsx,js,jsx}'],
   darkMode: false,
-  variants: {
-    extend: {
-      translate: ['active'],
-    },
-  },
   theme: {
     extend: {
       colors: {
@@ -25,6 +20,9 @@ module.exports = {
         '1/7': '14.2%',
         '6/7': '85.8%',
       },
+      height: {
+        26: '6.5rem',
+      },
       inset: {
         '1/10': '10%',
         '1/6': '16.6%',
@@ -37,6 +35,9 @@ module.exports = {
       minWidth: {
         24: '6rem',
         28: '7rem',
+      },
+      animation: {
+        'bounce-rapid': 'bounce .5s ease-in-out infinite',
       },
     },
   },

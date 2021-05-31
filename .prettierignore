@@ -6,3 +6,4 @@
 package.json
 postcss.config.js
 .eslintrc.json
+/build/

@@ -10,6 +10,9 @@ export type Shop = {
   card: '利用可' | '利用不可';
   catch: string;
   english: AriOrNashi;
+  genre: {
+    name: string;
+  };
   lat: number;
   lng: number;
   photo: {

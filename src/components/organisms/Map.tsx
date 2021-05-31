@@ -1,8 +1,7 @@
 import React from 'react';
-import { LoadScriptNext, GoogleMap } from '@react-google-maps/api';
+import { LoadScriptNext, GoogleMap, GoogleMapProps } from '@react-google-maps/api';
 import { Position, Shop } from '@/types';
 import { MapMarker } from '@/components/atoms';
-import { useCustomMarker } from '@/hooks/useCustomMarker';
 
 type Props = {
   currentPosition: Position;
@@ -17,6 +16,11 @@ export const Map: React.VFC<Props> = ({ currentPosition, shops }) => {
     console.log(e.latLng!.lat());
     console.log(e.latLng!.lng());
   };
+  const a: GoogleMapProps = {
+    options: {
+      scrollwheel: true,
+    },
+  };
 
   const onClick = (): void => {
     alert('clicked');
@@ -28,7 +32,7 @@ export const Map: React.VFC<Props> = ({ currentPosition, shops }) => {
         center={currentPosition}
         mapContainerStyle={containerStyle}
         zoom={15}
-        options={{ disableDefaultUI: true, clickableIcons: false }}
+        options={{ disableDefaultUI: true, clickableIcons: false, scrollwheel: true }}
         onClick={handleClick}
       >
         {shops &&
@@ -36,13 +40,7 @@ export const Map: React.VFC<Props> = ({ currentPosition, shops }) => {
             const shopPosition: Position = { lat: shop.lat, lng: shop.lng };
             return (
               <div className="cursor-pointer hover:bg-red-400" key={index}>
-                <MapMarker
-                  position={shopPosition}
-                  name={shop.name}
-                  address={shop.address}
-                  hid={shop.id}
-                  onClick={onClick}
-                />
+                <MapMarker position={shopPosition} shop={shop} onClick={onClick} />
               </div>
             );
           })}

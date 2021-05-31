@@ -1,4 +1,4 @@
-export { CardList } from './CardList';
+export { Card } from './Card';
 export { EditControl } from './EditControl';
 export { Footer } from './Footer';
 export { Header } from './Header';

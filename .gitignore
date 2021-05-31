@@ -4,3 +4,4 @@
 /.next/
 /.env
 next.config.js
+/build/

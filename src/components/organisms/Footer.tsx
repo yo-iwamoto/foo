@@ -11,8 +11,8 @@ export const Footer: React.VFC = () => {
   ];
 
   return (
-    <footer className="flex flex-col pt-3 pb-16 px-4 bg-text">
-      <Flex jBetween aCenter className="w-68 mx-auto">
+    <footer className="flex flex-col pt-3 pb-16 bg-text">
+      <Flex jCenter aCenter>
         {menus.map((menu, index) => (
           <div key={index}>
             <TextLink {...menu} key={index + 1} />
