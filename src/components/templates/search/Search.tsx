@@ -10,7 +10,7 @@ import { State, ShopState, UtilityState, UserState } from '@/redux/types';
 import { Position } from '@/types';
 import { modalTemplates } from '@/lib/modals';
 
-import Skelton from 'react-loading-skeleton';
+import Skeleton from 'react-loading-skeleton';
 import { Map, SearchBar, ShopCard } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
 import { useLikes } from '@/hooks/useLikes';
@@ -111,9 +111,9 @@ export const Search: React.VFC = () => {
     <>
       {isLoading ? (
         <>
-          <Skelton style={{ height: '500px' }} />
+          <Skeleton style={{ height: '500px' }} />
           <Spacer h={6} />
-          <Skelton
+          <Skeleton
             style={{
               height: '60px',
               width: '300px',
