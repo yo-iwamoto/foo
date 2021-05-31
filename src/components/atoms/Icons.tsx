@@ -19,8 +19,8 @@ import {
   FaEdit,
   FaTimesCircle,
   FaMapPin,
-  FaClock,
   FaChevronUp,
+  FaRegClock,
   FaMapMarkerAlt,
 } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
@@ -99,7 +99,7 @@ export const PinIcon: React.VFC<IconBaseProps> = (props) => {
 };
 
 export const ClockIcon: React.VFC<IconBaseProps> = (props) => {
-  return <FaClock {...props} />;
+  return <FaRegClock {...props} />;
 };
 
 export const TrashIcon: React.VFC<IconBaseProps> = (props) => {

@@ -5,3 +5,15 @@
 *::selection {
   background-color: #ffd1c0;
 }
+
+.scroll-hidden {
+  scrollbar-width: none;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.border-separate {
+  border-spacing: 8px;
+}
