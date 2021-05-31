@@ -52,13 +52,18 @@ export const Search: React.VFC = () => {
         range: 5,
       });
       setShopsCount(results_available);
-      const likedShops = await apiController.shops.likes.index(shop);
-      const result = shop;
-      result.map((shop, index) => {
-        shop.like = likedShops[index];
-      });
-      dispatch(getShopsAction(result));
-      dispatch(endLoadingAction());
+      if (isLoggedIn) {
+        const likedShops = await apiController.shops.likes.index(shop);
+        const result = shop;
+        result.map((shop, index) => {
+          shop.like = likedShops[index];
+        });
+        dispatch(getShopsAction(result));
+        dispatch(endLoadingAction());
+      } else {
+        dispatch(getShopsAction(shop));
+        dispatch(endLoadingAction());
+      }
     }
   };
 
@@ -111,9 +116,10 @@ export const Search: React.VFC = () => {
     <>
       {isLoading ? (
         <>
-          <Skeleton style={{ height: '500px' }} />
+          <Skeleton duration={1} style={{ height: '500px' }} />
           <Spacer h={6} />
           <Skeleton
+            duration={1}
             style={{
               height: '60px',
               width: '300px',
@@ -136,6 +142,8 @@ export const Search: React.VFC = () => {
                 <Flex key={index}>
                   <Spacer w={2} />
                   <ShopCard
+                    isLoading={isLoading}
+                    isLoggedIn={isLoggedIn}
                     shop={shop}
                     like={isLoggedIn ? like : suggestLogIn}
                     remove={remove}

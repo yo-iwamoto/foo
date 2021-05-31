@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { ShopState, State, UserState } from '@/redux/types';
+import { ShopState, State, UserState, UtilityState } from '@/redux/types';
 import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
 import { modalTemplates } from '@/lib/modals';
 import { endNewUserAction, updateUserAction } from '@/redux/users/actions';
@@ -22,6 +22,7 @@ export const Mypage: React.VFC = () => {
 
   const user = useSelector<State, UserState>((state) => state.users, shallowEqual);
   const { shops } = useSelector<State, ShopState>((state) => state.shops, shallowEqual);
+  const { isLoading } = useSelector<State, UtilityState>((state) => state.utilities, shallowEqual);
 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [nickName, setNickname] = useState<string>(user.name);
@@ -154,7 +155,13 @@ export const Mypage: React.VFC = () => {
             <div>
               {shops.map((shop, index) => (
                 <div key={index}>
-                  <ShopCard shop={shop} like={like} remove={remove} />
+                  <ShopCard
+                    isLoggedIn={user.isLoggedIn}
+                    isLoading={isLoading}
+                    shop={shop}
+                    like={like}
+                    remove={remove}
+                  />
                   <Spacer h={3} />
                 </div>
               ))}
