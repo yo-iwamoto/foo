@@ -1,7 +1,7 @@
 ## 概要
 
 
-ひとりご飯の検索サイト，Foo のフロントレポジトリです．Next.js + TypeScript で書いています．  
+ひとりご飯の検索サイト，Foo のフロントレポジトリです．Next.js + TypeScript を利用しています．
 
 Foo - ひとりご飯の検索サイト：https://foo-search.net  
 
@@ -10,6 +10,8 @@ Storybook：https://foo-storybook.netlify.app
 ※ Storybookは現在作成中です．
 
 ## 開発ロードマップ
+
+プロジェクトは現在進行中で，機能実装も完了していません．以下のロードマップを基準に，機能実装，不具合修正等を進めています．
 
 [Foo 開発ロードマップ - Notion / Yo Iwamoto](https://www.notion.so/Foo-d5ddbe46840c44e895dc849f5fde7a13)
 
