@@ -4,8 +4,6 @@ import { Like } from '../atoms';
 import { Flex, Spacer } from '@/components/utilities';
 import cn from 'classnames';
 import { ClockIcon, ExternalLinkIcon, PinIcon, UpChevronIcon, UtensilsIcon } from '../atoms/Icons';
-import { shallowEqual, useSelector } from 'react-redux';
-import { State, UtilityState } from '@/redux/types';
 
 type Props = {
   shop: Shop | undefined;
@@ -14,21 +12,24 @@ type Props = {
   select?: (id: string) => void;
   selected?: string;
   square?: boolean;
+  isLoading: boolean;
+  isLoggedIn: boolean;
 };
 
-export const ShopCard: React.VFC<Props> = ({ shop, like, remove, selected, square }) => {
-  const { isLoading } = useSelector<State, UtilityState>((state) => state.utilities, shallowEqual);
+export const ShopCard: React.VFC<Props> = ({ shop, like, remove, selected, square, isLoading, isLoggedIn }) => {
   const [likeState, setLikeState] = useState<boolean>(false);
 
   if (shop) {
-    const onClickLike = async (e: React.MouseEvent<HTMLDivElement>): Promise<void> => {
+    const onClickLike = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
       e.stopPropagation();
       if (likeState) {
         await remove(shop.id);
         setLikeState(false);
       } else {
         await like(shop.id);
-        setLikeState(true);
+        if (isLoggedIn) {
+          setLikeState(true);
+        }
       }
     };
 
@@ -43,7 +44,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, selected, squar
     };
 
     useEffect(() => {
-      if (!isLoading && shop.like !== undefined) {
+      if (shop.like !== undefined) {
         setLikeState(shop.like);
       }
     }, [shop.like]);
@@ -70,14 +71,16 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, selected, squar
           <Flex
             col
             className={cn({
-              ['w-60 shadow-md hover:shadow-lg rounded-3xl text-left transition-all mb-4']: true,
+              ['w-60 shadow-md hover:shadow-lg rounded-3xl text-left transition-all mb-4 relative']: true,
               ['border-2 border-blue-400']: selected === shop.id,
             })}
             onClick={onClick}
           >
-            {/* <div className="h-48 overflow-y-hidden"> */}
             <img src={shop.photo.pc.l} alt={shop.name_kana} className="h-48 rounded-t-3xl min-w-full" />
-            {/* </div> */}
+            <div className="absolute bg-white rounded-full h-10 w-10 top-2 right-2 shadow-2xl">
+              <Spacer h={2} />
+              <Like likeState={likeState} onClick={onClickLike} className="w-auto mx-auto" />
+            </div>
             <Flex col aStart jBetween className="h-full w-full p-3">
               <div>
                 <h3 className="font-bold text-md sm:text-lg md:text-xl whitespace-wrap">{shop.name}</h3>
