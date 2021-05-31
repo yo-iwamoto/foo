@@ -11,6 +11,13 @@ export const getShopsAction = (shops: Shop[]): ShopActionResponse => ({
   },
 });
 
+export const addShopsAction = (shops: Shop[]): ShopActionResponse => ({
+  type: ActionTypes.ADD_SHOPS,
+  payload: {
+    shops,
+  },
+});
+
 export const clearShopsAction = (): ShopActionResponse => ({
   type: ActionTypes.CLEAR_SHOPS,
   payload: {

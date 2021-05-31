@@ -9,6 +9,11 @@ export const ShopsReducer = (state: ShopState = initialState.shops, action: Acti
         ...state,
         ...action.payload,
       };
+    case ActionTypes.ADD_SHOPS:
+      return {
+        ...state,
+        shops: state.shops.concat(action.payload.shops!),
+      };
     case ActionTypes.CLEAR_SHOPS:
       return {
         ...state,

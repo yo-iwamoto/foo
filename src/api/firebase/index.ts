@@ -80,7 +80,6 @@ const handleActionCode = async (payload: FirebaseVerificationPayload): Promise<v
   try {
     await auth.applyActionCode(payload.actionCode);
   } catch (err) {
-    console.log(err);
     throw err;
   }
 };

@@ -4,43 +4,70 @@ import { ShopState, State, UserState } from '@/redux/types';
 import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
 import { modalTemplates } from '@/lib/modals';
 import { endNewUserAction, updateUserAction } from '@/redux/users/actions';
-import { TableRow } from '@/types';
+import { Shop, TableRow } from '@/types';
 import { providerName } from '@/lib/providerName';
 
 import { Heading, TextField } from '@/components/atoms';
 import { SectionTitle, Table } from '@/components/molecules';
-import { CardList, EditControl } from '@/components/organisms';
+import { Card, EditControl } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
 import { UpdateNameResource } from '@/types';
 import { toastTemplates } from '@/lib/toasts';
-import { clearShopsAction, getShopsAction } from '@/redux/shops/actions';
+import { addShopsAction, clearShopsAction, getShopsAction } from '@/redux/shops/actions';
 import { apiController } from '@/api';
+import { useLikes } from '@/hooks/useLikes';
 
 export const Mypage: React.VFC = () => {
   const dispatch = useDispatch();
 
   const user = useSelector<State, UserState>((state) => state.users, shallowEqual);
-  const shops = useSelector<State, ShopState>((state) => state.shops, shallowEqual);
+  const { shops } = useSelector<State, ShopState>((state) => state.shops, shallowEqual);
 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [nickName, setNickname] = useState<string>(user.name);
 
+  const likeAll = (shops: Shop[]): Shop[] => {
+    shops.map((shop) => {
+      shop.like = true;
+    });
+    return shops;
+  };
+
   const getShops = async (): Promise<void> => {
     if (user.uid) {
-      apiController.users.likes.index(user.uid).then((res) => {
-        let ids: string[] = [];
-        res.map((shop) => {
-          ids.push(shop.hotpepper_id);
-        });
-        if (ids.length !== 0) {
-          apiController.hotpepper.index({ ids }).then((res) => {
-            res.shop.map((shop) => {
-              shop.like = true;
-            });
-            dispatch(getShopsAction(res.shop));
-          });
-        }
+      const likedShops = await apiController.users.likes.index(user.uid);
+      let ids: string[] = [];
+      likedShops.map((shop) => {
+        ids.push(shop.hotpepper_id);
       });
+
+      if (ids.length !== 0) {
+        if (ids.length <= 10) {
+          const { shop } = await apiController.hotpepper.index({ ids });
+          likeAll(shop);
+          dispatch(getShopsAction(shop));
+        } else {
+          // hotpepper API から上限の10件ずつ取得
+          let i: number = 0;
+          while (true) {
+            if (i + 10 < ids.length) {
+              const { shop } = await apiController.hotpepper.index({
+                ids: ids.slice(i, i + 10),
+              });
+              likeAll(shop);
+              dispatch(addShopsAction(shop));
+              i += 10;
+            } else {
+              const { shop } = await apiController.hotpepper.index({
+                ids: ids.slice(i),
+              });
+              likeAll(shop);
+              dispatch(addShopsAction(shop));
+              break;
+            }
+          }
+        }
+      }
     }
   };
 
@@ -50,7 +77,7 @@ export const Mypage: React.VFC = () => {
       dispatch(raiseModalAction(modalTemplates.firstVisit));
       dispatch(endNewUserAction());
     }
-    if (shops.shops.length !== 1) {
+    if (shops.length !== 1) {
       getShops();
     } else {
       clearShopsAction();
@@ -82,14 +109,14 @@ export const Mypage: React.VFC = () => {
     setNickname(e.target.value);
   };
 
-  const remove = async (id: string): Promise<void> => {
-    await apiController.shops.likes.destroy(id);
-    getShops();
-  };
+  const likesControll = useLikes();
 
   const like = async (id: string): Promise<void> => {
-    await apiController.shops.likes.create(id);
-    getShops();
+    await likesControll.like(id);
+  };
+
+  const remove = async (id: string): Promise<void> => {
+    await likesControll.remove(id);
   };
 
   return (
@@ -122,9 +149,16 @@ export const Mypage: React.VFC = () => {
           <Spacer h={12} />
           <section>
             <SectionTitle title="お気に入りリスト">
-              <p>{shops.shops.length} 件</p>
+              <p>{shops.length} 件</p>
             </SectionTitle>
-            <CardList shops={shops.shops} like={like} remove={remove} />
+            <div>
+              {shops.map((shop, index) => (
+                <div key={index}>
+                  <Card shop={shop} like={like} remove={remove} />
+                  <Spacer h={3} />
+                </div>
+              ))}
+            </div>
           </section>
         </div>
       ) : (
