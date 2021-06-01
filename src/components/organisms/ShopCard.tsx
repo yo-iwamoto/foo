@@ -16,7 +16,7 @@ type Props = {
   isLoggedIn: boolean;
 };
 
-export const ShopCard: React.VFC<Props> = ({ shop, like, remove, selected, square, isLoading, isLoggedIn }) => {
+export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selected, square, isLoading, isLoggedIn }) => {
   const [likeState, setLikeState] = useState<boolean>(false);
 
   if (shop) {
@@ -67,7 +67,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, selected, squar
       }, [selected]);
 
       return (
-        <div ref={ref}>
+        <div ref={ref} onClick={() => { select!(shop.id) }}>
           <Flex
             col
             className={cn({
