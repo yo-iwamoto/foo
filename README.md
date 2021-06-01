@@ -1,6 +1,5 @@
 ## 概要
 
-
 ひとりご飯の検索サイト，Foo のフロントレポジトリです．Next.js + TypeScript を利用しています．
 
 Foo - ひとりご飯の検索サイト：https://foo-search.net  
@@ -8,6 +7,9 @@ Foo - ひとりご飯の検索サイト：https://foo-search.net
 Storybook：https://foo-storybook.netlify.app  
 
 ※ Storybookは現在作成中です．
+
+### アーキテクチャ簡易図
+![architecture](https://user-images.githubusercontent.com/56625097/120264580-0e631b80-c2d9-11eb-944f-1c2cfd415602.png)
 
 ## 開発ロードマップ
 
