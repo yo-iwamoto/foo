@@ -11,7 +11,7 @@ Storybook：https://foo-storybook.netlify.app
 
 ## 開発ロードマップ
 
-プロジェクトは現在進行中で，機能実装も完了していません．以下のロードマップを基準に，機能実装，不具合修正等を進めています．
+プロジェクトは現在進行中で，機能実装も完了していません．以下のロードマップを目安に，機能実装，不具合修正等を進めています．
 
 [Foo 開発ロードマップ - Notion / Yo Iwamoto](https://www.notion.so/Foo-d5ddbe46840c44e895dc849f5fde7a13)
 
