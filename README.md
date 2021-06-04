@@ -10,7 +10,7 @@ Storybook：https://foo-storybook.netlify.app
 
 ### アーキテクチャ簡易図
 
-![architecture](https://user-images.githubusercontent.com/56625097/120753559-4fac3300-c546-11eb-86b4-5fd38dedc96a.png)
+![architecture](https://user-images.githubusercontent.com/56625097/120755685-4375a500-c549-11eb-9370-cbfc9833afdc.png)
 
 アーキテクチャについて，
 - ホットペッパーAPI用のプロキシサーバーを何故Railsのサーバーと別で立てているのか
