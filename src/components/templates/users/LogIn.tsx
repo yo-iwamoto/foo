@@ -14,10 +14,14 @@ import { FirebaseSignInPayload, FirebaseSignInResponse } from '@/types';
 import { State, UtilityState } from '@/redux/types';
 import { toastTemplates } from '@/lib/toasts';
 import { auth } from '@/api/firebase';
+import { useLoadingControll } from '@/hooks/useLoadingControll';
+import { useSelectors } from '@/hooks/useSelectors';
 
 export const LogIn: React.VFC = () => {
   const router = useRouter(),
     dispatch = useDispatch();
+
+  const [startLoading, endLoading] = useLoadingControll();
 
   const googleLogIn = (): void => {
     apiController.firebase.googleSignIn();
@@ -31,21 +35,23 @@ export const LogIn: React.VFC = () => {
     try {
       const response = (await apiController.firebase.logIn(payload)) as FirebaseSignInResponse;
       const { authProvider, isNewUser, ...logInResource } = response;
-      dispatch(startLoadingAction());
+      startLoading();
       const res = await apiController.users.logIn(logInResource);
       dispatch(logInAction({ ...res.user, isNewUser, authProvider }));
-      dispatch(endLoadingAction());
+      endLoading();
       dispatch(raiseToastAction(toastTemplates.logIn));
       router.push('/users/mypage');
     } catch {
-      dispatch(endLoadingAction());
+      endLoading();
     }
   };
 
-  const { isLoading } = useSelector<State, UtilityState>((state) => state.utilities, shallowEqual);
+  const {
+    utilities: { isLoading },
+  } = useSelectors();
 
   useEffect(() => {
-    dispatch(startLoadingAction());
+    startLoading();
     auth
       .getRedirectResult()
       .then((userCredential) => {
@@ -64,15 +70,15 @@ export const LogIn: React.VFC = () => {
               router.push('/users/mypage');
             })
             .catch((err) => {
-              dispatch(endLoadingAction());
+              endLoading();
               throw err;
             });
         } else {
-          dispatch(endLoadingAction());
+          endLoading();
         }
       })
       .catch((err) => {
-        dispatch(endLoadingAction());
+        endLoading();
         throw err;
       });
   }, []);

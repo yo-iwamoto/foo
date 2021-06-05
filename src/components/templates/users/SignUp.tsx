@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logInAction } from '@/redux/users/actions';
-import { startLoadingAction, endLoadingAction, raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
+import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
 
 import { apiController } from '@/api';
 import { useRouter } from 'next/router';
@@ -11,14 +11,17 @@ import { Heading, TextLink, Loader, OAuthIcon } from '@/components/atoms';
 import { SignUpForm } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
 import { FirebaseSignInPayload } from '@/types';
-import { State, UserState, UtilityState } from '@/redux/types';
 import { modalTemplates } from '@/lib/modals';
 import { toastTemplates } from '@/lib/toasts';
 import { auth } from '@/api/firebase';
+import { useLoadingControll } from '@/hooks/useLoadingControll';
+import { useSelectors } from '@/hooks/useSelectors';
 
 export const SignUp: React.VFC = () => {
   const router = useRouter(),
     dispatch = useDispatch();
+
+  const [startLoading, endLoading] = useLoadingControll();
 
   const googleSignUp = (): void => {
     apiController.firebase.googleSignIn();
@@ -30,23 +33,25 @@ export const SignUp: React.VFC = () => {
 
   const firebaseAuth = async (payload: FirebaseSignInPayload, name: string): Promise<void> => {
     try {
-      dispatch(startLoadingAction());
+      startLoading();
       const uid = (await apiController.firebase.signUp(payload)) as string;
       await apiController.users.signUp({ name, uid });
       localStorage.removeItem('Access-Token');
       dispatch(raiseModalAction(modalTemplates.checkEmail));
-      dispatch(endLoadingAction());
+      endLoading();
       router.push('/');
     } catch (err) {
-      dispatch(endLoadingAction());
+      endLoading();
     }
   };
 
-  const { isLoading } = useSelector<State, UtilityState>((state) => state.utilities, shallowEqual);
-  const { isNewUser } = useSelector<State, UserState>((state) => state.users, shallowEqual);
+  const {
+    utilities: { isLoading },
+    users: { isNewUser },
+  } = useSelectors();
 
   useEffect(() => {
-    dispatch(startLoadingAction());
+    startLoading();
     auth
       .getRedirectResult()
       .then((userCredential) => {
@@ -60,15 +65,15 @@ export const SignUp: React.VFC = () => {
               router.push('/users/mypage');
             })
             .catch((err) => {
-              dispatch(endLoadingAction());
+              endLoading();
               throw err;
             });
         } else {
-          dispatch(endLoadingAction());
+          endLoading();
         }
       })
       .catch((err) => {
-        dispatch(endLoadingAction());
+        endLoading();
         throw err;
       });
   }, []);

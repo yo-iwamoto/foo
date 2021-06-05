@@ -15,7 +15,7 @@ export const useCustomMarker = (): [
 ] => {
   const [markerPosition, setMarkerPosition] = useState<Position | undefined>();
 
-  const putMarker = useCallback((e: GoogleMapEvent) => {
+  const putMarker = useCallback((e: GoogleMapEvent): void => {
     const position: Position = {
       lat: e.latLng.lat(),
       lng: e.latLng.lng(),

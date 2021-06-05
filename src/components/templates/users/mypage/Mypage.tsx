@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { ShopState, State, UserState, UtilityState } from '@/redux/types';
+import { ShopState, State, UtilityState } from '@/redux/types';
 import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
 import { modalTemplates } from '@/lib/modals';
 import { endNewUserAction, updateUserAction } from '@/redux/users/actions';
-import { Shop, TableRow } from '@/types';
+import { TableRow } from '@/types';
 import { providerName } from '@/lib/providerName';
 
 import { Heading, TextField } from '@/components/atoms';
@@ -13,81 +13,39 @@ import { ShopCard, EditControl } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
 import { UpdateNameResource } from '@/types';
 import { toastTemplates } from '@/lib/toasts';
-import { addShopsAction, clearShopsAction, getShopsAction } from '@/redux/shops/actions';
+import { clearShopsAction } from '@/redux/shops/actions';
 import { apiController } from '@/api';
 import { useLikes } from '@/hooks/useLikes';
+import { useLikedShops } from '@/hooks/useLikedShops';
+import { useSelectors } from '@/hooks/useSelectors';
 
 export const Mypage: React.VFC = () => {
   const dispatch = useDispatch();
 
-  const user = useSelector<State, UserState>((state) => state.users, shallowEqual);
-  const { shops } = useSelector<State, ShopState>((state) => state.shops, shallowEqual);
-  const { isLoading } = useSelector<State, UtilityState>((state) => state.utilities, shallowEqual);
+  const {
+    shops: { shops },
+    users,
+    utilities: { isLoading },
+  } = useSelectors();
 
   const [editMode, setEditMode] = useState<boolean>(false);
-  const [nickName, setNickname] = useState<string>(user.name);
+  const [nickName, setNickname] = useState<string>(users.name);
 
-  const likeAll = (shops: Shop[]): Shop[] => {
-    shops.map((shop) => {
-      shop.like = true;
-    });
-    return shops;
-  };
-
-  const getShops = async (): Promise<void> => {
-    if (user.uid) {
-      const likedShops = await apiController.users.likes.index(user.uid);
-      let ids: string[] = [];
-      likedShops.map((shop) => {
-        ids.push(shop.hotpepper_id);
-      });
-
-      if (ids.length !== 0) {
-        if (ids.length <= 10) {
-          const { shop } = await apiController.hotpepper.index({ ids });
-          likeAll(shop);
-          dispatch(getShopsAction(shop));
-        } else {
-          // hotpepper API から上限の10件ずつ取得
-          let i: number = 0;
-          while (true) {
-            if (i + 10 < ids.length) {
-              const { shop } = await apiController.hotpepper.index({
-                ids: ids.slice(i, i + 10),
-              });
-              likeAll(shop);
-              dispatch(addShopsAction(shop));
-              i += 10;
-            } else {
-              const { shop } = await apiController.hotpepper.index({
-                ids: ids.slice(i),
-              });
-              likeAll(shop);
-              dispatch(addShopsAction(shop));
-              break;
-            }
-          }
-        }
-      }
-    }
-  };
+  const getLikedShops = useLikedShops();
 
   useEffect(() => {
+    clearShopsAction();
     dispatch(clearShopsAction());
-    if (user.isNewUser) {
+    if (users.isNewUser) {
       dispatch(raiseModalAction(modalTemplates.firstVisit));
       dispatch(endNewUserAction());
     }
-    if (shops.length !== 1) {
-      getShops();
-    } else {
-      clearShopsAction();
-    }
-  }, [user.isNewUser, user.uid]);
+    getLikedShops();
+  }, [users.isNewUser, users.uid]);
 
   const accountTable: TableRow[] = [
-    { key: 'ニックネーム', value: user.name },
-    { key: 'ログイン方法', value: providerName(user.authProvider) },
+    { key: 'ニックネーム', value: users.name },
+    { key: 'ログイン方法', value: providerName(users.authProvider) },
   ];
 
   const onClickEditIcon = (): void => {
@@ -95,10 +53,10 @@ export const Mypage: React.VFC = () => {
   };
   const cancelEdit = (): void => {
     setEditMode(false);
-    setNickname(user.name);
+    setNickname(users.name);
   };
   const applyEdit = async (): Promise<void> => {
-    const resource: UpdateNameResource = { uid: user.uid, name: nickName };
+    const resource: UpdateNameResource = { uid: users.uid, name: nickName };
     if (resource.name) {
       const res = await apiController.users.updateName(resource);
       dispatch(updateUserAction({ name: res.user.name }));
@@ -112,17 +70,9 @@ export const Mypage: React.VFC = () => {
 
   const likesControll = useLikes();
 
-  const like = async (id: string): Promise<void> => {
-    await likesControll.like(id);
-  };
-
-  const remove = async (id: string): Promise<void> => {
-    await likesControll.remove(id);
-  };
-
   return (
     <>
-      {user.isLoggedIn ? (
+      {users.isLoggedIn ? (
         <div className="mx-auto py-8 w-11/12 sm:w-3/4 lg:w-3/5 xl:w-1/2">
           <Heading>マイページ</Heading>
           <Spacer h={12} />
@@ -156,11 +106,11 @@ export const Mypage: React.VFC = () => {
               {shops.map((shop, index) => (
                 <div key={index}>
                   <ShopCard
-                    isLoggedIn={user.isLoggedIn}
+                    isLoggedIn={users.isLoggedIn}
                     isLoading={isLoading}
                     shop={shop}
-                    like={like}
-                    remove={remove}
+                    like={likesControll.like}
+                    remove={likesControll.remove}
                   />
                   <Spacer h={3} />
                 </div>
