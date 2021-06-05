@@ -22,7 +22,7 @@ export const useLikedShops = (): (() => Promise<void>) => {
   const getLikedShops = useCallback(async (): Promise<void> => {
     if (uid) {
       const likedShops = await apiController.users.likes.index(uid);
-      let ids: string[] = [];
+      const ids: string[] = [];
       likedShops.map((shop) => {
         ids.push(shop.hotpepper_id);
       });
@@ -34,7 +34,7 @@ export const useLikedShops = (): (() => Promise<void>) => {
         likeAll(shop);
         dispatch(getShopsAction(shop));
       } else {
-        let i: number = 0;
+        let i = 0;
         while (true) {
           if (ids.length > i + 10) {
             const { shop } = await apiController.hotpepper.index({

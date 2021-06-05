@@ -6,8 +6,6 @@ import cn from 'classnames';
 import { ClockIcon, ExternalLinkIcon, PinIcon, UpChevronIcon, UtensilsIcon } from '../atoms/Icons';
 import smoothscroll from 'smoothscroll-polyfill';
 
-smoothscroll.polyfill();
-
 type Props = {
   shop: Shop | undefined;
   like: ((id: string) => Promise<void>) | (() => void);
@@ -20,6 +18,7 @@ type Props = {
 };
 
 export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selected, square, isLoading, isLoggedIn }) => {
+  smoothscroll.polyfill();
   const [likeState, setLikeState] = useState<boolean>(false);
 
   if (shop) {

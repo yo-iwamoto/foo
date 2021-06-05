@@ -13,7 +13,7 @@ export const MapMarker: React.VFC<Props> = ({ position, select, shop, selected }
   const [entering, setEntering] = useState<boolean>(true);
   const isSelected = (): boolean => selected === shop.id;
   const markerOption: google.maps.MarkerOptions = {
-    animation: entering ? google.maps.Animation.DROP : isSelected() && google.maps.Animation.BOUNCE,
+    animation: entering ? google.maps.Animation.DROP : isSelected() ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP,
   };
 
   useEffect(() => {
