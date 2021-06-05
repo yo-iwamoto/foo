@@ -2,6 +2,7 @@ export { Heading } from './typography/Heading';
 export { SubHeading } from './typography/SubHeading';
 export { IconTextLink } from './IconTextLink';
 export { Image } from './Image';
+export { CircleLoader } from './CircleLoader';
 export { Like } from './Like';
 export { Link } from './Link';
 export { LinkButton } from './LinkButton';

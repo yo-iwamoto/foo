@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, shallowEqual, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logInAction, LogInActionPayload, logOutAction } from '@/redux/users/actions';
 import { closeModalAction, closeToastAction, raiseToastAction } from 'src/redux/utilities/actions';
-import { State, UserState, UtilityState } from '@/redux/types';
 
 import { Router } from 'next/router';
 import cn from 'classnames';
@@ -11,6 +10,7 @@ import { NavigationDrawer } from '@/components/molecules';
 import { Header, Footer, Modal, Toast } from '@/components/organisms';
 import { toastTemplates } from '@/lib/toasts';
 import { apiController } from '@/api';
+import { useSelectors } from '@/hooks/useSelectors';
 
 type Props = {
   children: React.ReactNode;
@@ -22,10 +22,13 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
 
   // Auto Login & Navigation Guard
 
-  const user = useSelector<State, UserState>((state) => state.users, shallowEqual);
+  const {
+    users,
+    utilities: { modal, toast },
+  } = useSelectors();
 
   useEffect(() => {
-    if (!user.isLoggedIn && localStorage.getItem('Access-Token')) {
+    if (!users.isLoggedIn && localStorage.getItem('Access-Token')) {
       apiController.users.autoLogIn().then((data) => {
         const actionPayload: LogInActionPayload = {
           ...data.user,
@@ -37,7 +40,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
           router.push('/');
         }
       });
-    } else if (!user.isLoggedIn) {
+    } else if (!users.isLoggedIn) {
       if (router.route === '/users/mypage') {
         router.push('/users/login');
       }
@@ -60,7 +63,6 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
 
   // Modal & Toast Control
 
-  const { modal, toast } = useSelector<State, UtilityState>((state) => state.utilities);
   const closeModal = (): void => {
     dispatch(closeModalAction());
   };
@@ -79,7 +81,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
         })}
         onClick={toggleDrawer}
       />
-      <NavigationDrawer show={showDrawer} toggleDrawer={toggleDrawer} isLoggedIn={user.isLoggedIn} logOut={logOut} />
+      <NavigationDrawer show={showDrawer} toggleDrawer={toggleDrawer} isLoggedIn={users.isLoggedIn} logOut={logOut} />
       <Header toggleDrawer={toggleDrawer} />
       <main className="text-gray-700 font-main min-h-screen">{children}</main>
       <Footer />

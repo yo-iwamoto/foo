@@ -4,6 +4,7 @@ import { Like } from '../atoms';
 import { Flex, Spacer } from '@/components/utilities';
 import cn from 'classnames';
 import { ClockIcon, ExternalLinkIcon, PinIcon, UpChevronIcon, UtensilsIcon } from '../atoms/Icons';
+import smoothscroll from 'smoothscroll-polyfill';
 
 type Props = {
   shop: Shop | undefined;
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selected, square, isLoading, isLoggedIn }) => {
+  smoothscroll.polyfill();
   const [likeState, setLikeState] = useState<boolean>(false);
 
   if (shop) {
@@ -67,7 +69,12 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
       }, [selected]);
 
       return (
-        <div ref={ref} onClick={() => { select!(shop.id) }}>
+        <div
+          ref={ref}
+          onClick={() => {
+            select!(shop.id);
+          }}
+        >
           <Flex
             col
             className={cn({

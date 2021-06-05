@@ -7,11 +7,11 @@ type Props = {
 };
 
 export const Loader: React.VFC<Props> = ({ isLoading }) => {
-  const color = '#ffa382',
-    override = css`
-      text-align: center;
-      display: block;
-    `;
+  const color = '#ffa382';
+  const override = css`
+    text-align: center;
+    display: block;
+  `;
 
   return <SyncLoader color={color} css={override} loading={isLoading} size={16} />;
 };

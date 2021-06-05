@@ -22,7 +22,7 @@ export const LinkButton: React.VFC<Props> = ({ text, href, primary, onClick, cla
           ['border-main bg-main hover:text-main hover:border-main']: primary,
           [className!]: className,
         })}
-        onClick={onClick}
+        onClick={onClick!}
       >
         {text}
       </button>

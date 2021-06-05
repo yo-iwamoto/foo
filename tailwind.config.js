@@ -5,6 +5,9 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      spacing: {
+        200: '50rem',
+      },
       colors: {
         main: '#cd5954',
         text: '#fef0ea',
@@ -37,9 +40,6 @@ module.exports = {
       minWidth: {
         24: '6rem',
         28: '7rem',
-      },
-      animation: {
-        'bounce-rapid': 'bounce .5s ease-in-out infinite',
       },
     },
   },

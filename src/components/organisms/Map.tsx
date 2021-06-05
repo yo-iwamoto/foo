@@ -18,11 +18,6 @@ export const Map: React.VFC<Props> = ({ currentPosition, shops, select, selected
     console.log(e.latLng!.lat());
     console.log(e.latLng!.lng());
   };
-  const a: GoogleMapProps = {
-    options: {
-      scrollwheel: true,
-    },
-  };
 
   return (
     <LoadScriptNext googleMapsApiKey={apiKey!}>
