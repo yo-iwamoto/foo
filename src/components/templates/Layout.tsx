@@ -11,6 +11,7 @@ import { Header, Footer, Modal, Toast } from '@/components/organisms';
 import { toastTemplates } from '@/lib/toasts';
 import { apiController } from '@/api';
 import { useSelectors } from '@/hooks/useSelectors';
+import { useLoadingControll } from '@/hooks/useLoadingControll';
 
 type Props = {
   children: React.ReactNode;
@@ -20,6 +21,8 @@ type Props = {
 export const Layout: React.VFC<Props> = ({ children, router }) => {
   const dispatch = useDispatch();
 
+  const [_, endLoading] = useLoadingControll();
+
   // Auto Login & Navigation Guard
 
   const {
@@ -28,6 +31,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
   } = useSelectors();
 
   useEffect(() => {
+    endLoading();
     if (!users.isLoggedIn && localStorage.getItem('Access-Token')) {
       apiController.users.autoLogIn().then((data) => {
         const actionPayload: LogInActionPayload = {

@@ -1,7 +1,10 @@
 import axiosModule from 'axios';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
-const baseURL = isDevelopment ? 'http://localhost:5000/api/v1' : process.env.NEXT_PUBLIC_FOO_BACK_URL;
+
+// Use 'as' to ensure `process.env.NEXT_PUBLIC_FOO_BACK_URL` is not undefined
+// and can be assigned to 'string' parameter.
+const baseURL = isDevelopment ? 'http://localhost:5000/api/v1' : (process.env.NEXT_PUBLIC_FOO_BACK_URL as string);
 
 export const axios = axiosModule.create({ baseURL });
 

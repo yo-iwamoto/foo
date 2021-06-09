@@ -68,7 +68,7 @@ export const Search: React.VFC = () => {
   }, [router.query.word]);
 
   useEffect(() => {
-    if (isLoggedIn && finished) {
+    if (finished) {
       apiController.shops.index(shops).then((fooShops) => {
         let result = shops;
         result.map((shop) => {
@@ -80,7 +80,7 @@ export const Search: React.VFC = () => {
         endLoading();
       });
     }
-  }, [isLoggedIn, finished]);
+  }, [finished]);
 
   // likes controll
 

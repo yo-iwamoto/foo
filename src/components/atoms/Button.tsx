@@ -19,7 +19,7 @@ export const Button: React.VFC<Props> = ({ text, primary, onClick, className }) 
         ['border-main bg-main hover:text-main hover:border-main']: primary,
         [className!]: className,
       })}
-      onClick={onClick}
+      onClick={onClick!}
     >
       {text}
     </button>
