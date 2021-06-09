@@ -7,11 +7,12 @@ type Props = {
   text: string;
   onClick: React.MouseEventHandler;
   children: React.ReactNode;
+  className?: string;
 };
 
-export const IconTextLink: React.VFC<Props> = ({ href, text, children, onClick }) => {
+export const IconTextLink: React.VFC<Props> = ({ href, text, children, onClick, className }) => {
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick} className={className!}>
       <Link href={href}>
         <a>
           <div className="h-full flex justify-start items-center">

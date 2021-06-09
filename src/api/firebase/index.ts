@@ -46,7 +46,7 @@ const firebaseAuthGenerator =
         }
       }
     } catch (err) {
-      if ('code' in err) {
+      if (typeof err === 'object' && 'code' in err!) {
         handleFirebaseError(err);
       }
       throw err;
@@ -85,6 +85,27 @@ const handleActionCode = async (payload: FirebaseVerificationPayload): Promise<v
   }
 };
 
+// Password Reset
+
+const sendPasswordResetEmail = async (email: string): Promise<void> => {
+  try {
+    await auth.sendPasswordResetEmail(email);
+  } catch (err) {
+    if (typeof err === 'object' && 'code' in err!) {
+      handleFirebaseError(err);
+    }
+    throw err;
+  }
+};
+
+const applyNewPassword = async (code: string, newPassword: string) => {
+  try {
+    await auth.confirmPasswordReset(code, newPassword);
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const firebaseController = {
   signUp,
   logIn,
@@ -92,4 +113,6 @@ export const firebaseController = {
   twitterSignIn,
   catchOAuthRedirect,
   handleActionCode,
+  sendPasswordResetEmail,
+  applyNewPassword,
 };

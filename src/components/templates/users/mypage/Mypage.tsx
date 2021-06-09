@@ -83,7 +83,13 @@ export const Mypage: React.VFC = () => {
           <Spacer h={12} />
           <section>
             <SectionTitle title="アカウント">
-              <EditControl editMode={editMode} edit={onClickEditIcon} cancel={cancelEdit} save={applyEdit} isLoading={isLoading} />
+              <EditControl
+                editMode={editMode}
+                edit={onClickEditIcon}
+                cancel={cancelEdit}
+                save={applyEdit}
+                isLoading={isLoading}
+              />
             </SectionTitle>
             {editMode ? (
               <>

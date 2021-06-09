@@ -1,7 +1,5 @@
 import { apiController } from '@/api';
-// import { updateShopAction } from '@/redux/shops/actions';
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 
 type UseLikesReturnType = {
   like: (id: string) => Promise<void>;
@@ -9,16 +7,12 @@ type UseLikesReturnType = {
 };
 
 export const useLikes = (): UseLikesReturnType => {
-  const dispatch = useDispatch();
-
   const like = useCallback(async (id: string): Promise<void> => {
-    const shop = await apiController.shops.likes.create(id);
-    // dispatch(updateShopAction(shop));
+    await apiController.shops.likes.create(id);
   }, []);
 
   const remove = useCallback(async (id: string): Promise<void> => {
-    const shop = await apiController.shops.likes.destroy(id);
-    // dispatch(updateShopAction(shop));
+    await apiController.shops.likes.destroy(id);
   }, []);
 
   const likesControll: UseLikesReturnType = {

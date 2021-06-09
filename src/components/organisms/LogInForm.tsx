@@ -1,7 +1,7 @@
 import React from 'react';
 import { FirebaseSignInPayload } from '@/types';
 
-import { TextField, SubmitButton } from '@/components/atoms';
+import { TextField, SubmitButton, TextLink } from '@/components/atoms';
 import { Flex, Spacer } from '@/components/utilities';
 import { useInput } from '@/hooks/useInput';
 
@@ -35,8 +35,14 @@ export const LogInForm: React.VFC<Props> = ({ firebaseAuth }) => {
         />
         <Spacer h={6} />
         <TextField type="password" value={password} placeholder="パスワード" onChange={onChangePassword} fullwidth />
+        <Spacer h={3} />
+        <TextLink
+          text="パスワードを忘れた方はこちら"
+          href="/users/password_resets/new"
+          className="text-main text-left"
+        />
         <Spacer h={6} />
-        <SubmitButton text="ログイン" />
+        <SubmitButton value="ログイン" />
       </Flex>
     </form>
   );

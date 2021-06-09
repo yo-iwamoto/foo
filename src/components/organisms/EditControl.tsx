@@ -20,10 +20,7 @@ export const EditControl: React.VFC<Props> = ({ editMode, edit, cancel, save, is
             キャンセル
           </p>
           <Spacer w={4} />
-          {isLoading
-          ? <CircleLoader />
-          : <Button primary text="保存" onClick={save} className="px-2" />
-          }
+          {isLoading ? <CircleLoader /> : <Button primary text="保存" onClick={save} className="px-2" />}
         </Flex>
       ) : (
         <Flex aStart className="cursor-pointer text-gray-700 hover:text-gray-600" onClick={edit}>

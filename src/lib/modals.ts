@@ -44,10 +44,29 @@ const firstVisit: ModalState = {
   buttonText: 'お店を探す',
 };
 
+const sendPasswordResetEmail: ModalState = {
+  type: 'mail',
+  title: 'メールを確認してください',
+  message:
+    'パスワードを再発行するためのリンクを、メールアドレスに送信しました。\nメール本文内のリンクをクリックして、手続きを完了してください。',
+  link: null,
+  buttonText: '確認',
+};
+
+const passwordChanged: ModalState = {
+  type: 'success',
+  title: 'パスワードが変更されました。',
+  message: '今後、新しいパスワードでログインすることができます。\n続けて、ログインを行ってください。',
+  link: '/users/login',
+  buttonText: 'ログインへ',
+};
+
 export const modalTemplates = {
   like,
   finishVerified,
   alreadyVerified,
   checkEmail,
   firstVisit,
+  sendPasswordResetEmail,
+  passwordChanged,
 };

@@ -16,7 +16,11 @@ export const Header: React.VFC<Props> = ({ toggleDrawer }) => {
           </a>
         </Link>
       </div>
-      <GiHamburgerMenu color="white" size="30" className="cursor-pointer" onClick={toggleDrawer} />
+      <GiHamburgerMenu
+        size="30"
+        className="cursor-pointer text-text transform transition-transform hover:scale-125"
+        onClick={toggleDrawer}
+      />
     </header>
   );
 };

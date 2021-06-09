@@ -31,7 +31,7 @@ export const SignUpForm: React.VFC<Props> = ({ firebaseAuth }) => {
   return (
     <form onSubmit={submitHandler} className="w-4/5 sm:w-3/5 md:w-2/5 mx-auto">
       <Spacer h={12} />
-      <Flex col jBetween aCenter className="w-full">
+      <Flex col jBetween className="w-full">
         <TextField type="text" value={name} placeholder="ニックネーム" onChange={onChangeName} fullwidth />
         <Spacer h={6} />
         <TextField
@@ -53,7 +53,7 @@ export const SignUpForm: React.VFC<Props> = ({ firebaseAuth }) => {
           fullwidth
         />
         <Spacer h={6} />
-        <SubmitButton text="登録する" />
+        <SubmitButton value="登録する" />
       </Flex>
     </form>
   );

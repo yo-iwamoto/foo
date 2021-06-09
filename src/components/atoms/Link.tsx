@@ -1,10 +1,7 @@
 import React from 'react';
-import NextLink from 'next/link';
+import NextLink, { LinkProps } from 'next/link';
 
-type Props = {
-  href: string;
-  children: React.ReactNode;
-};
+type Props = React.PropsWithChildren<LinkProps>;
 
 export const Link: React.VFC<Props> = ({ href, children }) => {
   return <NextLink href={href}>{children}</NextLink>;
