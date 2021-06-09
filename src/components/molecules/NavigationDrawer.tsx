@@ -43,24 +43,26 @@ export const NavigationDrawer: React.VFC<Props> = ({ show, toggleDrawer, isLogge
     menus.splice(3, 2); // 'マイページ', 'ログアウト'
   }
 
-  const closed =
-      'h-full w-full sm:w-2/4 md:w-2/5 lg:w-1/4 bg-main top-0 -right-full z-30 transform transition-all duration-500 fixed',
-    opened = closed.replace('-right-full', 'right-0');
-
   return (
     <div
       className={cn({
-        [closed]: !show,
-        [opened]: show,
+        ['h-full w-full sm:w-2/4 md:w-2/5 lg:w-1/4 bg-main top-0 z-30 transform transition-all duration-500 fixed shadow-2xl']:
+          true,
+        ['-right-full']: !show,
+        ['right-0']: show,
       })}
     >
       <div className="ml-auto w-8 mt-6 mr-6 cursor-pointer" onClick={toggleDrawer}>
-        <TimesIcon color="white" size="40" />
+        <TimesIcon size="40" className="text-text transform transition-transform hover:scale-125" />
       </div>
       <div className="mt-16 flex flex-col justify-between items-start">
         {menus.map((menu, index) => (
           <div key={index} className="w-full pl-16 lg:pl-10">
-            <IconTextLink {...menu} onClick={menu.text === 'ログアウト' ? logOut : toggleDrawer}>
+            <IconTextLink
+              {...menu}
+              onClick={menu.text === 'ログアウト' ? logOut : toggleDrawer}
+              className="transform transition-transform hover:scale-105"
+            >
               {menu.icon}
             </IconTextLink>
             <Spacer h={6} />

@@ -108,7 +108,7 @@ export const SignUp: React.VFC = () => {
         <p>
           すでにアカウントをお持ちですか？
           <br />
-          <TextLink href="/users/login" text="ログイン" color="main" />
+          <TextLink href="/users/login" text="ログイン" className="text-main" />
         </p>
       </div>
     );

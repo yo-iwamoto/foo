@@ -4,6 +4,8 @@ export { Manager } from './about/Manager';
 export { PrivacyPolicy } from './about/PrivacyPolicy';
 export { Mypage } from './users/mypage/Mypage';
 export { Search } from './search/Search';
+export { NewPasswordReset } from './users/password_resets/NewPasswordReset';
+export { EditPasswordReset } from './users/password_resets/EditPasswordReset';
 export { SignUp } from './users/SignUp';
 export { HandleFirebase } from './users/HandleFirebase';
 export { LogIn } from './users/LogIn';
