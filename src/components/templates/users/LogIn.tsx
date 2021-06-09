@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logInAction, LogInActionPayload } from '@/redux/users/actions';
-import { startLoadingAction, endLoadingAction, raiseToastAction } from '@/redux/utilities/actions';
+import { endLoadingAction, raiseToastAction } from '@/redux/utilities/actions';
 
 import { apiController } from '@/api';
 import { useRouter } from 'next/router';
@@ -11,7 +11,6 @@ import { Heading, TextLink, Loader, OAuthIcon } from '@/components/atoms';
 import { LogInForm } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
 import { FirebaseSignInPayload, FirebaseSignInResponse } from '@/types';
-import { State, UtilityState } from '@/redux/types';
 import { toastTemplates } from '@/lib/toasts';
 import { auth } from '@/api/firebase';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
@@ -38,9 +37,9 @@ export const LogIn: React.VFC = () => {
       startLoading();
       const res = await apiController.users.logIn(logInResource);
       dispatch(logInAction({ ...res.user, isNewUser, authProvider }));
-      endLoading();
       dispatch(raiseToastAction(toastTemplates.logIn));
       router.push('/users/mypage');
+      endLoading();
     } catch {
       endLoading();
     }
@@ -68,6 +67,7 @@ export const LogIn: React.VFC = () => {
               dispatch(logInAction(actionPayload));
               dispatch(raiseToastAction(toastTemplates.logIn));
               router.push('/users/mypage');
+              endLoading();
             })
             .catch((err) => {
               endLoading();

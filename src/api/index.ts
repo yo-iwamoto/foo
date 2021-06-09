@@ -3,6 +3,7 @@ import { shopsLikesController } from './shops/likes';
 import { usersController } from './users';
 import { firebaseController } from './firebase';
 import { hotpepperController } from './hotpepper';
+import { shopsController } from './shops';
 
 export const apiController = {
   firebase: {
@@ -18,6 +19,7 @@ export const apiController = {
     },
   },
   shops: {
+    ...shopsController,
     likes: {
       ...shopsLikesController,
     },

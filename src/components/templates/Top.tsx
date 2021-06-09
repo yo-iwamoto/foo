@@ -17,7 +17,7 @@ export const Top: React.VFC = () => {
 
   const [startLoading, _] = useLoadingControll();
   const {
-    utilities: { isLoading,}
+    utilities: { isLoading },
   } = useSelectors();
 
   const [text, onChangeText] = useInput<string>('');

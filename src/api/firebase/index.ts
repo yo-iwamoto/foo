@@ -28,6 +28,7 @@ const firebaseAuthGenerator =
       const response = isSignUp
         ? await auth.createUserWithEmailAndPassword(payload.email!, payload.password!)
         : await auth.signInWithEmailAndPassword(payload.email!, payload.password!);
+      console.log(response);
       if (isSignUp) {
         await response!.user!.sendEmailVerification();
         return response!.user!.uid!;
