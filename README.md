@@ -13,10 +13,10 @@ Storybook：https://foo-storybook.netlify.app
 ![architecture](https://user-images.githubusercontent.com/56625097/120755685-4375a500-c549-11eb-9370-cbfc9833afdc.png)
 
 アーキテクチャについて，
-- ホットペッパーAPI用のプロキシサーバーを何故Railsのサーバーと別で立てているのか
-- バックエンドは何故Cloud FirestoreではなくRailsを採用しているのか
+- ホットペッパーAPIへのプロキシはNext.js上でhttp-proxy-middlewareを利用した方法に置換．
+- Ruby on Railsで構成しているバックエンドを，FirebaseのClout Firestoreに置換．
 
-と疑問に思われるかと思いますが，これらは確かにFooというアプリの構成としては不適切なものだと認識しています．理由としては，開発期間の都合上，使い慣れたものを採用したかったというだけなので，随時，適切な構成にシフトしていけたらと考えています．
+以下の変更を行う予定です．
 
 ## 開発ロードマップ
 
