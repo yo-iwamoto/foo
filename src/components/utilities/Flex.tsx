@@ -4,6 +4,7 @@ import cn from 'classnames';
 type Props = {
   row?: boolean;
   col?: boolean;
+  colReverse?: boolean;
   wrap?: boolean;
   jStart?: boolean;
   jBetween?: boolean;
@@ -20,6 +21,7 @@ type Props = {
 export const Flex: React.VFC<Props> = ({
   row,
   col,
+  colReverse,
   wrap,
   jStart,
   jBetween,
@@ -38,6 +40,7 @@ export const Flex: React.VFC<Props> = ({
         ['flex']: true,
         ['flex-row']: row,
         ['flex-col']: col,
+        ['flex-col-reverse']: colReverse,
         ['flex-wrap']: wrap,
         ['flex-nowrap']: !wrap,
         ['justify-start']: jStart,
@@ -49,7 +52,7 @@ export const Flex: React.VFC<Props> = ({
         ['items-end']: aEnd,
         [className!]: className,
       })}
-      onClick={onClick}
+      onClick={onClick!}
     >
       {children}
     </div>

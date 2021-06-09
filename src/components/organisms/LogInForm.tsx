@@ -36,13 +36,15 @@ export const LogInForm: React.VFC<Props> = ({ firebaseAuth }) => {
         <Spacer h={6} />
         <TextField type="password" value={password} placeholder="パスワード" onChange={onChangePassword} fullwidth />
         <Spacer h={3} />
-        <TextLink
-          text="パスワードを忘れた方はこちら"
-          href="/users/password_resets/new"
-          className="text-main text-left"
-        />
-        <Spacer h={6} />
-        <SubmitButton value="ログイン" />
+        <Flex colReverse>
+          <SubmitButton value="ログイン" />
+          <Spacer h={6} />
+          <TextLink
+            text="パスワードを忘れた方はこちら"
+            href="/users/password_resets/new"
+            className="text-main text-left"
+          />
+        </Flex>
       </Flex>
     </form>
   );
