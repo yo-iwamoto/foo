@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@/components/atoms';
+import { Button, CircleLoader } from '@/components/atoms';
 import { EditIcon } from '@/components/atoms/Icons';
 import { Flex, Spacer } from '@/components/utilities';
 
@@ -8,9 +8,10 @@ type Props = {
   edit: () => void;
   cancel: () => void;
   save: () => Promise<void>;
+  isLoading: boolean;
 };
 
-export const EditControl: React.VFC<Props> = ({ editMode, edit, cancel, save }) => {
+export const EditControl: React.VFC<Props> = ({ editMode, edit, cancel, save, isLoading }) => {
   return (
     <>
       {editMode ? (
@@ -19,7 +20,10 @@ export const EditControl: React.VFC<Props> = ({ editMode, edit, cancel, save }) 
             キャンセル
           </p>
           <Spacer w={4} />
-          <Button primary text="保存" onClick={save} className="px-2" />
+          {isLoading
+          ? <CircleLoader />
+          : <Button primary text="保存" onClick={save} className="px-2" />
+          }
         </Flex>
       ) : (
         <Flex aStart className="cursor-pointer text-gray-700 hover:text-gray-600" onClick={edit}>

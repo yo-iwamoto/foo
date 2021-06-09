@@ -17,6 +17,7 @@ import { apiController } from '@/api';
 import { useLikes } from '@/hooks/useLikes';
 import { useLikedShops } from '@/hooks/useLikedShops';
 import { useSelectors } from '@/hooks/useSelectors';
+import { useLoadingControll } from '@/hooks/useLoadingControll';
 
 export const Mypage: React.VFC = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,8 @@ export const Mypage: React.VFC = () => {
 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [nickName, setNickname] = useState<string>(users.name);
+
+  const [startLoading, endLoading] = useLoadingControll();
 
   const getLikedShops = useLikedShops();
 
@@ -56,6 +59,7 @@ export const Mypage: React.VFC = () => {
     setNickname(users.name);
   };
   const applyEdit = async (): Promise<void> => {
+    startLoading();
     const resource: UpdateNameResource = { uid: users.uid, name: nickName };
     if (resource.name) {
       const res = await apiController.users.updateName(resource);
@@ -63,6 +67,7 @@ export const Mypage: React.VFC = () => {
       dispatch(raiseToastAction(toastTemplates.successEditing));
       setEditMode(false);
     }
+    endLoading();
   };
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setNickname(e.target.value);
@@ -78,7 +83,7 @@ export const Mypage: React.VFC = () => {
           <Spacer h={12} />
           <section>
             <SectionTitle title="アカウント">
-              <EditControl editMode={editMode} edit={onClickEditIcon} cancel={cancelEdit} save={applyEdit} />
+              <EditControl editMode={editMode} edit={onClickEditIcon} cancel={cancelEdit} save={applyEdit} isLoading={isLoading} />
             </SectionTitle>
             {editMode ? (
               <>
@@ -90,6 +95,7 @@ export const Mypage: React.VFC = () => {
                     placeholder="ニックネーム"
                     onChange={onChangeNickname}
                     className="w-1/2 md:w-2/3"
+                    disabled={isLoading}
                   />
                 </Flex>
               </>

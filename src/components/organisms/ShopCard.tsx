@@ -21,7 +21,6 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
   smoothscroll.polyfill();
 
   if (shop) {
-
     const [likeState, setLikeState] = useState<boolean>(false);
     const onClickLike = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
       e.stopPropagation();
@@ -53,28 +52,30 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
     // }, [shop.foo]);
 
     const ShopCardTable: React.VFC = () => {
-      return <table className="text-sm border-separate">
-              <tbody>
-                <tr>
-                  <td valign="top">
-                    <UtensilsIcon className="text-blue-600" />
-                  </td>
-                  <td className="pl-2">{shop.genre.name}</td>
-                </tr>
-                <tr>
-                  <td valign="top">
-                    <PinIcon className="text-blue-600" />
-                  </td>
-                  <td className="pl-2">{shop.address}</td>
-                </tr>
-                <tr>
-                  <td valign="top">
-                    <ClockIcon className="text-blue-600" />
-                  </td>
-                  <td className="pl-2">{shop.open}</td>
-                </tr>
-              </tbody>
-            </table>;
+      return (
+        <table className="text-sm border-separate">
+          <tbody>
+            <tr>
+              <td valign="top">
+                <UtensilsIcon className="text-blue-600" />
+              </td>
+              <td className="pl-2">{shop.genre.name}</td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <PinIcon className="text-blue-600" />
+              </td>
+              <td className="pl-2">{shop.address}</td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <ClockIcon className="text-blue-600" />
+              </td>
+              <td className="pl-2">{shop.open}</td>
+            </tr>
+          </tbody>
+        </table>
+      );
     };
 
     if (square) {
