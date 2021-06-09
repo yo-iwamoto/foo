@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { ShopState, State, UtilityState } from '@/redux/types';
+import { useDispatch } from 'react-redux';
 import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
 import { modalTemplates } from '@/lib/modals';
 import { endNewUserAction, updateUserAction } from '@/redux/users/actions';
@@ -34,13 +33,14 @@ export const Mypage: React.VFC = () => {
   const getLikedShops = useLikedShops();
 
   useEffect(() => {
-    clearShopsAction();
     dispatch(clearShopsAction());
     if (users.isNewUser) {
       dispatch(raiseModalAction(modalTemplates.firstVisit));
       dispatch(endNewUserAction());
     }
-    getLikedShops();
+    if (users.isLoggedIn) {
+      getLikedShops();
+    }
   }, [users.isNewUser, users.uid]);
 
   const accountTable: TableRow[] = [

@@ -19,9 +19,10 @@ type Props = {
 
 export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selected, square, isLoading, isLoggedIn }) => {
   smoothscroll.polyfill();
-  const [likeState, setLikeState] = useState<boolean>(false);
 
   if (shop) {
+
+    const [likeState, setLikeState] = useState<boolean>(false);
     const onClickLike = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
       e.stopPropagation();
       if (likeState) {
@@ -45,11 +46,36 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
       setOpen(false);
     };
 
-    useEffect(() => {
-      if (shop.like !== undefined) {
-        setLikeState(shop.like);
-      }
-    }, [shop.like]);
+    // useEffect(() => {
+    //   if (shop.foo !== undefined) {
+    //     setLikeState(shop.foo.isLiked);
+    //   }
+    // }, [shop.foo]);
+
+    const ShopCardTable: React.VFC = () => {
+      return <table className="text-sm border-separate">
+              <tbody>
+                <tr>
+                  <td valign="top">
+                    <UtensilsIcon className="text-blue-600" />
+                  </td>
+                  <td className="pl-2">{shop.genre.name}</td>
+                </tr>
+                <tr>
+                  <td valign="top">
+                    <PinIcon className="text-blue-600" />
+                  </td>
+                  <td className="pl-2">{shop.address}</td>
+                </tr>
+                <tr>
+                  <td valign="top">
+                    <ClockIcon className="text-blue-600" />
+                  </td>
+                  <td className="pl-2">{shop.open}</td>
+                </tr>
+              </tbody>
+            </table>;
+    };
 
     if (square) {
       const ref = useRef<HTMLDivElement>(null);
@@ -92,28 +118,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
               <div>
                 <h3 className="font-bold text-md sm:text-lg md:text-xl whitespace-wrap">{shop.name}</h3>
                 <Spacer h={3} />
-                <table className="text-sm border-separate">
-                  <tbody>
-                    <tr>
-                      <td valign="top">
-                        <UtensilsIcon className="text-blue-600" />
-                      </td>
-                      <td className="pl-2">{shop.genre.name}</td>
-                    </tr>
-                    <tr>
-                      <td valign="top">
-                        <PinIcon className="text-blue-600" />
-                      </td>
-                      <td className="pl-2">{shop.address}</td>
-                    </tr>
-                    <tr>
-                      <td valign="top">
-                        <ClockIcon className="text-blue-600" />
-                      </td>
-                      <td className="pl-2">{shop.open}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <ShopCardTable />
               </div>
               <a href={shop.urls.pc} target="_blank">
                 <Flex aCenter className="hover:underline text-gray-500 text-xs">
@@ -168,28 +173,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
               ['h-auto p-4']: open,
             })}
           >
-            <table>
-              <tbody>
-                <tr>
-                  <td valign="top">
-                    <UtensilsIcon className="text-blue-600" />
-                  </td>
-                  <td className="pl-2">{shop.genre.name}</td>
-                </tr>
-                <tr>
-                  <td valign="top">
-                    <PinIcon className="text-blue-600" />
-                  </td>
-                  <td className="pl-2">{shop.address}</td>
-                </tr>
-                <tr>
-                  <td valign="top">
-                    <ClockIcon className="text-blue-600" />
-                  </td>
-                  <td className="pl-2">{shop.open}</td>
-                </tr>
-              </tbody>
-            </table>
+            <ShopCardTable />
             <Spacer h={3} />
             <Flex jBetween aCenter>
               <a href={shop.urls.pc} target="_blank">

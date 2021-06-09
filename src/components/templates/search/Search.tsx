@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { apiController } from '@/api';
 import { useDispatch } from 'react-redux';
 import { raiseModalAction } from '@/redux/utilities/actions';
-import { getShopsAction } from '@/redux/shops/actions';
+import { clearShopsAction, getShopsAction } from '@/redux/shops/actions';
 import { Position } from '@/types';
 import { modalTemplates } from '@/lib/modals';
 import Skeleton from 'react-loading-skeleton';
@@ -37,6 +37,7 @@ export const Search: React.VFC = () => {
   const [shopsCount, setShopsCount] = useState<number>(0);
   const [selectedId, setSelectedId] = useState<string>('');
   const [startLoading, endLoading] = useLoadingControll();
+  const [finished, setFinished] = useState<boolean>(false);
 
   const search = async (data: GeolocationData): Promise<void> => {
     const query = router.query.word as string;
@@ -52,28 +53,34 @@ export const Search: React.VFC = () => {
         position,
         range: 5,
       });
+      dispatch(getShopsAction(shop));
+      setFinished(true);
       setShopsCount(results_available);
-      if (isLoggedIn) {
-        const likedShops = await apiController.shops.likes.index(shop);
-        const result = shop;
-        result.map((shop, index) => {
-          shop.like = likedShops[index];
-        });
-        dispatch(getShopsAction(result));
-        endLoading();
-      } else {
-        dispatch(getShopsAction(shop));
-        endLoading();
-      }
     }
   };
 
   useEffect(() => {
+    dispatch(clearShopsAction());
     startLoading();
     navigator.geolocation.getCurrentPosition(search, (err: any) => {
       throw err;
     });
   }, [router.query.word]);
+
+  useEffect(() => {
+    if (isLoggedIn && finished) {
+      apiController.shops.index(shops).then((fooShops) => {
+        let result = shops;
+        result.map((shop) => {
+          shop.foo = fooShops.find((fooShop) => {
+            return fooShop.hotpepper_id === shop.id;
+          });
+        });
+        dispatch(getShopsAction(result));
+        endLoading();
+      });
+    }
+  }, [isLoggedIn, finished]);
 
   // likes controll
 
@@ -112,15 +119,16 @@ export const Search: React.VFC = () => {
 
   return (
     <>
-      {isLoading
-        ? <Skeleton duration={1} style={{ height: '500px' }} />
-        : <Map currentPosition={currentPosition} shops={shops} select={select} selected={selectedId} />
-      }
+      {isLoading ? (
+        <Skeleton duration={1} style={{ height: '500px' }} />
+      ) : (
+        <Map currentPosition={currentPosition} shops={shops} select={select} selected={selectedId} />
+      )}
       <Spacer h={6} />
       <SearchBar isLoading={isLoading} value={text} onChange={onChangeText} onSubmit={onSubmit} />
       <Spacer h={3} />
       <div className="px-4 w-full">
-        <h1>3km以内に{shopsCount}件のお店が見つかりました</h1>
+        <h1>現在地周辺に{shopsCount}件のお店が見つかりました</h1>
         <Spacer h={4} />
         <div className="flex overflow-x-scroll scroll-hidden">
           {shops.map((shop, index) => (

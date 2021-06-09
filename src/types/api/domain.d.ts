@@ -20,6 +20,10 @@ export type UpdateNameResource = {
 
 export type FooShop = {
   hotpepper_id: string;
+  isLiked: boolean;
+  isReported: boolean;
+  likesCount: number;
+  reportsCount: number;
 };
 
 export type LikedShopIndexResponse = {

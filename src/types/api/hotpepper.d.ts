@@ -1,3 +1,5 @@
+import { FooShop } from './domain';
+
 export type Shop = {
   id: string;
   address: string;
@@ -31,7 +33,7 @@ export type Shop = {
     pc: string;
   };
   wifi: AriOrNashi;
-  like: boolean | undefined;
+  foo: FooShop | undefined;
 };
 
 type AriOrNashi = 'あり' | 'なし';

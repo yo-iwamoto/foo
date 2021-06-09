@@ -16,14 +16,14 @@ export const About: React.VFC = () => {
         とは？
       </Heading>
       <Spacer h={12} />
-      <section className="w-4/5 sm:w-3/4 md:w-3/5 mx-auto flex flex-col sm:flex-row justify-between items-center">
+      <section className="w-4/5 sm:w-3/4 md:w-3/5 mx-auto flex flex-col sm:flex-row justify-between items-center text-left">
         <div className="w-full sm:w-3/4">
           <SubHeading>ひとりで楽しめるお店を、すぐに見つける。</SubHeading>
           <Spacer h={6} />
           <p>
             行ったことがないお店は雰囲気が分からず、「ひとり客は自分だけかも…？」と、少し入りにくく感じてしまうもの。
             <br />
-            Fooでは、ユーザーが、ひとりで食べに行ったお店に Foo (フー) することができます。
+            Fooでは、ユーザーが、ひとりで食べに行ったお店に Foo! (フー) することができます。
             他のユーザーの声を参考に、お店を選んでみましょう。
           </p>
         </div>
@@ -33,7 +33,7 @@ export const About: React.VFC = () => {
         </div>
       </section>
       <Spacer h={12} />
-      <section className="w-4/5 sm:w-3/4 md:w-3/5 mx-auto flex flex-col-reverse sm:flex-row justify-between items-center">
+      <section className="w-4/5 sm:w-3/4 md:w-3/5 mx-auto flex flex-col-reverse sm:flex-row justify-between items-center text-left">
         <div className="w-full sm:w-1/4">
           <Image src={shareImageUrl} width={400} height={400} />
         </div>
