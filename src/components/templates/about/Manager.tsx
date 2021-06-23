@@ -5,7 +5,7 @@ import { Flex, Spacer } from '@/components/utilities';
 import { useFadeIn } from '@/hooks/useFadeIn';
 
 export const Manager: React.VFC = () => {
-  const [fadeInStyle] = useFadeIn();
+  const fadeInStyle = useFadeIn();
   return (
     <div className={fadeInStyle()}>
       <Spacer h={6} />

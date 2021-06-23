@@ -1,61 +1,40 @@
 import axios, { AxiosResponse } from 'axios';
 import { Position, Shop } from '@/types';
+import { FooEndPoint } from '../lib/url';
 
-type HotpepperResponse = {
-  results: HotpepperIndexReturnType;
+type IndexResponse = {
+  available_count: number;
+  shops: Shop[];
 };
 
-type HotpepperIndexReturnType = {
-  results_available: number;
-  shop: Shop[];
-};
-
-type HotpepperIndexPayload = {
+type IndexPayload = {
   keyword?: string;
   position?: Position;
   range?: number;
   ids?: string[];
 };
 
-const key = process.env.NEXT_PUBLIC_API_KEY;
-const production = process.env.NODE_ENV === 'production';
-
-let baseUrl = `/hotpepper/gourmet/v1`;
-if (production) {
-  baseUrl = 'https://shielded-tor-67528.herokuapp.com/https://webservice.recruit.co.jp' + baseUrl;
-}
-
-const index = async (payload: HotpepperIndexPayload): Promise<HotpepperIndexReturnType> => {
-  try {
-    if (payload.keyword) {
-      const params = {
-        ...payload.position,
-        key: key,
-        range: payload.range,
-        keyword: payload.keyword,
-        format: 'json',
-        count: 30,
-      };
-      const res = (await axios.get(baseUrl, {
-        params: params,
-      })) as AxiosResponse<HotpepperResponse>;
-      return res.data.results;
-    } else {
-      const params = {
-        key: key,
-        id: payload.ids!.join(),
-        format: 'json',
-      };
-      const res = (await axios.get(baseUrl, {
-        params: params,
-      })) as AxiosResponse<HotpepperResponse>;
-      return res.data.results;
+class ShopsController {
+  static index = async function (payload: IndexPayload): Promise<IndexResponse> {
+    try {
+      if (payload.keyword) {
+        const endPoint = new FooEndPoint('/hotpepper/shops')
+          .addParams('keyword', payload.keyword)
+          .addParams('range', payload.range!.toString())
+          .addParams('format', 'json')
+          .addParams('count', '30');
+        const res = (await axios.get(endPoint.url)) as AxiosResponse<IndexResponse>;
+        return res.data;
+      } else {
+        const endPoint = new FooEndPoint('/hotpepper/shops')
+          .addParams('id', payload.ids!.join())
+          .addParams('format', 'json');
+        const res = (await axios.get(endPoint.url)) as AxiosResponse<IndexResponse>;
+        return res.data;
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const hotpepperController = {
-  index,
-};
+  };
+}

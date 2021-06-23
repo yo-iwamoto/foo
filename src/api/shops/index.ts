@@ -1,5 +1,5 @@
 import { Shop, FooShop } from '@/types';
-import { axios } from '../axios';
+import { axios } from '../lib/axios';
 import { AxiosResponse } from 'axios';
 
 const index = async (shops: Shop[]): Promise<FooShop[]> => {

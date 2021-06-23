@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useFadeIn = (): [fadeInStyle: () => string] => {
+export const useFadeIn = (): (() => string) => {
   const [entering, setEntering] = useState<boolean>(false);
   const fadeInStyle = (): string => {
     const defaultStyle = 'text-center transform transition-all duration-1000 ';
@@ -12,6 +12,6 @@ export const useFadeIn = (): [fadeInStyle: () => string] => {
   };
   useEffect(() => {
     setEntering(true);
-  });
-  return [fadeInStyle];
+  }, []);
+  return fadeInStyle;
 };

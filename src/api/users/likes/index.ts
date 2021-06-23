@@ -1,4 +1,4 @@
-import { axios } from '@/api/axios';
+import { axios } from '@/api/lib/axios';
 import { AxiosResponse } from 'axios';
 import { FooShop } from '@/types';
 

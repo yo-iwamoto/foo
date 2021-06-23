@@ -33,7 +33,7 @@ export const Top: React.VFC = () => {
   const getLikedShops = useLikedShops();
   const likesControll = useLikes();
 
-  const [fadeInStyle] = useFadeIn();
+  const fadeInStyle = useFadeIn();
 
   return (
     <div className={fadeInStyle()}>

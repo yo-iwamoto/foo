@@ -4,7 +4,7 @@ import { Spacer } from '@/components/utilities';
 import { useFadeIn } from '@/hooks/useFadeIn';
 
 export const PrivacyPolicy: React.VFC = () => {
-  const [fadeInStyle] = useFadeIn();
+  const fadeInStyle = useFadeIn();
   return (
     <div className={fadeInStyle()}>
       <Spacer h={6} />
