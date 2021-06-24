@@ -20,13 +20,13 @@ export const MiniCard: React.VFC<Props> = ({ shop, removeLike }) => {
     return (
       <Flex aCenter className="w-full border-main mx-auto shadow-lg rounded-lg text-left leading-loose h-24 sm:h-28">
         <Flex jStart className="w-19/20">
-          <a className="hover:opacity-80 h-24 sm:h-28 block" target="_blank" href={shop.urls.pc}>
-            <img src={shop.photo.pc.l} className="h-full min-w-24 sm:min-w-28 overflow-hidden block rounded-l-lg" />
+          <a className="hover:opacity-80 h-24 sm:h-28 block" target="_blank" href={shop.url}>
+            <img src={shop.photo} className="h-full min-w-24 sm:min-w-28 overflow-hidden block rounded-l-lg" />
           </a>
           <Flex aCenter jBetween className="w-full p-3">
-            <a className="hover:underline w-auto block leading-normal" target="_blank" href={shop.urls.pc}>
+            <a className="hover:underline w-auto block leading-normal" target="_blank" href={shop.url}>
               <h3 className="font-bold text-sm sm:text-lg">{shop.name}</h3>
-              <p className="text-xs sm:text-sm">{shop.catch}</p>
+              <p className="text-xs sm:text-sm">{shop.catch_copy}</p>
             </a>
           </Flex>
         </Flex>

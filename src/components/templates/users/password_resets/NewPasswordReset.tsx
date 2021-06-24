@@ -1,4 +1,4 @@
-import { apiController } from '@/api';
+import { FirebaseController } from '@/api';
 import { SubmitButton, Heading, TextField, CircleLoader } from '@/components/atoms';
 import { Spacer } from '@/components/utilities';
 import { useInput } from '@/hooks/useInput';
@@ -21,7 +21,7 @@ export const NewPasswordReset: React.VFC = () => {
     if (email) {
       try {
         startLoading();
-        await apiController.firebase.sendPasswordResetEmail(email);
+        await FirebaseController.sendPasswordResetEmail(email);
         endLoading();
         router.push('/');
         dispatch(raiseModalAction(modalTemplates.sendPasswordResetEmail));

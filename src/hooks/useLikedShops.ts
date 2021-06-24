@@ -1,4 +1,4 @@
-import { apiController } from '@/api';
+import { ShopsController, UsersLikesController } from '@/api';
 import { addShopsAction, getShopsAction } from '@/redux/shops/actions';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,7 +13,7 @@ export const useLikedShops = (): (() => Promise<void>) => {
 
   const getLikedShops = useCallback(async (): Promise<void> => {
     if (uid) {
-      const likedShops = await apiController.users.likes.index(uid);
+      const likedShops = await UsersLikesController.index(uid);
       const ids: string[] = [];
       likedShops.map((shop) => {
         ids.push(shop.hotpepper_id);
@@ -22,22 +22,22 @@ export const useLikedShops = (): (() => Promise<void>) => {
       if (!ids.length) {
         return;
       } else if (ids.length <= 10) {
-        const { shop } = await apiController.hotpepper.index({ ids });
-        dispatch(getShopsAction(shop));
+        const { shops } = await ShopsController.index({ ids });
+        dispatch(getShopsAction(shops));
       } else {
         let i = 0;
         for (;;) {
           if (ids.length > i + 10) {
-            const { shop } = await apiController.hotpepper.index({
+            const { shops } = await ShopsController.index({
               ids: ids.slice(i, i + 10),
             });
-            dispatch(addShopsAction(shop));
+            dispatch(addShopsAction(shops));
             i += 10;
           } else {
-            const { shop } = await apiController.hotpepper.index({
+            const { shops } = await ShopsController.index({
               ids: ids.slice(i),
             });
-            dispatch(addShopsAction(shop));
+            dispatch(addShopsAction(shops));
             break;
           }
         }

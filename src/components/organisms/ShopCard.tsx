@@ -110,7 +110,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
             })}
             onClick={onClick}
           >
-            <img src={shop.photo.pc.l} alt={shop.name_kana} className="h-48 rounded-t-3xl min-w-full" />
+            <img src={shop.photo} alt={shop.name_kana} className="h-48 rounded-t-3xl min-w-full" />
             <div className="absolute bg-white rounded-full h-10 w-10 top-2 right-2 shadow-2xl">
               <Spacer h={2} />
               <Like likeState={likeState} onClick={onClickLike} className="w-auto mx-auto" />
@@ -121,7 +121,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
                 <Spacer h={3} />
                 <ShopCardTable />
               </div>
-              <a href={shop.urls.pc} target="_blank">
+              <a href={shop.url} target="_blank">
                 <Flex aCenter className="hover:underline text-gray-500 text-xs">
                   <p className="flex">ホットペッパーグルメでもっと詳しく</p>
                   <ExternalLinkIcon />
@@ -145,7 +145,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
           <Flex aStart className="w-full">
             <div className="w-1/4 sm:w-1/6 md:w-1/7 overflow-hidden h-24 sm:h-26">
               <img
-                src={shop.photo.pc.l}
+                src={shop.photo}
                 className={cn({
                   ['h-full w-full overflow-hidden block transition-all hover:opacity-80']: true,
                   ['rounded-l-3xl']: !open,
@@ -157,7 +157,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
             <Flex col aStart className="w-3/4 sm:w-5/6 md:w-6/7 px-4 py-2 overflow-hidden h-24 sm:h-26">
               <div className="w-full">
                 <h3 className="font-bold text-sm sm:text-lg md:text-xl whitespace-wrap">{shop.name}</h3>
-                <p className="hidden sm:block text-sm">{shop.catch}</p>
+                <p className="hidden sm:block text-sm">{shop.catch_copy}</p>
               </div>
               <Spacer h={2} />
               <Flex jEnd className="w-full">
@@ -177,7 +177,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
             <ShopCardTable />
             <Spacer h={3} />
             <Flex jBetween aCenter>
-              <a href={shop.urls.pc} target="_blank">
+              <a href={shop.url} target="_blank">
                 <Flex aCenter className="hover:underline text-gray-500 text-xs">
                   <p className="inline">ホットペッパーグルメでもっと詳しく</p>
                   <ExternalLinkIcon />

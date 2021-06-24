@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { apiController } from '@/api';
+import { ShopsController } from '@/api';
 import { useDispatch } from 'react-redux';
 import { raiseModalAction } from '@/redux/utilities/actions';
 import { clearShopsAction, getShopsAction } from '@/redux/shops/actions';
@@ -37,7 +37,6 @@ export const Search: React.VFC = () => {
   const [shopsCount, setShopsCount] = useState<number>(0);
   const [selectedId, setSelectedId] = useState<string>('');
   const [startLoading, endLoading] = useLoadingControll();
-  const [finished, setFinished] = useState<boolean>(false);
 
   const search = async (data: GeolocationData): Promise<void> => {
     const query = router.query.word as string;
@@ -48,14 +47,14 @@ export const Search: React.VFC = () => {
     setCurrentPosition(position);
     if (query) {
       const keyword = query.replace(/\s+/g, ' ');
-      const { shop, results_available } = await apiController.hotpepper.index({
+      const { shops, available_count } = await ShopsController.index({
         keyword: keyword,
         position,
         range: 5,
       });
-      dispatch(getShopsAction(shop));
-      setFinished(true);
-      setShopsCount(results_available);
+      dispatch(getShopsAction(shops));
+      setShopsCount(available_count);
+      endLoading();
     }
   };
 
@@ -66,21 +65,6 @@ export const Search: React.VFC = () => {
       throw err;
     });
   }, [router.query.word]);
-
-  useEffect(() => {
-    if (finished) {
-      apiController.shops.index(shops).then((fooShops) => {
-        let result = shops;
-        result.map((shop) => {
-          shop.foo = fooShops.find((fooShop) => {
-            return fooShop.hotpepper_id === shop.id;
-          });
-        });
-        dispatch(getShopsAction(result));
-        endLoading();
-      });
-    }
-  }, [finished]);
 
   // likes controll
 

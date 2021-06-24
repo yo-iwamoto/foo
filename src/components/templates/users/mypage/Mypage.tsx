@@ -13,7 +13,7 @@ import { Flex, Spacer } from '@/components/utilities';
 import { UpdateNameResource } from '@/types';
 import { toastTemplates } from '@/lib/toasts';
 import { clearShopsAction } from '@/redux/shops/actions';
-import { apiController } from '@/api';
+import { UsersController } from '@/api';
 import { useLikes } from '@/hooks/useLikes';
 import { useLikedShops } from '@/hooks/useLikedShops';
 import { useSelectors } from '@/hooks/useSelectors';
@@ -62,7 +62,7 @@ export const Mypage: React.VFC = () => {
     startLoading();
     const resource: UpdateNameResource = { uid: users.uid, name: nickName };
     if (resource.name) {
-      const res = await apiController.users.updateName(resource);
+      const res = await UsersController.updateName(resource);
       dispatch(updateUserAction({ name: res.user.name }));
       dispatch(raiseToastAction(toastTemplates.successEditing));
       setEditMode(false);

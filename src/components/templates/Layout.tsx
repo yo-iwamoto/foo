@@ -9,7 +9,7 @@ import cn from 'classnames';
 import { NavigationDrawer } from '@/components/molecules';
 import { Header, Footer, Modal, Toast } from '@/components/organisms';
 import { toastTemplates } from '@/lib/toasts';
-import { apiController } from '@/api';
+import { UsersController } from '@/api';
 import { useSelectors } from '@/hooks/useSelectors';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
 
@@ -33,7 +33,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
   useEffect(() => {
     endLoading();
     if (!users.isLoggedIn && localStorage.getItem('Access-Token')) {
-      apiController.users.autoLogIn().then((data) => {
+      UsersController.autoLogIn().then((data) => {
         const actionPayload: LogInActionPayload = {
           ...data.user,
           isNewUser: false,

@@ -63,7 +63,9 @@ export type Shop = {
   url: string;
   wifi: AriOrNashi;
   foo: boolean;
-  reported: boolean;
+  liked: boolean;
+  foo_count: number;
+  likes_count: number;
 };
 
 type AriOrNashi = 'あり' | 'なし';
