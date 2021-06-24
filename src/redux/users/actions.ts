@@ -1,9 +1,9 @@
 import * as ActionTypes from './actionTypes';
-import { ActionResponse, UserState } from '@/redux/types';
+import { ActionResponse, UsersState } from '@/redux/types';
 
-type UserActionResponse = ActionResponse<UserState>;
+type UserActionResponse = ActionResponse<UsersState>;
 
-export type LogInActionPayload = Omit<UserState, 'isLoggedIn'>;
+export type LogInActionPayload = Omit<UsersState, 'isLoggedIn'>;
 
 export const logInAction = (payload: LogInActionPayload): UserActionResponse => ({
   type: ActionTypes.LOG_IN,
@@ -31,7 +31,7 @@ export const endNewUserAction = (): UserActionResponse => ({
   },
 });
 
-export const updateUserAction = (payload: Partial<UserState>): UserActionResponse => ({
+export const updateUserAction = (payload: Partial<UsersState>): UserActionResponse => ({
   type: ActionTypes.UPDATE_USER,
   payload: payload,
 });

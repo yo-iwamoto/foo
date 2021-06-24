@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { ShopsController } from '@/api';
 import { useDispatch } from 'react-redux';
 import { raiseModalAction } from '@/redux/utilities/actions';
-import { clearShopsAction, getShopsAction } from '@/redux/shops/actions';
 import { Position } from '@/types';
 import { modalTemplates } from '@/lib/modals';
 import Skeleton from 'react-loading-skeleton';
@@ -11,8 +10,8 @@ import { Map, SearchBar, ShopCard } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
 import { useLikes } from '@/hooks/useLikes';
 import { useInput } from '@/hooks/useInput';
-import { useSelectors } from '@/hooks/useSelectors';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
+import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
 
 interface GeolocationData {
   coords: {
@@ -25,11 +24,8 @@ export const Search: React.VFC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const {
-    shops: { shops },
-    utilities: { isLoading },
-    users: { isLoggedIn },
-  } = useSelectors();
+  const { isLoading } = useUtilitiesState();
+  const { isLoggedIn } = useUsersState();
 
   const initialPosition: Position = { lat: 35.68812, lng: 139.7671 };
 
@@ -52,14 +48,12 @@ export const Search: React.VFC = () => {
         position,
         range: 5,
       });
-      dispatch(getShopsAction(shops));
       setShopsCount(available_count);
       endLoading();
     }
   };
 
   useEffect(() => {
-    dispatch(clearShopsAction());
     startLoading();
     navigator.geolocation.getCurrentPosition(search, (err: any) => {
       throw err;
@@ -91,22 +85,23 @@ export const Search: React.VFC = () => {
     }
   };
 
-  const select = (id: string): void => {
-    const shop = shops.find((shop) => shop.id === id);
-    const position: Position = {
-      lat: shop!.lat,
-      lng: shop!.lng,
-    };
-    setCurrentPosition(position);
-    setSelectedId(id);
-  };
+  // const select = (id: string): void => {
+  //   const shop = shops.find((shop) => shop.id === id);
+  //   const position: Position = {
+  //     lat: shop!.lat,
+  //     lng: shop!.lng,
+  //   };
+  //   setCurrentPosition(position);
+  //   setSelectedId(id);
+  // };
 
   return (
     <>
       {isLoading ? (
         <Skeleton duration={1} style={{ height: '500px' }} />
       ) : (
-        <Map currentPosition={currentPosition} shops={shops} select={select} selected={selectedId} />
+        // <Map currentPosition={currentPosition} shops={shops} select={select} selected={selectedId} />
+        <div></div>
       )}
       <Spacer h={6} />
       <SearchBar isLoading={isLoading} value={text} onChange={onChangeText} onSubmit={onSubmit} />
@@ -115,7 +110,7 @@ export const Search: React.VFC = () => {
         <h1>現在地周辺に{shopsCount}件のお店が見つかりました</h1>
         <Spacer h={4} />
         <div className="flex overflow-x-scroll scroll-hidden">
-          {shops.map((shop, index) => (
+          {/* {shops.map((shop, index) => (
             <Flex key={index}>
               <Spacer w={2} />
               <ShopCard
@@ -130,7 +125,7 @@ export const Search: React.VFC = () => {
               />
               <Spacer w={2} />
             </Flex>
-          ))}
+          ))} */}
         </div>
       </div>
       <Spacer h={8} />

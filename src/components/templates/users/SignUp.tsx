@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
-
 import { useDispatch } from 'react-redux';
 import { logInAction } from '@/redux/users/actions';
 import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
-
 import { UsersController } from '@/api';
 import { useRouter } from 'next/router';
-
 import { Heading, TextLink, Loader, OAuthIcon } from '@/components/atoms';
 import { SignUpForm } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
@@ -14,9 +11,9 @@ import { FirebaseSignInPayload } from '@/types';
 import { modalTemplates } from '@/lib/modals';
 import { toastTemplates } from '@/lib/toasts';
 import { FirebaseController } from '@/api';
-import { auth } from '@/api/firebase';
+import { auth } from '@/api/lib/firebase';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
-import { useSelectors } from '@/hooks/useSelectors';
+import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
 
 export const SignUp: React.VFC = () => {
   const router = useRouter(),
@@ -46,10 +43,8 @@ export const SignUp: React.VFC = () => {
     }
   };
 
-  const {
-    utilities: { isLoading },
-    users: { isNewUser },
-  } = useSelectors();
+  const { isLoading } = useUtilitiesState();
+  const { isNewUser } = useUsersState();
 
   useEffect(() => {
     startLoading();

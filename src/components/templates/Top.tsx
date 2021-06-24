@@ -5,10 +5,8 @@ import { SearchBar } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
 import { LinkButton, Image } from '@/components/atoms';
 import { useInput } from '@/hooks/useInput';
-import { useLikedShops } from '@/hooks/useLikedShops';
-import { useLikes } from '@/hooks/useLikes';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
-import { useSelectors } from '@/hooks/useSelectors';
+import { useUtilitiesState } from '@/hooks/useSelectors';
 
 export const Top: React.VFC = () => {
   const router = useRouter();
@@ -16,9 +14,7 @@ export const Top: React.VFC = () => {
   const imageUrl = '/images/meal.png';
 
   const [startLoading, _] = useLoadingControll();
-  const {
-    utilities: { isLoading },
-  } = useSelectors();
+  const { isLoading } = useUtilitiesState();
 
   const [text, onChangeText] = useInput<string>('');
 
@@ -29,9 +25,6 @@ export const Top: React.VFC = () => {
       router.push(`/search/?word=${text}`);
     }
   };
-
-  const getLikedShops = useLikedShops();
-  const likesControll = useLikes();
 
   const fadeInStyle = useFadeIn();
 

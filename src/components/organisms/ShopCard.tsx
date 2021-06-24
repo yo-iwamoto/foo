@@ -45,12 +45,6 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
       setOpen(false);
     };
 
-    // useEffect(() => {
-    //   if (shop.foo !== undefined) {
-    //     setLikeState(shop.foo.isLiked);
-    //   }
-    // }, [shop.foo]);
-
     const ShopCardTable: React.VFC = () => {
       return (
         <table className="text-sm border-separate">

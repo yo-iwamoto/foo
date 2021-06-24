@@ -10,8 +10,8 @@ import { NavigationDrawer } from '@/components/molecules';
 import { Header, Footer, Modal, Toast } from '@/components/organisms';
 import { toastTemplates } from '@/lib/toasts';
 import { UsersController } from '@/api';
-import { useSelectors } from '@/hooks/useSelectors';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
+import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
 
 type Props = {
   children: React.ReactNode;
@@ -25,14 +25,12 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
 
   // Auto Login & Navigation Guard
 
-  const {
-    users,
-    utilities: { modal, toast },
-  } = useSelectors();
+  const user = useUsersState();
+  const { modal, toast } = useUtilitiesState();
 
   useEffect(() => {
     endLoading();
-    if (!users.isLoggedIn && localStorage.getItem('Access-Token')) {
+    if (!user.isLoggedIn && localStorage.getItem('Access-Token')) {
       UsersController.autoLogIn().then((data) => {
         const actionPayload: LogInActionPayload = {
           ...data.user,
@@ -44,7 +42,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
           router.push('/');
         }
       });
-    } else if (!users.isLoggedIn) {
+    } else if (!user.isLoggedIn) {
       if (router.route === '/users/mypage') {
         router.push('/users/login');
       }
@@ -85,7 +83,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
         })}
         onClick={toggleDrawer}
       />
-      <NavigationDrawer show={showDrawer} toggleDrawer={toggleDrawer} isLoggedIn={users.isLoggedIn} logOut={logOut} />
+      <NavigationDrawer show={showDrawer} toggleDrawer={toggleDrawer} isLoggedIn={user.isLoggedIn} logOut={logOut} />
       <Header toggleDrawer={toggleDrawer} />
       <main className="text-gray-700 font-main min-h-screen">{children}</main>
       <Footer />

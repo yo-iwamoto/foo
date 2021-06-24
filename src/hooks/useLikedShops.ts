@@ -1,15 +1,9 @@
 import { ShopsController, UsersLikesController } from '@/api';
-import { addShopsAction, getShopsAction } from '@/redux/shops/actions';
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelectors } from './useSelectors';
+import { useUsersState } from './useSelectors';
 
 export const useLikedShops = (): (() => Promise<void>) => {
-  const dispatch = useDispatch();
-
-  const {
-    users: { uid },
-  } = useSelectors();
+  const { uid } = useUsersState();
 
   const getLikedShops = useCallback(async (): Promise<void> => {
     if (uid) {
@@ -23,7 +17,6 @@ export const useLikedShops = (): (() => Promise<void>) => {
         return;
       } else if (ids.length <= 10) {
         const { shops } = await ShopsController.index({ ids });
-        dispatch(getShopsAction(shops));
       } else {
         let i = 0;
         for (;;) {
@@ -31,13 +24,11 @@ export const useLikedShops = (): (() => Promise<void>) => {
             const { shops } = await ShopsController.index({
               ids: ids.slice(i, i + 10),
             });
-            dispatch(addShopsAction(shops));
             i += 10;
           } else {
             const { shops } = await ShopsController.index({
               ids: ids.slice(i),
             });
-            dispatch(addShopsAction(shops));
             break;
           }
         }

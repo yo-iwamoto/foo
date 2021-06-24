@@ -1,11 +1,11 @@
 import * as ActionTypes from './actionTypes';
-import { ActionResponse, UtilityState } from '@/redux/types';
+import { ActionResponse, UtilitiesState } from '@/redux/types';
 import { initialState } from '@/redux/store/initialState';
 
 export const UtilitiesReducer = (
-  state: UtilityState = initialState.utilities,
-  action: ActionResponse<UtilityState>,
-): UtilityState => {
+  state: UtilitiesState = initialState.utilities,
+  action: ActionResponse<UtilitiesState>,
+): UtilitiesState => {
   switch (action.type) {
     case ActionTypes.START_LOADING:
       return {

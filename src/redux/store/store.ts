@@ -3,7 +3,6 @@ import { createLogger } from 'redux-logger';
 
 import { UtilitiesReducer } from '@/redux/utilities/reducers';
 import { UsersReducer } from '@/redux/users/reducers';
-import { ShopsReducer } from '@/redux/shops/reducers';
 
 const createStore = () => {
   const middleWares = [];
@@ -19,7 +18,6 @@ const createStore = () => {
     combineReducers({
       utilities: UtilitiesReducer,
       users: UsersReducer,
-      shops: ShopsReducer,
     }),
     applyMiddleware(...middleWares),
   );

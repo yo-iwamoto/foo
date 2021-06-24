@@ -1,21 +1,18 @@
 import React, { useEffect } from 'react';
-
 import { useDispatch } from 'react-redux';
 import { logInAction, LogInActionPayload } from '@/redux/users/actions';
 import { raiseToastAction } from '@/redux/utilities/actions';
-
 import { UsersController } from '@/api';
 import { useRouter } from 'next/router';
-
 import { Heading, TextLink, Loader, OAuthIcon } from '@/components/atoms';
 import { LogInForm } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
 import { FirebaseSignInPayload, FirebaseSignInResponse } from '@/types';
 import { toastTemplates } from '@/lib/toasts';
 import { FirebaseController } from '@/api';
-import { auth } from '@/api/firebase';
+import { auth } from '@/api/lib/firebase';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
-import { useSelectors } from '@/hooks/useSelectors';
+import { useUtilitiesState } from '@/hooks/useSelectors';
 
 export const LogIn: React.VFC = () => {
   const router = useRouter(),
@@ -46,9 +43,7 @@ export const LogIn: React.VFC = () => {
     }
   };
 
-  const {
-    utilities: { isLoading },
-  } = useSelectors();
+  const { isLoading } = useUtilitiesState();
 
   useEffect(() => {
     startLoading();

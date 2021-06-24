@@ -1,7 +1,7 @@
 import * as ActionTypes from './actionTypes';
-import { ActionResponse, ModalState, ToastState, UtilityState } from '@/redux/types';
+import { ActionResponse, ModalState, ToastState, UtilitiesState } from '@/redux/types';
 
-type UtilityActionResponse = ActionResponse<UtilityState>;
+type UtilityActionResponse = ActionResponse<UtilitiesState>;
 
 export const startLoadingAction = (): UtilityActionResponse => ({
   type: ActionTypes.START_LOADING,

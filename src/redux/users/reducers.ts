@@ -1,9 +1,11 @@
-import * as Actions from './actions';
 import * as ActionTypes from './actionTypes';
-import { ActionResponse, UserState } from '@/redux/types';
+import { ActionResponse, UsersState } from '@/redux/types';
 import { initialState } from '@/redux/store/initialState';
 
-export const UsersReducer = (state: UserState = initialState.users, action: ActionResponse<UserState>): UserState => {
+export const UsersReducer = (
+  state: UsersState = initialState.users,
+  action: ActionResponse<UsersState>,
+): UsersState => {
   switch (action.type) {
     case ActionTypes.LOG_IN:
       return {

@@ -1,4 +1,4 @@
-import { apiController } from '@/api';
+import { ShopsLikesController } from '@/api';
 import { useCallback } from 'react';
 
 type UseLikesReturnType = {
@@ -8,11 +8,11 @@ type UseLikesReturnType = {
 
 export const useLikes = (): UseLikesReturnType => {
   const like = useCallback(async (id: string): Promise<void> => {
-    await apiController.shops.likes.create(id);
+    await ShopsLikesController.create(id);
   }, []);
 
   const remove = useCallback(async (id: string): Promise<void> => {
-    await apiController.shops.likes.destroy(id);
+    await ShopsLikesController.destroy(id);
   }, []);
 
   const likesControll: UseLikesReturnType = {

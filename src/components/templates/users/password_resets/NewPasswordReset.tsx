@@ -3,7 +3,7 @@ import { SubmitButton, Heading, TextField, CircleLoader } from '@/components/ato
 import { Spacer } from '@/components/utilities';
 import { useInput } from '@/hooks/useInput';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
-import { useSelectors } from '@/hooks/useSelectors';
+import { useUtilitiesState } from '@/hooks/useSelectors';
 import { modalTemplates } from '@/lib/modals';
 import { raiseModalAction } from '@/redux/utilities/actions';
 import { useRouter } from 'next/router';
@@ -34,9 +34,7 @@ export const NewPasswordReset: React.VFC = () => {
     }
   };
 
-  const {
-    utilities: { isLoading },
-  } = useSelectors();
+  const { isLoading } = useUtilitiesState();
 
   return (
     <div className="py-10 px-4 sm:px-0 text-center">
