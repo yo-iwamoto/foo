@@ -5,7 +5,7 @@ import { Flex, Spacer } from '@/components/utilities';
 
 export const Footer: React.VFC = () => {
   const menus: NavMenu[] = [
-    { text: 'プライバシーポリシー', href: '/about/privacy_policy' },
+    { text: 'プライバシーポリシー', href: '/about/privacy-policy' },
     { text: '管理者について', href: '/about/manager' },
     { text: 'お問い合わせ', href: '/about/contact' },
   ];
