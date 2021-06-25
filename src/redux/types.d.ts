@@ -34,6 +34,7 @@ export type UtilitiesState = {
   isLoading: boolean;
   toast: ToastState;
   modal: ModalState;
+  selectedShopId: string;
 };
 
 export type State = {

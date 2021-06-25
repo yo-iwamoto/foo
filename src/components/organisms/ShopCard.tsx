@@ -8,8 +8,8 @@ import smoothscroll from 'smoothscroll-polyfill';
 
 type Props = {
   shop: Shop | undefined;
-  like: ((id: string) => Promise<void>) | (() => void);
-  remove: (id: string) => Promise<void>;
+  like?: ((id: string) => Promise<void>) | (() => void);
+  remove?: (id: string) => Promise<void>;
   select?: (id: string) => void;
   selected?: string;
   square?: boolean;
@@ -17,22 +17,24 @@ type Props = {
   isLoggedIn: boolean;
 };
 
-export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selected, square, isLoading, isLoggedIn }) => {
+export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selected, square, isLoggedIn }) => {
   smoothscroll.polyfill();
 
   if (shop) {
-    const [likeState, setLikeState] = useState<boolean>(false);
+    const [likeState, setLikeState] = useState<boolean>(shop.liked);
     const onClickLike = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
-      e.stopPropagation();
-      if (likeState) {
-        await remove(shop.id);
-        setLikeState(false);
-      } else {
-        await like(shop.id);
-        if (isLoggedIn) {
-          setLikeState(true);
+      if (remove && like) {
+        if (likeState) {
+          await remove(shop.id);
+          setLikeState(false);
+        } else {
+          await like(shop.id);
+          if (isLoggedIn) {
+            setLikeState(true);
+          }
         }
       }
+      e.stopPropagation();
     };
 
     const [open, setOpen] = useState<boolean>(false);
@@ -53,7 +55,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
               <td valign="top">
                 <UtensilsIcon className="text-blue-600" />
               </td>
-              <td className="pl-2">{shop.genre.name}</td>
+              <td className="pl-2">{shop.genre?.name ?? 'その他'}</td>
             </tr>
             <tr>
               <td valign="top">
@@ -93,7 +95,9 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
         <div
           ref={ref}
           onClick={() => {
-            select!(shop.id);
+            if (select) {
+              select(shop.id);
+            }
           }}
         >
           <Flex
@@ -105,10 +109,12 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
             onClick={onClick}
           >
             <img src={shop.photo} alt={shop.name_kana} className="h-48 rounded-t-3xl min-w-full" />
-            <div className="absolute bg-white rounded-full h-10 w-10 top-2 right-2 shadow-2xl">
-              <Spacer h={2} />
-              <Like likeState={likeState} onClick={onClickLike} className="w-auto mx-auto" />
-            </div>
+            {like && (
+              <div className="absolute bg-white rounded-full h-10 w-10 top-2 right-2 shadow-2xl">
+                <Spacer h={2} />
+                <Like likeState={likeState} onClick={onClickLike} className="w-auto mx-auto" />
+              </div>
+            )}
             <Flex col aStart jBetween className="h-full w-full p-3">
               <div>
                 <h3 className="font-bold text-md sm:text-lg md:text-xl whitespace-wrap">{shop.name}</h3>

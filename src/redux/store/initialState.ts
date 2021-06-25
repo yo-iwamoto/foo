@@ -14,6 +14,7 @@ export const initialState: State = {
       link: null,
       buttonText: '',
     },
+    selectedShopId: '',
   },
   users: {
     isLoggedIn: false,

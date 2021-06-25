@@ -52,3 +52,17 @@ export const closeModalAction = (): UtilityActionResponse => ({
     },
   },
 });
+
+export const selectAction = (id: string): UtilityActionResponse => ({
+  type: 'SELECT',
+  payload: {
+    selectedShopId: id,
+  },
+});
+
+export const unSelectAction = (): UtilityActionResponse => ({
+  type: 'UNSELECT',
+  payload: {
+    selectedShopId: '',
+  },
+});

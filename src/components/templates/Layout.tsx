@@ -85,7 +85,7 @@ export const Layout: React.VFC<Props> = ({ children, router }) => {
       />
       <NavigationDrawer show={showDrawer} toggleDrawer={toggleDrawer} isLoggedIn={user.isLoggedIn} logOut={logOut} />
       <Header toggleDrawer={toggleDrawer} />
-      <main className="text-gray-700 font-main min-h-screen">{children}</main>
+      <main className="text-gray-700 font-main min-h-screen border-gray-50">{children}</main>
       <Footer />
     </div>
   );

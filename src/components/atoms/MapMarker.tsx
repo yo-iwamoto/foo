@@ -5,41 +5,31 @@ import { Position, Shop } from '@/types';
 type Props = {
   position: Position;
   shop: Shop;
+  selected?: string;
   select: (id: string) => void;
-  selected?: string | undefined;
 };
 
 export const MapMarker: React.VFC<Props> = ({ position, select, shop, selected }) => {
-  const [entering, setEntering] = useState<boolean>(true);
-  const isSelected = (): boolean => selected === shop.id;
-  const markerOption: google.maps.MarkerOptions = {
-    animation: entering
-      ? google.maps.Animation.DROP
-      : isSelected()
-      ? google.maps.Animation.BOUNCE
-      : google.maps.Animation.DROP,
-  };
+  const defaultOption: google.maps.MarkerOptions = { animation: google.maps.Animation.DROP };
+  const selectedOption: google.maps.MarkerOptions = { animation: google.maps.Animation.BOUNCE };
+
+  const [markerOption, setMarkerOption] = useState<google.maps.MarkerOptions>(defaultOption);
 
   useEffect(() => {
-    setTimeout(() => {
-      setEntering(false);
-    }, 1000);
-  }, []);
+    if (shop.id === selected) {
+      setMarkerOption(selectedOption);
+    } else {
+      setMarkerOption(defaultOption);
+    }
+  }, [selected]);
+
   return (
-    // <OverlayView position={position} mapPaneName={OverlayView.FLOAT_PANE}>
-    //   <Flex aEnd className="cursor-pointer" onClick={onClick}>
-    //     <div className="relative">
-    //       {/* <PinAltIcon
-    //         className={cn({
-    //           ['text-4xl transform transition-transform -translate-x-1/2 -translate-y-full text-main origin-bottom']: true,
-    //           ['scale-150']: selected
-    //         })}
-    //       /> */}
-    //       <PinAltIcon className="absolute transform transition-transform origin-bottom -translate-x-1/2 -translate-y-full text-main text-4xl" />
-    //       <UtensilsIcon className="absolute transform transition-transform origin-bottom - translate-x-1/2 -translate-y-full text-white text-xl" />
-    //     </div>
-    //   </Flex>
-    // </OverlayView>
-    <Marker position={position} onClick={() => select(shop.id)} options={markerOption} />
+    <Marker
+      position={position}
+      onClick={() => {
+        select(shop.id);
+      }}
+      options={markerOption}
+    />
   );
 };

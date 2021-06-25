@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFadeIn } from '@/hooks/useFadeIn';
 import { useRouter } from 'next/router';
-import { SearchBar } from '@/components/organisms';
-import { Spacer } from '@/components/utilities';
-import { LinkButton, Image } from '@/components/atoms';
+import { SearchBar, ShopCard } from '@/components/organisms';
+import { Flex, Spacer } from '@/components/utilities';
+import { LinkButton, Image, SubHeading } from '@/components/atoms';
 import { useInput } from '@/hooks/useInput';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
-import { useUtilitiesState } from '@/hooks/useSelectors';
+import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
+import { Shop } from '@/types';
+import { UsersLikesController } from '@/api';
 
 export const Top: React.VFC = () => {
   const router = useRouter();
@@ -15,6 +17,7 @@ export const Top: React.VFC = () => {
 
   const [startLoading, _] = useLoadingControll();
   const { isLoading } = useUtilitiesState();
+  const { uid, isLoggedIn } = useUsersState();
 
   const [text, onChangeText] = useInput<string>('');
 
@@ -25,6 +28,18 @@ export const Top: React.VFC = () => {
       router.push(`/search/?word=${text}`);
     }
   };
+
+  const [shops, setShops] = useState<Shop[]>([]);
+
+  useEffect(() => {
+    if (uid) {
+      UsersLikesController.index(uid).then((res) => {
+        if (res?.shops) {
+          setShops(res.shops);
+        }
+      });
+    }
+  }, [uid]);
 
   const fadeInStyle = useFadeIn();
 
@@ -38,7 +53,24 @@ export const Top: React.VFC = () => {
       <div className="w-64 mx-auto">
         <Image src={imageUrl} width={300} height={300} />
       </div>
-      <Spacer h={28} />
+      {shops.length !== 0 && <div className="w-full md:w-2/3 lg:w-1/2"></div>}
+
+      <Spacer h={6} />
+      <section className="p-2 w-full lg:w-1/2 mx-auto">
+        <h2 className="text-left font-bold pb-2 px-4">お気に入りのお店</h2>
+        <hr />
+        <Spacer h={6} />
+        <div className="flex overflow-x-scroll scroll-hidden">
+          {shops.map((shop, index) => (
+            <Flex key={index}>
+              <Spacer w={2} />
+              <ShopCard isLoading={isLoading} isLoggedIn={isLoggedIn} shop={shop} square />
+              <Spacer w={2} />
+            </Flex>
+          ))}
+        </div>
+      </section>
+      <Spacer h={12} />
       <LinkButton primary text="Fooについて" className="w-64 h-12" href="/about" />
       <Spacer h={12} />
     </div>

@@ -10,7 +10,7 @@ type Props = {
 
 export const MiniCard: React.VFC<Props> = ({ shop, removeLike }) => {
   if (shop) {
-    const remove = async (): Promise<void> => {
+    const onClick = async (): Promise<void> => {
       const confirmation = confirm('削除しますか？');
       if (confirmation) {
         removeLike(shop.id);
@@ -32,7 +32,7 @@ export const MiniCard: React.VFC<Props> = ({ shop, removeLike }) => {
         </Flex>
         <TrashIcon
           className="text-md sm:text-lg block transform -translate-x-1 w-1/20 cursor-pointer hover:text-main"
-          onClick={remove}
+          onClick={onClick}
         />
       </Flex>
     );

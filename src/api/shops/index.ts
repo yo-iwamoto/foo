@@ -20,6 +20,8 @@ export class ShopsController {
       if (payload.keyword) {
         const endPoint = new FooEndPoint('/shops', {
           keyword: payload.keyword,
+          lat: payload.position!.lat.toString(),
+          lng: payload.position!.lng.toString(),
           range: payload.range!.toString(),
           count: '30',
         });

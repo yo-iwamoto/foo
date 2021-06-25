@@ -46,7 +46,7 @@ export const NavigationDrawer: React.VFC<Props> = ({ show, toggleDrawer, isLogge
   return (
     <div
       className={cn({
-        ['h-full w-full sm:w-2/4 md:w-2/5 lg:w-1/4 bg-main top-0 z-30 transform transition-all duration-500 fixed shadow-2xl']:
+        ['h-full w-full sm:w-2/4 md:w-2/5 lg:w-1/4 bg-main top-0 z-30 transform transition-all duration-300 fixed shadow-2xl']:
           true,
         ['-right-full']: !show,
         ['right-0']: show,

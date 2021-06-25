@@ -3,33 +3,33 @@ import { useDispatch } from 'react-redux';
 import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
 import { modalTemplates } from '@/lib/modals';
 import { endNewUserAction, updateUserAction } from '@/redux/users/actions';
-import { TableRow } from '@/types';
+import { Shop, TableRow } from '@/types';
 import { providerName } from '@/lib/providerName';
 
-import { Heading, TextField } from '@/components/atoms';
+import { Heading, TextField, Image } from '@/components/atoms';
 import { SectionTitle, Table } from '@/components/molecules';
 import { ShopCard, EditControl } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
 import { UpdateNameResource } from '@/types';
 import { toastTemplates } from '@/lib/toasts';
-import { UsersController } from '@/api';
-import { useLikes } from '@/hooks/useLikes';
-import { useLikedShops } from '@/hooks/useLikedShops';
+import { ShopsLikesController, UsersController, UsersLikesController } from '@/api';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
 import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
 
 export const Mypage: React.VFC = () => {
   const dispatch = useDispatch();
+  const noShopImageUrl = '/images/no-shop.png';
 
   const user = useUsersState();
   const { isLoading } = useUtilitiesState();
+
+  const [shops, setShops] = useState<Shop[]>([]);
+  const [noShops, setNoShops] = useState(false);
 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [nickName, setNickname] = useState<string>(user.name);
 
   const [startLoading, endLoading] = useLoadingControll();
-
-  const getLikedShops = useLikedShops();
 
   useEffect(() => {
     if (user.isNewUser) {
@@ -37,7 +37,13 @@ export const Mypage: React.VFC = () => {
       dispatch(endNewUserAction());
     }
     if (user.isLoggedIn) {
-      getLikedShops();
+      UsersLikesController.index(user.uid).then((res) => {
+        if (res?.shops) {
+          setShops(res.shops);
+        } else {
+          setNoShops(true);
+        }
+      });
     }
   }, [user.isNewUser, user.uid]);
 
@@ -68,7 +74,24 @@ export const Mypage: React.VFC = () => {
     setNickname(e.target.value);
   };
 
-  const likesControll = useLikes();
+  const addLike = async (id: string): Promise<void> => {
+    if (user.isLoggedIn) {
+      try {
+        await ShopsLikesController.create(id);
+      } catch (err) {
+        throw err;
+      }
+    } else {
+      dispatch(raiseModalAction(modalTemplates.like));
+    }
+  };
+  const removeLike = async (id: string): Promise<void> => {
+    try {
+      await ShopsLikesController.destroy(id);
+    } catch (err) {
+      throw err;
+    }
+  };
 
   return (
     <>
@@ -106,21 +129,28 @@ export const Mypage: React.VFC = () => {
           </section>
           <Spacer h={12} />
           <section>
-            <SectionTitle title="お気に入りリスト">{/* <p>{shops.length} 件</p> */}</SectionTitle>
-            <div>
-              {/* {shops.map((shop, index) => (
-                <div key={index}>
-                  <ShopCard
-                    isLoggedIn={user.isLoggedIn}
-                    isLoading={isLoading}
-                    shop={shop}
-                    like={likesControll.like}
-                    remove={likesControll.remove}
-                  />
-                  <Spacer h={3} />
-                </div>
-              ))} */}
-            </div>
+            <SectionTitle title="お気に入りリスト">{!isLoading && <p>{shops.length} 件</p>}</SectionTitle>
+            {!noShops ? (
+              <div>
+                {shops.map((shop, index) => (
+                  <div key={index}>
+                    <ShopCard
+                      isLoggedIn={user.isLoggedIn}
+                      isLoading={isLoading}
+                      shop={shop}
+                      like={addLike}
+                      remove={removeLike}
+                    />
+                    <Spacer h={3} />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center">
+                <Image src={noShopImageUrl} width={288} height={288} />
+                <p>まだお気に入りのお店がないようです...</p>
+              </div>
+            )}
           </section>
         </div>
       ) : (

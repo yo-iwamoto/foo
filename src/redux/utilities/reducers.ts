@@ -36,6 +36,16 @@ export const UtilitiesReducer = (
         ...state,
         ...action.payload,
       };
+    case 'SELECT':
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case 'UNSELECT':
+      return {
+        ...state,
+        ...action.payload,
+      };
     default:
       return state;
   }

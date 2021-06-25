@@ -11,7 +11,6 @@ export {
   LikeResponse,
   GetLikesResponse,
   UpdateNameResource,
-  FooShop,
   LikedShopIndexResponse,
   FooSignInResource,
 } from './api/domain';

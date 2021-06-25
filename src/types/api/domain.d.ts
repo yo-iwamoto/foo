@@ -18,14 +18,6 @@ export type UpdateNameResource = {
   name: string;
 };
 
-export type FooShop = {
-  hotpepper_id: string;
-  isLiked: boolean;
-  isReported: boolean;
-  likesCount: number;
-  reportsCount: number;
-};
-
 export type LikedShopIndexResponse = {
   shops: FooShop[];
 };
