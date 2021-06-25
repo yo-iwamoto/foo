@@ -78,17 +78,16 @@ export const LogIn: React.VFC = () => {
       });
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="py-10 px-4 sm:px-0 text-center">
-        <Spacer h={28} />
-        <Loader isLoading={isLoading} />
-        <Spacer h={12} />
-        <h1 className="text-center">ログインしています...</h1>
-      </div>
-    );
-  } else {
-    return (
+  return (
+    <>
+      {isLoading && (
+        <div className="py-10 px-4 sm:px-0 text-center">
+          <Spacer h={28} />
+          <Loader isLoading={isLoading} />
+          <Spacer h={12} />
+          <h1 className="text-center">ログインしています...</h1>
+        </div>
+      )}
       <div className="py-10 px-4 sm:px-0 text-center">
         <Heading>ログイン</Heading>
         <Spacer h={12} />
@@ -107,6 +106,6 @@ export const LogIn: React.VFC = () => {
           <TextLink href="/users/signup" text="新規会員登録" className="text-main" />
         </p>
       </div>
-    );
-  }
+    </>
+  );
 };
