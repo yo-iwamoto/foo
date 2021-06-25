@@ -1,14 +1,11 @@
-import { axios } from '@/api/axios';
+import { axios } from '@/api/lib/axios';
 import { AxiosResponse } from 'axios';
 import { FooSignInResource, UpdateNameResource, UserResponse } from '@/types';
 
-const authGenerator =
-  (method: 'login' | 'signup') =>
-  async (resource: FooSignInResource): Promise<UserResponse> => {
+export class UsersController {
+  static signUp = async (resource: FooSignInResource): Promise<UserResponse> => {
     try {
-      const isLogin = method === 'login';
-      const path = isLogin ? '/sessions' : '/users';
-      const res: AxiosResponse<UserResponse> = await axios.post(path, resource);
+      const res = await axios.post('/users', resource);
       localStorage.setItem('Access-Token', res.headers['access-token']);
       return res.data;
     } catch (err) {
@@ -16,33 +13,34 @@ const authGenerator =
     }
   };
 
-const signUp = authGenerator('signup');
-const logIn = authGenerator('login');
+  static logIn = async (resource: FooSignInResource): Promise<UserResponse> => {
+    try {
+      const res = await axios.post('/sessions', resource);
+      localStorage.setItem('Access-Token', res.headers['access-token']);
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  };
 
-const autoLogIn = async (): Promise<UserResponse> => {
-  try {
-    const res: AxiosResponse<UserResponse> = await axios.post('/sessions');
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
+  static autoLogIn = async (): Promise<UserResponse> => {
+    try {
+      const res: AxiosResponse<UserResponse> = await axios.post('/sessions');
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  };
 
-const updateName = async (resource: UpdateNameResource): Promise<UserResponse> => {
-  try {
-    const params = {
-      name: resource.name,
-    };
-    const res: AxiosResponse<UserResponse> = await axios.patch(`/users/${resource.uid}`, params);
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const usersController = {
-  signUp,
-  logIn,
-  autoLogIn,
-  updateName,
-};
+  static updateName = async (resource: UpdateNameResource): Promise<UserResponse> => {
+    try {
+      const params = {
+        name: resource.name,
+      };
+      const res: AxiosResponse<UserResponse> = await axios.patch(`/users/${resource.uid}`, params);
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+}

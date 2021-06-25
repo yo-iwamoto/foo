@@ -1,27 +1,5 @@
-import { usersLikesController } from './users/likes';
-import { shopsLikesController } from './shops/likes';
-import { usersController } from './users';
-import { firebaseController } from './firebase';
-import { hotpepperController } from './hotpepper';
-import { shopsController } from './shops';
-
-export const apiController = {
-  firebase: {
-    ...firebaseController,
-  },
-  hotpepper: {
-    ...hotpepperController,
-  },
-  users: {
-    ...usersController,
-    likes: {
-      ...usersLikesController,
-    },
-  },
-  shops: {
-    ...shopsController,
-    likes: {
-      ...shopsLikesController,
-    },
-  },
-};
+export { UsersLikesController } from './users/likes';
+export { ShopsLikesController } from './shops/likes';
+export { UsersController } from './users';
+export { FirebaseController } from './firebase';
+export { ShopsController } from './shops';

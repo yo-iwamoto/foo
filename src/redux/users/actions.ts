@@ -1,12 +1,11 @@
-import * as ActionTypes from './actionTypes';
-import { ActionResponse, UserState } from '@/redux/types';
+import { ActionResponse, UsersState } from '@/redux/types';
 
-type UserActionResponse = ActionResponse<UserState>;
+type UserActionResponse = ActionResponse<UsersState>;
 
-export type LogInActionPayload = Omit<UserState, 'isLoggedIn'>;
+export type LogInActionPayload = Omit<UsersState, 'isLoggedIn'>;
 
 export const logInAction = (payload: LogInActionPayload): UserActionResponse => ({
-  type: ActionTypes.LOG_IN,
+  type: 'LOG_IN',
   payload: {
     isLoggedIn: true,
     ...payload,
@@ -14,7 +13,7 @@ export const logInAction = (payload: LogInActionPayload): UserActionResponse => 
 });
 
 export const logOutAction = (): UserActionResponse => ({
-  type: ActionTypes.LOG_OUT,
+  type: 'LOG_OUT',
   payload: {
     isLoggedIn: false,
     uid: '',
@@ -25,13 +24,13 @@ export const logOutAction = (): UserActionResponse => ({
 });
 
 export const endNewUserAction = (): UserActionResponse => ({
-  type: ActionTypes.END_NEW_USER,
+  type: 'END_NEW_USER',
   payload: {
     isNewUser: false,
   },
 });
 
-export const updateUserAction = (payload: Partial<UserState>): UserActionResponse => ({
-  type: ActionTypes.UPDATE_USER,
+export const updateUserAction = (payload: Partial<UsersState>): UserActionResponse => ({
+  type: 'UPDATE_USER',
   payload: payload,
 });

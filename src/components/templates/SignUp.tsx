@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
-
 import { useDispatch } from 'react-redux';
 import { logInAction } from '@/redux/users/actions';
 import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
-
-import { apiController } from '@/api';
+import { UsersController } from '@/api';
 import { useRouter } from 'next/router';
-
 import { Heading, TextLink, Loader, OAuthIcon } from '@/components/atoms';
 import { SignUpForm } from '@/components/organisms';
 import { Spacer } from '@/components/utilities';
 import { FirebaseSignInPayload } from '@/types';
 import { modalTemplates } from '@/lib/modals';
 import { toastTemplates } from '@/lib/toasts';
-import { auth } from '@/api/firebase';
+import { FirebaseController } from '@/api';
+import { auth } from '@/api/lib/firebase';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
-import { useSelectors } from '@/hooks/useSelectors';
+import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
 
 export const SignUp: React.VFC = () => {
   const router = useRouter(),
@@ -24,18 +22,18 @@ export const SignUp: React.VFC = () => {
   const [startLoading, endLoading] = useLoadingControll();
 
   const googleSignUp = (): void => {
-    apiController.firebase.googleSignIn();
+    FirebaseController.googleSignIn();
   };
 
   const twitterSignUp = (): void => {
-    apiController.firebase.twitterSignIn();
+    FirebaseController.twitterSignIn();
   };
 
   const firebaseAuth = async (payload: FirebaseSignInPayload, name: string): Promise<void> => {
     try {
       startLoading();
-      const uid = (await apiController.firebase.signUp(payload)) as string;
-      await apiController.users.signUp({ name, uid });
+      const uid = (await FirebaseController.signUp(payload)) as string;
+      await UsersController.signUp({ name, uid });
       localStorage.removeItem('Access-Token');
       dispatch(raiseModalAction(modalTemplates.checkEmail));
       endLoading();
@@ -45,10 +43,8 @@ export const SignUp: React.VFC = () => {
     }
   };
 
-  const {
-    utilities: { isLoading },
-    users: { isNewUser },
-  } = useSelectors();
+  const { isLoading } = useUtilitiesState();
+  const { isNewUser } = useUsersState();
 
   useEffect(() => {
     startLoading();
@@ -56,9 +52,8 @@ export const SignUp: React.VFC = () => {
       .getRedirectResult()
       .then((userCredential) => {
         if (userCredential.user) {
-          const { authProvider, isNewUser, ...resource } = apiController.firebase.catchOAuthRedirect(userCredential);
-          apiController.users
-            .signUp(resource)
+          const { authProvider, isNewUser, ...resource } = FirebaseController.catchOAuthRedirect(userCredential);
+          UsersController.signUp(resource)
             .then((res) => {
               dispatch(logInAction({ ...res.user, isNewUser, authProvider }));
               dispatch(raiseToastAction(toastTemplates.logIn));

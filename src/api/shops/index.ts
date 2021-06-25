@@ -1,29 +1,43 @@
-import { Shop, FooShop } from '@/types';
-import { axios } from '../axios';
+import { axios } from '../lib/axios';
 import { AxiosResponse } from 'axios';
+import { Position, Shop } from '@/types';
+import { FooEndPoint } from '../lib/url';
 
-const index = async (shops: Shop[]): Promise<FooShop[]> => {
-  try {
-    const ids: string[] = [];
-    shops.map((shop) => ids.push(shop.id));
-    const params = { ids: ids };
-    const res = (await axios.get('/shops', { params })) as AxiosResponse<FooShop[]>;
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
+type IndexResponse = {
+  available_count: number;
+  shops: Shop[];
 };
 
-const show = async (id: string): Promise<FooShop> => {
-  try {
-    const res = (await axios.get(`/shops/${id}`)) as AxiosResponse<FooShop>;
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
+type IndexPayload = {
+  keyword?: string;
+  position?: Position;
+  range?: number;
+  ids?: string[];
 };
 
-export const shopsController = {
-  index,
-  show,
-};
+export class ShopsController {
+  static index = async function (payload: IndexPayload): Promise<IndexResponse> {
+    try {
+      if (payload.keyword) {
+        const endPoint = new FooEndPoint('/shops', {
+          keyword: payload.keyword,
+          lat: payload.position!.lat.toString(),
+          lng: payload.position!.lng.toString(),
+          range: payload.range!.toString(),
+          count: '30',
+        });
+        const res = (await axios.get(endPoint.url)) as AxiosResponse<IndexResponse>;
+        return res.data;
+      } else {
+        const endPoint = new FooEndPoint('/shops', {
+          id: payload.ids!.join(),
+        });
+        const res = (await axios.get(endPoint.url)) as AxiosResponse<IndexResponse>;
+        return res.data;
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+}

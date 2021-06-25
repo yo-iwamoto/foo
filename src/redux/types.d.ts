@@ -22,7 +22,7 @@ type ModalState = {
   buttonText: string;
 };
 
-export type UserState = {
+export type UsersState = {
   isLoggedIn: boolean;
   uid: string;
   name: string;
@@ -30,18 +30,14 @@ export type UserState = {
   authProvider: AuthProvider;
 };
 
-export type UtilityState = {
+export type UtilitiesState = {
   isLoading: boolean;
   toast: ToastState;
   modal: ModalState;
-};
-
-export type ShopState = {
-  shops: Shop[];
+  selectedShopId: string;
 };
 
 export type State = {
-  utilities: UtilityState;
-  users: UserState;
-  shops: ShopState;
+  utilities: UtilitiesState;
+  users: UsersState;
 };

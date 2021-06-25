@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { apiController } from '@/api';
+import { FirebaseController } from '@/api';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
 import { modalTemplates } from '@/lib/modals';
 import { CircleLoader, Heading, SubmitButton, TextField } from '@/components/atoms';
 import { Spacer } from '@/components/utilities';
-import { useSelectors } from '@/hooks/useSelectors';
 import { useInput } from '@/hooks/useInput';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
 import { toastTemplates } from '@/lib/toasts';
+import { useUtilitiesState } from '@/hooks/useSelectors';
 
 export const HandleFirebase: React.VFC = () => {
   const router = useRouter();
@@ -22,15 +22,13 @@ export const HandleFirebase: React.VFC = () => {
 
   const [startLoading, endLoading] = useLoadingControll();
   const [newPassword, onChangeNewPassword] = useInput<string>('');
-  const {
-    utilities: { isLoading },
-  } = useSelectors();
+  const { isLoading } = useUtilitiesState();
   const onSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     if (newPassword) {
       startLoading();
       try {
-        await apiController.firebase.applyNewPassword(actionCode, newPassword);
+        await FirebaseController.applyNewPassword(actionCode, newPassword);
         dispatch(raiseModalAction(modalTemplates.passwordChanged));
       } catch (err) {
         dispatch(raiseToastAction(toastTemplates.error));
@@ -46,8 +44,7 @@ export const HandleFirebase: React.VFC = () => {
     if (mode) {
       switch (mode) {
         case 'verifyEmail':
-          apiController.firebase
-            .handleActionCode({ actionCode })
+          FirebaseController.handleActionCode({ actionCode })
             .then(() => {
               dispatch(raiseModalAction(modalTemplates.finishVerified));
               router.push('/users/login');

@@ -4,7 +4,7 @@ import { Spacer } from '@/components/utilities';
 import { useFadeIn } from '@/hooks/useFadeIn';
 
 export const About: React.VFC = () => {
-  const [fadeInStyle] = useFadeIn();
+  const fadeInStyle = useFadeIn();
   const waiterImageUrl = '/images/waiter.png';
   const shareImageUrl = '/images/share.png';
 

@@ -1,31 +1,30 @@
-import * as ActionTypes from './actionTypes';
-import { ActionResponse, ModalState, ModalType, ToastState, ToastType, UtilityState } from '@/redux/types';
+import { ActionResponse, ModalState, ToastState, UtilitiesState } from '@/redux/types';
 
-type UtilityActionResponse = ActionResponse<UtilityState>;
+type UtilityActionResponse = ActionResponse<UtilitiesState>;
 
 export const startLoadingAction = (): UtilityActionResponse => ({
-  type: ActionTypes.START_LOADING,
+  type: 'START_LOADING',
   payload: {
     isLoading: true,
   },
 });
 
 export const endLoadingAction = (): UtilityActionResponse => ({
-  type: ActionTypes.END_LOADING,
+  type: 'END_LOADING',
   payload: {
     isLoading: false,
   },
 });
 
 export const raiseToastAction = (toast: ToastState): UtilityActionResponse => ({
-  type: ActionTypes.RAISE_TOAST,
+  type: 'RAISE_TOAST',
   payload: {
     toast: toast,
   },
 });
 
 export const closeToastAction = (): UtilityActionResponse => ({
-  type: ActionTypes.CLOSE_TOAST,
+  type: 'CLOSE_TOAST',
   payload: {
     toast: {
       type: null,
@@ -35,14 +34,14 @@ export const closeToastAction = (): UtilityActionResponse => ({
 });
 
 export const raiseModalAction = (modal: ModalState): UtilityActionResponse => ({
-  type: ActionTypes.RAISE_MODAL,
+  type: 'RAISE_MODAL',
   payload: {
     modal: modal,
   },
 });
 
 export const closeModalAction = (): UtilityActionResponse => ({
-  type: ActionTypes.CLOSE_MODAL,
+  type: 'CLOSE_MODAL',
   payload: {
     modal: {
       type: null,
@@ -51,5 +50,19 @@ export const closeModalAction = (): UtilityActionResponse => ({
       link: null,
       buttonText: '',
     },
+  },
+});
+
+export const selectAction = (id: string): UtilityActionResponse => ({
+  type: 'SELECT',
+  payload: {
+    selectedShopId: id,
+  },
+});
+
+export const unSelectAction = (): UtilityActionResponse => ({
+  type: 'UNSELECT',
+  payload: {
+    selectedShopId: '',
   },
 });

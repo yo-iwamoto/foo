@@ -8,8 +8,8 @@ import smoothscroll from 'smoothscroll-polyfill';
 
 type Props = {
   shop: Shop | undefined;
-  like: ((id: string) => Promise<void>) | (() => void);
-  remove: (id: string) => Promise<void>;
+  like?: ((id: string) => Promise<void>) | (() => void);
+  remove?: (id: string) => Promise<void>;
   select?: (id: string) => void;
   selected?: string;
   square?: boolean;
@@ -17,22 +17,24 @@ type Props = {
   isLoggedIn: boolean;
 };
 
-export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selected, square, isLoading, isLoggedIn }) => {
+export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selected, square, isLoggedIn }) => {
   smoothscroll.polyfill();
 
   if (shop) {
-    const [likeState, setLikeState] = useState<boolean>(false);
+    const [likeState, setLikeState] = useState<boolean>(shop.liked);
     const onClickLike = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
-      e.stopPropagation();
-      if (likeState) {
-        await remove(shop.id);
-        setLikeState(false);
-      } else {
-        await like(shop.id);
-        if (isLoggedIn) {
-          setLikeState(true);
+      if (remove && like) {
+        if (likeState) {
+          await remove(shop.id);
+          setLikeState(false);
+        } else {
+          await like(shop.id);
+          if (isLoggedIn) {
+            setLikeState(true);
+          }
         }
       }
+      e.stopPropagation();
     };
 
     const [open, setOpen] = useState<boolean>(false);
@@ -45,12 +47,6 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
       setOpen(false);
     };
 
-    // useEffect(() => {
-    //   if (shop.foo !== undefined) {
-    //     setLikeState(shop.foo.isLiked);
-    //   }
-    // }, [shop.foo]);
-
     const ShopCardTable: React.VFC = () => {
       return (
         <table className="text-sm border-separate">
@@ -59,7 +55,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
               <td valign="top">
                 <UtensilsIcon className="text-blue-600" />
               </td>
-              <td className="pl-2">{shop.genre.name}</td>
+              <td className="pl-2">{shop.genre?.name ?? 'その他'}</td>
             </tr>
             <tr>
               <td valign="top">
@@ -99,7 +95,9 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
         <div
           ref={ref}
           onClick={() => {
-            select!(shop.id);
+            if (select) {
+              select(shop.id);
+            }
           }}
         >
           <Flex
@@ -110,18 +108,20 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
             })}
             onClick={onClick}
           >
-            <img src={shop.photo.pc.l} alt={shop.name_kana} className="h-48 rounded-t-3xl min-w-full" />
-            <div className="absolute bg-white rounded-full h-10 w-10 top-2 right-2 shadow-2xl">
-              <Spacer h={2} />
-              <Like likeState={likeState} onClick={onClickLike} className="w-auto mx-auto" />
-            </div>
+            <img src={shop.photo} alt={shop.name_kana} className="h-48 rounded-t-3xl min-w-full" />
+            {like && (
+              <div className="absolute bg-white rounded-full h-10 w-10 top-2 right-2 shadow-2xl">
+                <Spacer h={2} />
+                <Like likeState={likeState} onClick={onClickLike} className="w-auto mx-auto" />
+              </div>
+            )}
             <Flex col aStart jBetween className="h-full w-full p-3">
               <div>
                 <h3 className="font-bold text-md sm:text-lg md:text-xl whitespace-wrap">{shop.name}</h3>
                 <Spacer h={3} />
                 <ShopCardTable />
               </div>
-              <a href={shop.urls.pc} target="_blank">
+              <a href={shop.url} target="_blank">
                 <Flex aCenter className="hover:underline text-gray-500 text-xs">
                   <p className="flex">ホットペッパーグルメでもっと詳しく</p>
                   <ExternalLinkIcon />
@@ -145,7 +145,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
           <Flex aStart className="w-full">
             <div className="w-1/4 sm:w-1/6 md:w-1/7 overflow-hidden h-24 sm:h-26">
               <img
-                src={shop.photo.pc.l}
+                src={shop.photo}
                 className={cn({
                   ['h-full w-full overflow-hidden block transition-all hover:opacity-80']: true,
                   ['rounded-l-3xl']: !open,
@@ -157,7 +157,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
             <Flex col aStart className="w-3/4 sm:w-5/6 md:w-6/7 px-4 py-2 overflow-hidden h-24 sm:h-26">
               <div className="w-full">
                 <h3 className="font-bold text-sm sm:text-lg md:text-xl whitespace-wrap">{shop.name}</h3>
-                <p className="hidden sm:block text-sm">{shop.catch}</p>
+                <p className="hidden sm:block text-sm">{shop.catch_copy}</p>
               </div>
               <Spacer h={2} />
               <Flex jEnd className="w-full">
@@ -177,7 +177,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
             <ShopCardTable />
             <Spacer h={3} />
             <Flex jBetween aCenter>
-              <a href={shop.urls.pc} target="_blank">
+              <a href={shop.url} target="_blank">
                 <Flex aCenter className="hover:underline text-gray-500 text-xs">
                   <p className="inline">ホットペッパーグルメでもっと詳しく</p>
                   <ExternalLinkIcon />

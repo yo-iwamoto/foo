@@ -1,9 +1,7 @@
-import { ShopState, State, UserState, UtilityState } from '@/redux/types';
+import { State, UsersState, UtilitiesState } from '@/redux/types';
 import { shallowEqual } from '@babel/types';
 import { useSelector } from 'react-redux';
 
-export const useSelectors = (): State => ({
-  users: useSelector<State, UserState>((state) => state.users, shallowEqual),
-  shops: useSelector<State, ShopState>((state) => state.shops, shallowEqual),
-  utilities: useSelector<State, UtilityState>((state) => state.utilities, shallowEqual),
-});
+export const useUsersState = (): UsersState => useSelector<State, UsersState>((state) => state.users, shallowEqual);
+export const useUtilitiesState = (): UtilitiesState =>
+  useSelector<State, UtilitiesState>((state) => state.utilities, shallowEqual);

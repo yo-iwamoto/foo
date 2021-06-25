@@ -1,39 +1,47 @@
-import * as Actions from './actions';
-import * as ActionTypes from './actionTypes';
-import { ActionResponse, UtilityState } from '@/redux/types';
+import { ActionResponse, UtilitiesState } from '@/redux/types';
 import { initialState } from '@/redux/store/initialState';
 
 export const UtilitiesReducer = (
-  state: UtilityState = initialState.utilities,
-  action: ActionResponse<UtilityState>,
-): UtilityState => {
+  state: UtilitiesState = initialState.utilities,
+  action: ActionResponse<UtilitiesState>,
+): UtilitiesState => {
   switch (action.type) {
-    case ActionTypes.START_LOADING:
+    case 'START_LOADING':
       return {
         ...state,
         ...action.payload,
       };
-    case ActionTypes.END_LOADING:
+    case 'END_LOADING':
       return {
         ...state,
         ...action.payload,
       };
-    case ActionTypes.RAISE_TOAST:
+    case 'RAISE_TOAST':
       return {
         ...state,
         ...action.payload,
       };
-    case ActionTypes.CLOSE_TOAST:
+    case 'CLOSE_TOAST':
       return {
         ...state,
         ...action.payload,
       };
-    case ActionTypes.RAISE_MODAL:
+    case 'RAISE_MODAL':
       return {
         ...state,
         ...action.payload,
       };
-    case ActionTypes.CLOSE_MODAL:
+    case 'CLOSE_MODAL':
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case 'SELECT':
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case 'UNSELECT':
       return {
         ...state,
         ...action.payload,

@@ -1,26 +1,27 @@
-import * as Actions from './actions';
-import * as ActionTypes from './actionTypes';
-import { ActionResponse, UserState } from '@/redux/types';
+import { ActionResponse, UsersState } from '@/redux/types';
 import { initialState } from '@/redux/store/initialState';
 
-export const UsersReducer = (state: UserState = initialState.users, action: ActionResponse<UserState>): UserState => {
+export const UsersReducer = (
+  state: UsersState = initialState.users,
+  action: ActionResponse<UsersState>,
+): UsersState => {
   switch (action.type) {
-    case ActionTypes.LOG_IN:
+    case 'LOG_IN':
       return {
         ...state,
         ...action.payload,
       };
-    case ActionTypes.LOG_OUT:
+    case 'LOG_OUT':
       return {
         ...state,
         ...action.payload,
       };
-    case ActionTypes.END_NEW_USER:
+    case 'END_NEW_USER':
       return {
         ...state,
         ...action.payload,
       };
-    case ActionTypes.UPDATE_USER:
+    case 'UPDATE_USER':
       return {
         ...state,
         ...action.payload,

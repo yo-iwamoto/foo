@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { apiController } from '@/api';
+import { ShopsController, ShopsLikesController } from '@/api';
 import { useDispatch } from 'react-redux';
-import { raiseModalAction } from '@/redux/utilities/actions';
-import { clearShopsAction, getShopsAction } from '@/redux/shops/actions';
-import { Position } from '@/types';
+import { raiseModalAction, selectAction } from '@/redux/utilities/actions';
+import { Position, Shop } from '@/types';
 import { modalTemplates } from '@/lib/modals';
 import Skeleton from 'react-loading-skeleton';
 import { Map, SearchBar, ShopCard } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
-import { useLikes } from '@/hooks/useLikes';
 import { useInput } from '@/hooks/useInput';
-import { useSelectors } from '@/hooks/useSelectors';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
+import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
 
 interface GeolocationData {
   coords: {
@@ -25,19 +23,15 @@ export const Search: React.VFC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const {
-    shops: { shops },
-    utilities: { isLoading },
-    users: { isLoggedIn },
-  } = useSelectors();
+  const { isLoading, selectedShopId } = useUtilitiesState();
+  const { isLoggedIn } = useUsersState();
 
   const initialPosition: Position = { lat: 35.68812, lng: 139.7671 };
 
   const [currentPosition, setCurrentPosition] = useState<Position>(initialPosition);
   const [shopsCount, setShopsCount] = useState<number>(0);
-  const [selectedId, setSelectedId] = useState<string>('');
+  const [shops, setShops] = useState<Shop[]>([]);
   const [startLoading, endLoading] = useLoadingControll();
-  const [finished, setFinished] = useState<boolean>(false);
 
   const search = async (data: GeolocationData): Promise<void> => {
     const query = router.query.word as string;
@@ -46,53 +40,44 @@ export const Search: React.VFC = () => {
       lng: data.coords.longitude,
     };
     setCurrentPosition(position);
-    if (query) {
-      const keyword = query.replace(/\s+/g, ' ');
-      const { shop, results_available } = await apiController.hotpepper.index({
-        keyword: keyword,
-        position,
-        range: 5,
-      });
-      dispatch(getShopsAction(shop));
-      setFinished(true);
-      setShopsCount(results_available);
-    }
+    const keyword = query.replace(/\s+/g, ' ');
+    const res = await ShopsController.index({
+      keyword: keyword,
+      position,
+      range: 5,
+    });
+    setShops(res.shops);
+    setShopsCount(res.available_count);
+    endLoading();
   };
 
   useEffect(() => {
-    dispatch(clearShopsAction());
     startLoading();
-    navigator.geolocation.getCurrentPosition(search, (err: any) => {
-      throw err;
-    });
-  }, [router.query.word]);
-
-  useEffect(() => {
-    if (finished) {
-      apiController.shops.index(shops).then((fooShops) => {
-        let result = shops;
-        result.map((shop) => {
-          shop.foo = fooShops.find((fooShop) => {
-            return fooShop.hotpepper_id === shop.id;
-          });
-        });
-        dispatch(getShopsAction(result));
-        endLoading();
+    if (router.query.word) {
+      navigator.geolocation.getCurrentPosition(search, (err: any) => {
+        throw err;
       });
     }
-  }, [finished]);
+  }, [router.query.word]);
 
   // likes controll
 
-  const likesControll = useLikes();
-  const suggestLogIn = (): void => {
-    dispatch(raiseModalAction(modalTemplates.like));
-  };
-  const like = async (id: string): Promise<void> => {
+  const addLike = async (id: string): Promise<void> => {
     if (isLoggedIn) {
-      await likesControll.like(id);
+      try {
+        await ShopsLikesController.create(id);
+      } catch (err) {
+        throw err;
+      }
     } else {
       dispatch(raiseModalAction(modalTemplates.like));
+    }
+  };
+  const removeLike = async (id: string): Promise<void> => {
+    try {
+      await ShopsLikesController.destroy(id);
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -104,25 +89,28 @@ export const Search: React.VFC = () => {
     e.preventDefault();
     if (text) {
       router.push(`/search/?word=${text}`);
+      if (text === router.query.word) {
+        router.reload();
+      }
     }
   };
 
   const select = (id: string): void => {
-    const shop = shops.find((shop) => shop.id === id);
+    const shop = shops!.find((shop) => shop.id === id);
     const position: Position = {
       lat: shop!.lat,
       lng: shop!.lng,
     };
     setCurrentPosition(position);
-    setSelectedId(id);
+    dispatch(selectAction(id));
   };
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || shops.length === 0 ? (
         <Skeleton duration={1} style={{ height: '500px' }} />
       ) : (
-        <Map currentPosition={currentPosition} shops={shops} select={select} selected={selectedId} />
+        <Map currentPosition={currentPosition} shops={shops} select={select} selectedShopId={selectedShopId} />
       )}
       <Spacer h={6} />
       <SearchBar isLoading={isLoading} value={text} onChange={onChangeText} onSubmit={onSubmit} />
@@ -138,10 +126,10 @@ export const Search: React.VFC = () => {
                 isLoading={isLoading}
                 isLoggedIn={isLoggedIn}
                 shop={shop}
-                like={isLoggedIn ? like : suggestLogIn}
-                remove={likesControll.remove}
+                like={addLike}
+                remove={removeLike}
                 select={select}
-                selected={selectedId}
+                selected={selectedShopId}
                 square
               />
               <Spacer w={2} />

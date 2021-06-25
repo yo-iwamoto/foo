@@ -1,5 +1,5 @@
 export { Position } from './googleMap';
-export { Shop, HotpepperResponse, HotpepperResult } from './api/hotpepper';
+export { Shop, HotpepperResponse, HotpepperResult } from './api/domain';
 export {
   AuthProvider,
   FirebaseSignInResponse,
@@ -11,7 +11,6 @@ export {
   LikeResponse,
   GetLikesResponse,
   UpdateNameResource,
-  FooShop,
   LikedShopIndexResponse,
   FooSignInResource,
 } from './api/domain';

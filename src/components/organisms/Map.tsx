@@ -7,24 +7,24 @@ type Props = {
   currentPosition: Position;
   shops: Shop[];
   select: (id: string) => void;
-  selected?: string;
+  selectedShopId: string;
 };
 
-export const Map: React.VFC<Props> = ({ currentPosition, shops, select, selected }) => {
+export const Map: React.VFC<Props> = ({ currentPosition, shops, select, selectedShopId }) => {
   const containerStyle = { width: '100%', height: '500px' };
 
   const apiKey = process.env.NEXT_PUBLIC_GOOGLEMAP_API_KEY;
-  const handleClick = (e: any) => {
-    console.log(e.latLng!.lat());
-    console.log(e.latLng!.lng());
-  };
+  // const handleClick = (e: any) => {
+  //   console.log(e.latLng!.lat());
+  //   console.log(e.latLng!.lng());
+  // };
 
   return (
     <LoadScriptNext googleMapsApiKey={apiKey!}>
       <GoogleMap
         center={currentPosition}
         mapContainerStyle={containerStyle}
-        zoom={15}
+        zoom={14}
         options={{ disableDefaultUI: true, clickableIcons: false, streetViewControl: true }}
       >
         {shops &&
@@ -32,7 +32,7 @@ export const Map: React.VFC<Props> = ({ currentPosition, shops, select, selected
             const shopPosition: Position = { lat: shop.lat, lng: shop.lng };
             return (
               <div className="cursor-pointer hover:bg-red-400" key={index}>
-                <MapMarker position={shopPosition} shop={shop} select={select} selected={selected} />
+                <MapMarker position={shopPosition} shop={shop} select={select} selected={selectedShopId} />
               </div>
             );
           })}

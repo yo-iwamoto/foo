@@ -14,6 +14,7 @@ export const initialState: State = {
       link: null,
       buttonText: '',
     },
+    selectedShopId: '',
   },
   users: {
     isLoggedIn: false,
@@ -22,40 +23,4 @@ export const initialState: State = {
     isNewUser: false,
     authProvider: null,
   },
-  shops: {
-    shops: [],
-  },
 };
-
-// const emptyShop = {
-//   id: '',
-//   address: '',
-//   barrier_free: '',
-//   budget: {
-//     average: '',
-//     name: '',
-//   },
-//   capacity: 0,
-//   card: '利用不可',
-//   catch: '',
-//   english: 'なし',
-//   lat: 0,
-//   lng: 0,
-//   photo: {
-//     pc: {
-//       l: ''
-//     },
-//   },
-//   lunch: 'なし',
-//   name: '',
-//   name_kana: '',
-//   parking: '',
-//   non_smoking: '',
-//   open: '',
-//   station_name: '',
-//   urls: {
-//     pc: ''
-//   },
-//   wifi: 'なし',
-//   like: undefined
-// }

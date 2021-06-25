@@ -3,52 +3,53 @@ import { useDispatch } from 'react-redux';
 import { raiseModalAction, raiseToastAction } from '@/redux/utilities/actions';
 import { modalTemplates } from '@/lib/modals';
 import { endNewUserAction, updateUserAction } from '@/redux/users/actions';
-import { TableRow } from '@/types';
+import { Shop, TableRow } from '@/types';
 import { providerName } from '@/lib/providerName';
 
-import { Heading, TextField } from '@/components/atoms';
+import { Heading, TextField, Image } from '@/components/atoms';
 import { SectionTitle, Table } from '@/components/molecules';
 import { ShopCard, EditControl } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
 import { UpdateNameResource } from '@/types';
 import { toastTemplates } from '@/lib/toasts';
-import { clearShopsAction } from '@/redux/shops/actions';
-import { apiController } from '@/api';
-import { useLikes } from '@/hooks/useLikes';
-import { useLikedShops } from '@/hooks/useLikedShops';
-import { useSelectors } from '@/hooks/useSelectors';
+import { ShopsLikesController, UsersController, UsersLikesController } from '@/api';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
+import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
 
 export const Mypage: React.VFC = () => {
   const dispatch = useDispatch();
+  const noShopImageUrl = '/images/no-shop.png';
 
-  const {
-    shops: { shops },
-    users,
-    utilities: { isLoading },
-  } = useSelectors();
+  const user = useUsersState();
+  const { isLoading } = useUtilitiesState();
+
+  const [shops, setShops] = useState<Shop[]>([]);
+  const [noShops, setNoShops] = useState(false);
 
   const [editMode, setEditMode] = useState<boolean>(false);
-  const [nickName, setNickname] = useState<string>(users.name);
+  const [nickName, setNickname] = useState<string>(user.name);
 
   const [startLoading, endLoading] = useLoadingControll();
 
-  const getLikedShops = useLikedShops();
-
   useEffect(() => {
-    dispatch(clearShopsAction());
-    if (users.isNewUser) {
+    if (user.isNewUser) {
       dispatch(raiseModalAction(modalTemplates.firstVisit));
       dispatch(endNewUserAction());
     }
-    if (users.isLoggedIn) {
-      getLikedShops();
+    if (user.isLoggedIn) {
+      UsersLikesController.index(user.uid).then((res) => {
+        if (res?.shops) {
+          setShops(res.shops);
+        } else {
+          setNoShops(true);
+        }
+      });
     }
-  }, [users.isNewUser, users.uid]);
+  }, [user.isNewUser, user.uid]);
 
   const accountTable: TableRow[] = [
-    { key: 'ニックネーム', value: users.name },
-    { key: 'ログイン方法', value: providerName(users.authProvider) },
+    { key: 'ニックネーム', value: user.name },
+    { key: 'ログイン方法', value: providerName(user.authProvider) },
   ];
 
   const onClickEditIcon = (): void => {
@@ -56,13 +57,13 @@ export const Mypage: React.VFC = () => {
   };
   const cancelEdit = (): void => {
     setEditMode(false);
-    setNickname(users.name);
+    setNickname(user.name);
   };
   const applyEdit = async (): Promise<void> => {
     startLoading();
-    const resource: UpdateNameResource = { uid: users.uid, name: nickName };
+    const resource: UpdateNameResource = { uid: user.uid, name: nickName };
     if (resource.name) {
-      const res = await apiController.users.updateName(resource);
+      const res = await UsersController.updateName(resource);
       dispatch(updateUserAction({ name: res.user.name }));
       dispatch(raiseToastAction(toastTemplates.successEditing));
       setEditMode(false);
@@ -73,11 +74,28 @@ export const Mypage: React.VFC = () => {
     setNickname(e.target.value);
   };
 
-  const likesControll = useLikes();
+  const addLike = async (id: string): Promise<void> => {
+    if (user.isLoggedIn) {
+      try {
+        await ShopsLikesController.create(id);
+      } catch (err) {
+        throw err;
+      }
+    } else {
+      dispatch(raiseModalAction(modalTemplates.like));
+    }
+  };
+  const removeLike = async (id: string): Promise<void> => {
+    try {
+      await ShopsLikesController.destroy(id);
+    } catch (err) {
+      throw err;
+    }
+  };
 
   return (
     <>
-      {users.isLoggedIn ? (
+      {user.isLoggedIn ? (
         <div className="mx-auto py-8 w-11/12 sm:w-3/4 lg:w-3/5 xl:w-1/2">
           <Heading>マイページ</Heading>
           <Spacer h={12} />
@@ -111,23 +129,28 @@ export const Mypage: React.VFC = () => {
           </section>
           <Spacer h={12} />
           <section>
-            <SectionTitle title="お気に入りリスト">
-              <p>{shops.length} 件</p>
-            </SectionTitle>
-            <div>
-              {shops.map((shop, index) => (
-                <div key={index}>
-                  <ShopCard
-                    isLoggedIn={users.isLoggedIn}
-                    isLoading={isLoading}
-                    shop={shop}
-                    like={likesControll.like}
-                    remove={likesControll.remove}
-                  />
-                  <Spacer h={3} />
-                </div>
-              ))}
-            </div>
+            <SectionTitle title="お気に入りリスト">{!isLoading && <p>{shops.length} 件</p>}</SectionTitle>
+            {!noShops ? (
+              <div>
+                {shops.map((shop, index) => (
+                  <div key={index}>
+                    <ShopCard
+                      isLoggedIn={user.isLoggedIn}
+                      isLoading={isLoading}
+                      shop={shop}
+                      like={addLike}
+                      remove={removeLike}
+                    />
+                    <Spacer h={3} />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center">
+                <Image src={noShopImageUrl} width={288} height={288} />
+                <p>まだお気に入りのお店がないようです...</p>
+              </div>
+            )}
           </section>
         </div>
       ) : (

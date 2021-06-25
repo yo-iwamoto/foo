@@ -1,20 +1,23 @@
-import { axios } from '@/api/axios';
+import { axios } from '@/api/lib/axios';
 import { AxiosResponse } from 'axios';
-import { FooShop } from '@/types';
+import { Shop } from '@/types';
 
-type LikedShopIndexResponse = {
-  shops: FooShop[];
+type IndexResponse = {
+  available_count: number;
+  shops: Shop[];
 };
 
-const index = async (uid: string): Promise<FooShop[]> => {
-  try {
-    const res = (await axios.get(`/users/${uid}/likes`)) as AxiosResponse<LikedShopIndexResponse>;
-    return res.data.shops;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const usersLikesController = {
-  index,
-};
+export class UsersLikesController {
+  static index = async (uid: string): Promise<IndexResponse | null> => {
+    try {
+      const res = (await axios.get(`/users/${uid}/likes`)) as AxiosResponse<IndexResponse>;
+      if (res.status === 204) {
+        return null;
+      } else {
+        return res.data;
+      }
+    } catch (err) {
+      throw err;
+    }
+  };
+}
