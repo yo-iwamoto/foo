@@ -53,19 +53,19 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
           <tbody>
             <tr>
               <td valign="top">
-                <UtensilsIcon className="text-blue-600" />
+                <UtensilsIcon className="text-main" />
               </td>
-              <td className="pl-2">{shop.genre?.name ?? 'その他'}</td>
+              <td className="pl-2">{shop.genre ?? 'その他'}</td>
             </tr>
             <tr>
               <td valign="top">
-                <PinIcon className="text-blue-600" />
+                <PinIcon className="text-main" />
               </td>
               <td className="pl-2">{shop.address}</td>
             </tr>
             <tr>
               <td valign="top">
-                <ClockIcon className="text-blue-600" />
+                <ClockIcon className="text-main" />
               </td>
               <td className="pl-2">{shop.open}</td>
             </tr>
@@ -83,11 +83,11 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
             if (ref!.current) {
               ref.current.scrollIntoView({
                 behavior: 'smooth',
-                block: 'center',
+                block: 'end',
                 inline: 'center',
               });
             }
-          }, 1000);
+          }, 800);
         }
       }, [selected]);
 

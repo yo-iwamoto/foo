@@ -6,7 +6,7 @@ import { endNewUserAction, updateUserAction } from '@/redux/users/actions';
 import { Shop, TableRow } from '@/types';
 import { providerName } from '@/lib/providerName';
 
-import { Heading, TextField, Image } from '@/components/atoms';
+import { Heading, TextField, Image, Loader } from '@/components/atoms';
 import { SectionTitle, Table } from '@/components/molecules';
 import { ShopCard, EditControl } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';

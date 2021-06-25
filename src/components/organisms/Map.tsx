@@ -24,7 +24,7 @@ export const Map: React.VFC<Props> = ({ currentPosition, shops, select, selected
       <GoogleMap
         center={currentPosition}
         mapContainerStyle={containerStyle}
-        zoom={14}
+        zoom={16}
         options={{ disableDefaultUI: true, clickableIcons: false, streetViewControl: true }}
       >
         {shops &&

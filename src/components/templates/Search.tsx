@@ -35,10 +35,11 @@ export const Search: React.VFC = () => {
 
   const search = async (data: GeolocationData): Promise<void> => {
     const query = router.query.word as string;
-    const position: Position = {
-      lat: data.coords.latitude,
-      lng: data.coords.longitude,
-    };
+    // const position: Position = {
+    //   lat: data.coords.latitude,
+    //   lng: data.coords.longitude,
+    // };
+    const position = initialPosition;
     setCurrentPosition(position);
     const keyword = query.replace(/\s+/g, ' ');
     const res = await ShopsController.index({

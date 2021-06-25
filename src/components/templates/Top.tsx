@@ -3,7 +3,7 @@ import { useFadeIn } from '@/hooks/useFadeIn';
 import { useRouter } from 'next/router';
 import { SearchBar, ShopCard } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
-import { LinkButton, Image, SubHeading } from '@/components/atoms';
+import { Button, Image, Link } from '@/components/atoms';
 import { useInput } from '@/hooks/useInput';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
 import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
@@ -71,7 +71,11 @@ export const Top: React.VFC = () => {
         </div>
       </section>
       <Spacer h={12} />
-      <LinkButton primary text="Fooについて" className="w-64 h-12" href="/about" />
+      <Link href="/about">
+        <a>
+          <Button primary text="Fooについて" className="w-64 h-12" />
+        </a>
+      </Link>
       <Spacer h={12} />
     </div>
   );

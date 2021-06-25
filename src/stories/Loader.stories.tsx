@@ -7,7 +7,7 @@ export default {
 export const showLoader = (): JSX.Element => {
   return (
     <div className="pt-20">
-      <Loader isLoading />
+      <Loader />
     </div>
   );
 };
