@@ -23,6 +23,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
   if (shop) {
     const [likeState, setLikeState] = useState<boolean>(shop.liked);
     const onClickLike = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
+      e.stopPropagation();
       if (remove && like) {
         if (likeState) {
           await remove(shop.id);
@@ -110,9 +111,12 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
           >
             <img src={shop.photo} alt={shop.name_kana} className="h-48 rounded-t-3xl min-w-full" />
             {like && (
-              <div className="absolute bg-white rounded-full h-10 w-10 top-2 right-2 shadow-2xl">
+              <div className="absolute bg-white rounded-full h-10 w-20 top-2 right-2 shadow-2xl">
                 <Spacer h={2} />
-                <Like likeState={likeState} onClick={onClickLike} className="w-auto mx-auto" />
+                <Flex jBetween className="w-14 mx-auto">
+                  <Like likeState={likeState} onClick={onClickLike} />
+                  <span>{shop.likes_count}</span>
+                </Flex>
               </div>
             )}
             <Flex col aStart jBetween className="h-full w-full p-3">
@@ -161,7 +165,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
               </div>
               <Spacer h={2} />
               <Flex jEnd className="w-full">
-                <div className="text-md sm:text-lg block w-1/6 sm:w-1/20 cursor-pointer hover:text-main">
+                <div className="text-md sm:text-lg block w-1/6 sm:w-1/20 cursor-pointer">
                   <Like likeState={likeState} onClick={onClickLike} />
                 </div>
               </Flex>
