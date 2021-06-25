@@ -9,14 +9,8 @@ Storybook：https://foo-storybook.netlify.app
 ※ Storybookは現在作成中です．
 
 ### アーキテクチャ簡易図
+![architecture](https://user-images.githubusercontent.com/56625097/123475306-2b6bdf80-d636-11eb-8bec-6685bdd3f24f.png)
 
-![architecture](https://user-images.githubusercontent.com/56625097/120755685-4375a500-c549-11eb-9370-cbfc9833afdc.png)
-
-アーキテクチャについて，
-- ホットペッパーAPIへのプロキシはNext.js上でhttp-proxy-middlewareを利用した方法に置換．
-- Ruby on Railsで構成しているバックエンドを，FirebaseのClout Firestoreに置換．
-
-以下の変更を行う予定です．
 
 ## 開発ロードマップ
 
