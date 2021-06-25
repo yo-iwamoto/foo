@@ -16,8 +16,8 @@ export const About: React.VFC = () => {
         とは？
       </Heading>
       <Spacer h={12} />
-      <section className="w-4/5 sm:w-3/4 md:w-3/5 mx-auto flex flex-col sm:flex-row justify-between items-center text-left">
-        <div className="w-full sm:w-3/4">
+      <section className="w-5/6 lg:w-4/5 xl:w-1/2 mx-auto flex flex-col sm:flex-row justify-between items-center text-left">
+        <div className="w-full">
           <SubHeading>ひとりで楽しめるお店を、すぐに見つける。</SubHeading>
           <Spacer h={6} />
           <p>
@@ -33,7 +33,7 @@ export const About: React.VFC = () => {
         </div>
       </section>
       <Spacer h={12} />
-      <section className="w-4/5 sm:w-3/4 md:w-3/5 mx-auto flex flex-col-reverse sm:flex-row justify-between items-center text-left">
+      <section className="w-5/6 lg:w-4/5 xl:w-1/2 mx-auto flex flex-col-reverse sm:flex-row justify-between items-center text-left">
         <div className="w-full sm:w-1/4">
           <Image src={shareImageUrl} width={400} height={400} />
         </div>

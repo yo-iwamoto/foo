@@ -21,15 +21,12 @@ type Props = {
 export const Layout: React.VFC<Props> = ({ children, router }) => {
   const dispatch = useDispatch();
 
-  const [_, endLoading] = useLoadingControll();
-
   // Auto Login & Navigation Guard
 
   const user = useUsersState();
   const { modal, toast } = useUtilitiesState();
 
   useEffect(() => {
-    endLoading();
     if (!user.isLoggedIn && localStorage.getItem('Access-Token')) {
       UsersController.autoLogIn().then((data) => {
         const actionPayload: LogInActionPayload = {

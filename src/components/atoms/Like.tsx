@@ -9,25 +9,21 @@ type Props = {
 };
 
 export const Like: React.VFC<Props> = ({ likeState, onClick, className }) => {
-  if (likeState) {
-    return (
-      <HeartIcon
-        className={cn({
-          ['cursor-pointer text-2xl text-main']: true,
-          [className!]: className,
-        })}
-        onClick={onClick}
-      />
-    );
-  } else {
-    return (
-      <HeartOutlineIcon
-        className={cn({
-          ['cursor-pointer text-2xl']: true,
-          [className!]: className,
-        })}
-        onClick={onClick}
-      />
-    );
-  }
+  return likeState ? (
+    <HeartIcon
+      className={cn({
+        ['cursor-pointer text-2xl text-main']: true,
+        [className!]: className,
+      })}
+      onClick={onClick}
+    />
+  ) : (
+    <HeartOutlineIcon
+      className={cn({
+        ['cursor-pointer text-2xl']: true,
+        [className!]: className,
+      })}
+      onClick={onClick}
+    />
+  );
 };

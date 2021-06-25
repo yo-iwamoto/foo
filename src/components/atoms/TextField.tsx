@@ -14,7 +14,7 @@ export const TextField = React.memo((props: Props) => {
     <input
       {...inputProps}
       className={cn({
-        ['sm:text-lg p-2 border border-gray-400 outline-none appearance-none rounded-md focus:border-main focus:shadow-md transition-colors transition-shadow']:
+        ['sm:text-lg p-2 border border-gray-400 outline-none appearance-none rounded-md focus:border-main focus:shadow-md transition-all']:
           true,
         [props.className!]: props.className,
         ['w-full']: fullwidth,

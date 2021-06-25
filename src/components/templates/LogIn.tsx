@@ -78,34 +78,31 @@ export const LogIn: React.VFC = () => {
       });
   }, []);
 
-  return (
-    <>
-      {isLoading && (
-        <div className="py-10 px-4 sm:px-0 text-center">
-          <Spacer h={28} />
-          <Loader isLoading={isLoading} />
-          <Spacer h={12} />
-          <h1 className="text-center">ログインしています...</h1>
-        </div>
-      )}
-      <div className="py-10 px-4 sm:px-0 text-center">
-        <Heading>ログイン</Heading>
-        <Spacer h={12} />
-        <div className="flex flex-col sm:flex-row mx-auto w-full sm:w-2/3 md:w-1/2 lg:w-1/3 justify-between">
-          <OAuthIcon provider="google" method="login" onClick={googleLogIn} />
-          <Spacer h={4} w={4} />
-          <OAuthIcon provider="twitter" method="login" onClick={twitterLogIn} />
-        </div>
-        <Spacer h={6} />
-        <p>必要情報を入力して、ログインをクリックしてください。</p>
-        <LogInForm firebaseAuth={firebaseAuth} />
-        <Spacer h={6} />
-        <p>
-          まだアカウントを持っていませんか？
-          <br />
-          <TextLink href="/users/signup" text="新規会員登録" className="text-main" />
-        </p>
+  return isLoading ? (
+    <div className="py-10 px-4 sm:px-0 text-center">
+      <Spacer h={28} />
+      <Loader />
+      <Spacer h={12} />
+      <h1 className="text-center">ログインしています...</h1>
+    </div>
+  ) : (
+    <div className="py-10 px-4 sm:px-0 text-center">
+      <Heading>ログイン</Heading>
+      <Spacer h={12} />
+      <div className="flex flex-col sm:flex-row mx-auto w-full sm:w-2/3 md:w-1/2 lg:w-1/3 justify-center">
+        <OAuthIcon provider="google" method="login" onClick={googleLogIn} />
+        <Spacer h={4} w={12} />
+        <OAuthIcon provider="twitter" method="login" onClick={twitterLogIn} />
       </div>
-    </>
+      <Spacer h={6} />
+      <p>必要情報を入力して、ログインをクリックしてください。</p>
+      <LogInForm firebaseAuth={firebaseAuth} />
+      <Spacer h={6} />
+      <p>
+        まだアカウントを持っていませんか？
+        <br />
+        <TextLink href="/users/signup" text="新規会員登録" className="text-main" />
+      </p>
+    </div>
   );
 };
