@@ -18,6 +18,7 @@ module.exports = {
         main: ['My Galano Grotesque', 'sans-serif'],
       },
       width: {
+        14: '3.5rem',
         '19/20': '95%',
         '1/20': '5%',
         '1/7': '14.2%',

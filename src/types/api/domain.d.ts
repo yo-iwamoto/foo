@@ -5,14 +5,6 @@ export type UserResponse = {
   };
 };
 
-export type LikeResponse = {
-  message: string;
-};
-
-export type GetLikesResponse = {
-  result: boolean[];
-};
-
 export type UpdateNameResource = {
   uid: string;
   name: string;

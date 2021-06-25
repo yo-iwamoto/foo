@@ -66,7 +66,13 @@ export const Search: React.VFC = () => {
   const addLike = async (id: string): Promise<void> => {
     if (isLoggedIn) {
       try {
-        await ShopsLikesController.create(id);
+        const res = await ShopsLikesController.create(id);
+        shops.map((shop) => {
+          if (shop.id === id) {
+            shop.liked = res.liked;
+            shop.likes_count = res.likes_count;
+          }
+        });
       } catch (err) {
         throw err;
       }
@@ -76,7 +82,13 @@ export const Search: React.VFC = () => {
   };
   const removeLike = async (id: string): Promise<void> => {
     try {
-      await ShopsLikesController.destroy(id);
+      const res = await ShopsLikesController.destroy(id);
+      shops.map((shop) => {
+        if (shop.id === id) {
+          shop.liked = res.liked;
+          shop.likes_count = res.likes_count;
+        }
+      });
     } catch (err) {
       throw err;
     }
