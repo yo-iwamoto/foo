@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ModalState } from '@/redux/types';
-import { Button, LinkButton } from '@/components/atoms';
+import { Button, Link } from '@/components/atoms';
 import { TimesIcon, PlaneIcon, CheckCircleIcon, UtensilsIcon } from '@/components/atoms/Icons';
 import { Flex, Spacer } from '@/components/utilities';
 import cn from 'classnames';
@@ -29,7 +29,11 @@ export const Modal: React.VFC<Props> = ({ modal, close }) => {
 
   const ModalRegistrationButton: React.VFC = () => {
     if (modal.link) {
-      return <LinkButton primary text="ログイン" className="w-2/5 h-12" onClick={close} href={modal.link} />;
+      return (
+        <Link href={modal.link}>
+          <Button primary text="ログイン" className="w-2/5 h-12" onClick={close} />
+        </Link>
+      );
     } else {
       return <Button primary text="ログイン" className="w-2/5 h-12" onClick={close} />;
     }
@@ -38,10 +42,12 @@ export const Modal: React.VFC<Props> = ({ modal, close }) => {
   const ModalPrimaryButton: React.VFC = () => {
     if (modal.link) {
       return (
-        <LinkButton primary text={modal.buttonText} className="w-2/5 h-12 mx-auto" onClick={close} href={modal.link} />
+        <Link href={modal.link}>
+          <Button primary text={modal.buttonText} className="w-2/5 h-12 mx-auto" onClick={close} />
+        </Link>
       );
     } else {
-      return <LinkButton primary text={modal.buttonText} className="w-2/5 h-12 mx-auto" onClick={close} />;
+      return <Button primary text={modal.buttonText} className="2/5 h-12 mx-auto" onClick={close} />;
     }
   };
 

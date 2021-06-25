@@ -5,7 +5,6 @@ export { Image } from './Image';
 export { CircleLoader } from './CircleLoader';
 export { Like } from './Like';
 export { Link } from './Link';
-export { LinkButton } from './LinkButton';
 export { Loader } from './Loader';
 export { MapMarker } from './MapMarker';
 export { OAuthIcon } from './OAuthIcon';
