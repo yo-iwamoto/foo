@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
+import { axios } from '../lib/axios';
+import { AxiosResponse } from 'axios';
 import { Position, Shop } from '@/types';
 import { FooEndPoint } from '../lib/url';
 
