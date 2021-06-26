@@ -1,4 +1,5 @@
 export { EditControl } from './EditControl';
+export { Select } from './Select';
 export { Footer } from './Footer';
 export { Header } from './Header';
 export { LogInForm } from './LogInForm';

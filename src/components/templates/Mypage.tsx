@@ -134,13 +134,7 @@ export const Mypage: React.VFC = () => {
               <div>
                 {shops.map((shop, index) => (
                   <div key={index}>
-                    <ShopCard
-                      isLoggedIn={user.isLoggedIn}
-                      isLoading={isLoading}
-                      shop={shop}
-                      like={addLike}
-                      remove={removeLike}
-                    />
+                    <ShopCard isLoading={isLoading} shop={shop} addLike={addLike} removeLike={removeLike} />
                     <Spacer h={3} />
                   </div>
                 ))}
