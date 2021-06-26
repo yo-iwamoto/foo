@@ -44,11 +44,13 @@ export const Modal: React.VFC<Props> = ({ modal, close }) => {
   const ModalPrimaryButton: React.VFC = () => {
     if (modal.link) {
       return (
-        <Link href={modal.link}>
-          <a>
-            <Button primary text={modal.buttonText} className="w-2/5 h-12 mx-auto" onClick={close} />
-          </a>
-        </Link>
+        <div className="text-center">
+          <Link href={modal.link}>
+            <a>
+              <Button primary text={modal.buttonText} className="w-2/5 h-12 mx-auto" onClick={close} />
+            </a>
+          </Link>
+        </div>
       );
     } else {
       return <Button primary text={modal.buttonText} className="w-2/5 h-12 mx-auto" onClick={close} />;
