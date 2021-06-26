@@ -5,7 +5,6 @@ import { modalTemplates } from '@/lib/modals';
 import { endNewUserAction, updateUserAction } from '@/redux/users/actions';
 import { Shop, TableRow } from '@/types';
 import { providerName } from '@/lib/providerName';
-
 import { Heading, TextField, Image } from '@/components/atoms';
 import { SectionTitle, Table } from '@/components/molecules';
 import { ShopCard, EditControl } from '@/components/organisms';
@@ -134,7 +133,7 @@ export const Mypage: React.VFC = () => {
               <div>
                 {shops.map((shop, index) => (
                   <div key={index}>
-                    <ShopCard isLoading={isLoading} shop={shop} addLike={addLike} removeLike={removeLike} />
+                    <ShopCard isLoading={isLoading} shop={shop} />
                     <Spacer h={3} />
                   </div>
                 ))}

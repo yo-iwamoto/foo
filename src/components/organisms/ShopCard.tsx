@@ -9,10 +9,6 @@ import { useShopStatus } from '@/hooks/useShopStatus';
 
 type Props = {
   shop: Shop | undefined;
-  addLike?: (id: string) => Promise<void>;
-  addFoo?: (id: string) => Promise<void>;
-  removeLike?: (id: string) => Promise<void>;
-  removeFoo?: (id: string) => Promise<void>;
   select?: (id: string) => void;
   selected?: string;
   square?: boolean;
@@ -178,7 +174,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, select, selected, square }) =
               <Spacer h={2} />
               <Flex jEnd className="w-full">
                 <div className="text-md sm:text-lg block w-1/6 sm:w-1/20 cursor-pointer">
-                  <Like likeState={shop.liked} onClick={onClickLike} />
+                  <Like likeState={likeState} onClick={onClickLike} />
                 </div>
               </Flex>
             </Flex>

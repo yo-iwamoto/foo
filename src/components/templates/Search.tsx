@@ -171,17 +171,7 @@ export const Search: React.VFC = () => {
           {shops.map((shop, index) => (
             <Flex key={index}>
               <Spacer w={2} />
-              <ShopCard
-                isLoading={isLoading}
-                shop={shop}
-                addLike={addLike}
-                addFoo={addFoo}
-                removeLike={removeLike}
-                removeFoo={removeFoo}
-                select={select}
-                selected={selectedShopId}
-                square
-              />
+              <ShopCard isLoading={isLoading} shop={shop} select={select} selected={selectedShopId} square />
               <Spacer w={2} />
             </Flex>
           ))}
