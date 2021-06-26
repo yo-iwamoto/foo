@@ -62,7 +62,7 @@ export const Top: React.VFC = () => {
             {shops.map((shop, index) => (
               <Flex key={index}>
                 <Spacer w={2} />
-                <ShopCard isLoading={isLoading} isLoggedIn={isLoggedIn} shop={shop} square />
+                <ShopCard isLoading={isLoading} shop={shop} square />
                 <Spacer w={2} />
               </Flex>
             ))}
