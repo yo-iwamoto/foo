@@ -1,42 +1,31 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Shop } from '@/types';
-import { Like } from '../atoms';
+import { Foo, Like } from '@/components/atoms';
+import { ClockIcon, ExternalLinkIcon, PinIcon, UpChevronIcon, UtensilsIcon } from '@/components/atoms/Icons';
 import { Flex, Spacer } from '@/components/utilities';
 import cn from 'classnames';
-import { ClockIcon, ExternalLinkIcon, PinIcon, UpChevronIcon, UtensilsIcon } from '../atoms/Icons';
 import smoothscroll from 'smoothscroll-polyfill';
+import { useShopStatus } from '@/hooks/useShopStatus';
 
 type Props = {
   shop: Shop | undefined;
-  like?: ((id: string) => Promise<void>) | (() => void);
-  remove?: (id: string) => Promise<void>;
+  addLike?: (id: string) => Promise<void>;
+  addFoo?: (id: string) => Promise<void>;
+  removeLike?: (id: string) => Promise<void>;
+  removeFoo?: (id: string) => Promise<void>;
   select?: (id: string) => void;
   selected?: string;
   square?: boolean;
   isLoading: boolean;
-  isLoggedIn: boolean;
 };
 
-export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selected, square, isLoggedIn }) => {
+export const ShopCard: React.VFC<Props> = ({ shop, select, selected, square }) => {
   smoothscroll.polyfill();
 
   if (shop) {
-    const [likeState, setLikeState] = useState<boolean>(shop.liked);
-    const onClickLike = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
-      e.stopPropagation();
-      if (remove && like) {
-        if (likeState) {
-          await remove(shop.id);
-          setLikeState(false);
-        } else {
-          await like(shop.id);
-          if (isLoggedIn) {
-            setLikeState(true);
-          }
-        }
-      }
-      e.stopPropagation();
-    };
+    const [likeState, fooState, toggleLike, toggleFoo] = useShopStatus(shop.liked, shop.foo, shop.id);
+    const [likesCount, setLikesCount] = useState(shop.likes_count);
+    const [fooCount, setFooCount] = useState(shop.foo_count);
 
     const [open, setOpen] = useState<boolean>(false);
     const onClick = (): void => {
@@ -46,6 +35,22 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
     };
     const onClickArrow = (): void => {
       setOpen(false);
+    };
+
+    const onClickLike = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
+      e.stopPropagation();
+      const count = await toggleLike();
+      if (count !== undefined) {
+        setLikesCount(count);
+      }
+    };
+
+    const onClickFoo = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
+      e.stopPropagation();
+      const count = await toggleFoo();
+      if (count !== undefined) {
+        setFooCount(count);
+      }
     };
 
     const ShopCardTable: React.VFC = () => {
@@ -105,20 +110,25 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
             col
             className={cn({
               ['w-60 shadow-md hover:shadow-lg rounded-3xl text-left transition-all mb-4 relative']: true,
-              ['border-2 border-blue-400']: selected === shop.id,
+              ['border-2 border-green-200']: selected === shop.id,
             })}
             onClick={onClick}
           >
             <img src={shop.photo} alt={shop.name_kana} className="h-48 rounded-t-3xl min-w-full" />
-            {like && (
-              <div className="absolute bg-white rounded-full h-10 w-20 top-2 right-2 shadow-2xl">
-                <Spacer h={2} />
-                <Flex jBetween className="w-14 mx-auto">
-                  <Like likeState={likeState} onClick={onClickLike} />
-                  <span>{shop.likes_count}</span>
-                </Flex>
-              </div>
-            )}
+            <div className="absolute bg-white rounded-full h-10 w-20 top-2 right-2 shadow-2xl">
+              <Spacer h={2} />
+              <Flex jBetween className="w-14 mx-auto">
+                <Like likeState={likeState} onClick={onClickLike} />
+                <span>{likesCount}</span>
+              </Flex>
+            </div>
+            <div className="absolute bg-white rounded-full h-10 w-20 top-14 right-2 shadow-2xl">
+              <Spacer h={2} />
+              <Flex jBetween className="w-14 mx-auto">
+                <Foo fooState={fooState} onClick={onClickFoo} />
+                <span>{fooCount}</span>
+              </Flex>
+            </div>
             <Flex col aStart jBetween className="h-full w-full p-3">
               <div>
                 <h3 className="font-bold text-md sm:text-lg md:text-xl whitespace-wrap">{shop.name}</h3>
@@ -166,7 +176,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, like, remove, select, selecte
               <Spacer h={2} />
               <Flex jEnd className="w-full">
                 <div className="text-md sm:text-lg block w-1/6 sm:w-1/20 cursor-pointer">
-                  <Like likeState={likeState} onClick={onClickLike} />
+                  <Like likeState={shop.liked} onClick={onClickLike} />
                 </div>
               </Flex>
             </Flex>

@@ -11,6 +11,7 @@ import { Flex, Spacer } from '@/components/utilities';
 import { useInput } from '@/hooks/useInput';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
 import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
+import { ShopsReportsController } from '@/api/shops/reports';
 
 interface GeolocationData {
   coords: {
@@ -94,6 +95,41 @@ export const Search: React.VFC = () => {
     }
   };
 
+  const addFoo = async (id: string): Promise<void> => {
+    if (isLoggedIn) {
+      try {
+        const res = await ShopsReportsController.create(id);
+        console.log(res.foo);
+        console.log(res.foo_count);
+        shops.map((shop) => {
+          if (shop.id === id) {
+            shop.foo = res.foo;
+            shop.foo_count = res.foo_count;
+          }
+        });
+      } catch (err) {
+        throw err;
+      }
+    } else {
+      raiseModalAction(modalTemplates.like);
+    }
+  };
+  const removeFoo = async (id: string): Promise<void> => {
+    try {
+      const res = await ShopsReportsController.destroy(id);
+      console.log(res.foo);
+      console.log(res.foo_count);
+      shops.map((shop) => {
+        if (shop.id === id) {
+          shop.foo = res.foo;
+          shop.foo_count = res.foo_count;
+        }
+      });
+    } catch (err) {
+      throw err;
+    }
+  };
+
   // SearchBar setting
 
   const initialValue = router.query.word as string;
@@ -137,10 +173,11 @@ export const Search: React.VFC = () => {
               <Spacer w={2} />
               <ShopCard
                 isLoading={isLoading}
-                isLoggedIn={isLoggedIn}
                 shop={shop}
-                like={addLike}
-                remove={removeLike}
+                addLike={addLike}
+                addFoo={addFoo}
+                removeLike={removeLike}
+                removeFoo={removeFoo}
                 select={select}
                 selected={selectedShopId}
                 square

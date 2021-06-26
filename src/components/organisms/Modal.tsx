@@ -51,7 +51,7 @@ export const Modal: React.VFC<Props> = ({ modal, close }) => {
         </Link>
       );
     } else {
-      return <Button primary text={modal.buttonText} className="2/5 h-12 mx-auto" onClick={close} />;
+      return <Button primary text={modal.buttonText} className="w-2/5 h-12 mx-auto" onClick={close} />;
     }
   };
 
