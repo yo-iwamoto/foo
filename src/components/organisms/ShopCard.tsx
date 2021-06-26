@@ -39,16 +39,18 @@ export const ShopCard: React.VFC<Props> = ({ shop, select, selected, square }) =
 
     const onClickLike = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
       e.stopPropagation();
+      setLikesCount((prev) => (likeState ? prev - 1 : prev + 1));
       const count = await toggleLike();
-      if (count !== undefined) {
+      if (count !== undefined && count !== likesCount) {
         setLikesCount(count);
       }
     };
 
     const onClickFoo = async (e: React.MouseEvent<SVGElement>): Promise<void> => {
       e.stopPropagation();
+      setFooCount((prev) => (fooState ? prev - 1 : prev + 1));
       const count = await toggleFoo();
-      if (count !== undefined) {
+      if (count !== undefined && count !== fooCount) {
         setFooCount(count);
       }
     };
