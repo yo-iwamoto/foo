@@ -30,11 +30,13 @@ export const Modal: React.VFC<Props> = ({ modal, close }) => {
   const ModalRegistrationButton: React.VFC = () => {
     if (modal.link) {
       return (
-        <Link href={modal.link}>
-          <a>
-            <Button primary text="ログイン" className="w-2/5 h-12" onClick={close} />
-          </a>
-        </Link>
+        <div className="w-2/5">
+          <Link href={modal.link}>
+            <a className="w-full">
+              <Button primary text="ログイン" className="w-full h-12" onClick={close} />
+            </a>
+          </Link>
+        </div>
       );
     } else {
       return <Button primary text="ログイン" className="w-2/5 h-12" onClick={close} />;
@@ -47,7 +49,7 @@ export const Modal: React.VFC<Props> = ({ modal, close }) => {
         <div className="text-center">
           <Link href={modal.link}>
             <a>
-              <Button primary text={modal.buttonText} className="w-2/5 h-12 mx-auto" onClick={close} />
+              <Button primary text={modal.buttonText} className="h-12 mx-auto" onClick={close} />
             </a>
           </Link>
         </div>

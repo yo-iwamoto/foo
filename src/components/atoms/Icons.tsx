@@ -22,6 +22,7 @@ import {
   FaChevronUp,
   FaRegClock,
   FaMapMarkerAlt,
+  FaPaperclip,
 } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -112,6 +113,10 @@ export const UpChevronIcon: React.VFC<IconBaseProps> = (props) => {
 
 export const PinAltIcon: React.VFC<IconBaseProps> = (props) => {
   return <FaMapMarkerAlt {...props} />;
+};
+
+export const ClipIcon: React.VFC<IconBaseProps> = (props) => {
+  return <FaPaperclip {...props} />;
 };
 
 export const HamburgerIcon: React.VFC<IconBaseProps> = (props) => {
