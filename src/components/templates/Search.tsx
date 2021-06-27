@@ -85,7 +85,7 @@ export const Search: React.VFC = () => {
 
   return (
     <>
-      {isLoading || shops.length === 0 ? (
+      {isLoading ? (
         <Skeleton duration={1} style={{ height: '500px' }} />
       ) : (
         <Map currentPosition={currentPosition} shops={shops} select={select} selectedShopId={selectedShopId} />
