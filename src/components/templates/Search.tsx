@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { ShopsController, ShopsLikesController } from '@/api';
+import { ShopsController } from '@/api';
 import { useDispatch } from 'react-redux';
-import { raiseModalAction, selectAction } from '@/redux/utilities/actions';
+import { selectAction } from '@/redux/utilities/actions';
 import { Position, Shop } from '@/types';
-import { modalTemplates } from '@/lib/modals';
 import Skeleton from 'react-loading-skeleton';
 import { Map, SearchBar, ShopCard } from '@/components/organisms';
 import { Flex, Spacer } from '@/components/utilities';
 import { useInput } from '@/hooks/useInput';
 import { useLoadingControll } from '@/hooks/useLoadingControll';
-import { useUsersState, useUtilitiesState } from '@/hooks/useSelectors';
-import { ShopsReportsController } from '@/api/shops/reports';
+import { useUtilitiesState } from '@/hooks/useSelectors';
 
 interface GeolocationData {
   coords: {
@@ -25,7 +23,6 @@ export const Search: React.VFC = () => {
   const router = useRouter();
 
   const { isLoading, selectedShopId } = useUtilitiesState();
-  const { isLoggedIn } = useUsersState();
 
   const initialPosition: Position = { lat: 35.68812, lng: 139.7671 };
 
@@ -36,11 +33,11 @@ export const Search: React.VFC = () => {
 
   const search = async (data: GeolocationData): Promise<void> => {
     const query = router.query.word as string;
-    // const position: Position = {
-    //   lat: data.coords.latitude,
-    //   lng: data.coords.longitude,
-    // };
-    const position = initialPosition;
+    const position: Position = {
+      lat: data.coords.latitude,
+      lng: data.coords.longitude,
+    };
+    // const position = initialPosition;
     setCurrentPosition(position);
     const keyword = query.replace(/\s+/g, ' ');
     const res = await ShopsController.index({
@@ -61,74 +58,6 @@ export const Search: React.VFC = () => {
       });
     }
   }, [router.query.word]);
-
-  // likes controll
-
-  const addLike = async (id: string): Promise<void> => {
-    if (isLoggedIn) {
-      try {
-        const res = await ShopsLikesController.create(id);
-        shops.map((shop) => {
-          if (shop.id === id) {
-            shop.liked = res.liked;
-            shop.likes_count = res.likes_count;
-          }
-        });
-      } catch (err) {
-        throw err;
-      }
-    } else {
-      dispatch(raiseModalAction(modalTemplates.like));
-    }
-  };
-  const removeLike = async (id: string): Promise<void> => {
-    try {
-      const res = await ShopsLikesController.destroy(id);
-      shops.map((shop) => {
-        if (shop.id === id) {
-          shop.liked = res.liked;
-          shop.likes_count = res.likes_count;
-        }
-      });
-    } catch (err) {
-      throw err;
-    }
-  };
-
-  const addFoo = async (id: string): Promise<void> => {
-    if (isLoggedIn) {
-      try {
-        const res = await ShopsReportsController.create(id);
-        console.log(res.foo);
-        console.log(res.foo_count);
-        shops.map((shop) => {
-          if (shop.id === id) {
-            shop.foo = res.foo;
-            shop.foo_count = res.foo_count;
-          }
-        });
-      } catch (err) {
-        throw err;
-      }
-    } else {
-      raiseModalAction(modalTemplates.like);
-    }
-  };
-  const removeFoo = async (id: string): Promise<void> => {
-    try {
-      const res = await ShopsReportsController.destroy(id);
-      console.log(res.foo);
-      console.log(res.foo_count);
-      shops.map((shop) => {
-        if (shop.id === id) {
-          shop.foo = res.foo;
-          shop.foo_count = res.foo_count;
-        }
-      });
-    } catch (err) {
-      throw err;
-    }
-  };
 
   // SearchBar setting
 

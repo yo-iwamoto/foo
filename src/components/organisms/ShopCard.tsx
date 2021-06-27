@@ -107,7 +107,7 @@ export const ShopCard: React.VFC<Props> = ({ shop, select, selected, square }) =
           <Flex
             col
             className={cn({
-              ['w-60 shadow-md hover:shadow-lg rounded-3xl text-left transition-all mb-4 relative']: true,
+              ['w-64 shadow-md hover:shadow-lg rounded-3xl text-left transition-all mb-4 relative']: true,
               ['border-2 border-green-200']: selected === shop.id,
             })}
             onClick={onClick}
