@@ -1,16 +1,25 @@
 ## 概要
 
----
+ひとりご飯の検索サイト，Foo のフロントレポジトリです．Next.js + TypeScript を利用しています．
 
-ひとりご飯の検索サイト，Foo のフロントレポジトリです．Next.js + TypeScript で書いています．
+Foo - ひとりご飯の検索サイト：https://foo-search.net  
+
+Storybook：https://foo-storybook.netlify.app  
+
+※ Storybookは現在作成中です．
+
+### アーキテクチャ簡易図
+![architecture](https://user-images.githubusercontent.com/56625097/123475306-2b6bdf80-d636-11eb-8bec-6685bdd3f24f.png)
+
 
 ## 開発ロードマップ
 
-https://www.notion.so/Foo-d5ddbe46840c44e895dc849f5fde7a13
+プロジェクトは現在進行中で，機能実装も完了していません．以下のロードマップを目安に，機能実装，不具合修正等を進めています．
+
+[Foo 開発ロードマップ - Notion / Yo Iwamoto](https://www.notion.so/Foo-d5ddbe46840c44e895dc849f5fde7a13)
 
 ## 構成
 
----
 
 | 技術                    | 採用理由 / 目的                                                                   |
 | :---------------------- | :-------------------------------------------------------------------------------- |
@@ -19,8 +28,7 @@ https://www.notion.so/Foo-d5ddbe46840c44e895dc849f5fde7a13
 | TypeScript              | JavaScript の型付け，開発の効率化                                                 |
 | Redux                   | 状態管理ライブラリとして情報量が十分だったため                                    |
 | Tailwind CSS            | コンポーネント志向のフロント開発との相性の良さ，拡張性の高さ，簡潔さ              |
-| ESLint                  | コード解析のため                                                                  |
-| Prettier                | コードフォーマットのため                                                          |
+| ESLint / Prettier       | コード解析 / コードフォーマットのため                                    |
 | Firebase Authentication | 個人情報分離，OAuth の簡易実装・メール認証ユーザーとの一元管理                    |
 | Express                 | ローカル環境からプロキシを設定して外部 API にアクセスするためのカスタムサーバー用 |
 | GoogleMap API           | 地図利用 API としての機能の豊富さ                                                 |
@@ -31,7 +39,6 @@ react-spinners, react-loading-skeleton：アニメーション実装の工数削
 
 ## 開発にあたって
 
----
 
 ### 導入
 
@@ -40,6 +47,8 @@ $ git clone https://github.com/you-5805/foo
 $ cd foo && yarn install
 $ yarn dev
 ```
+
+個人管理かつ開発段階のため，ブランチは```develop``` => ```main```のみ利用しています．
 
 ### lint 等
 
@@ -58,3 +67,8 @@ $ yarn check-types // tscの型検査
 - GoogleMap API キー
 
 ### バックエンドデータモデル
+元データはこのリポジトリの```root/foo.pu```にUMLで作成しています．
+Resourceはテーブルではなく，Polymorphic実装の関連を擬似的に表現したものです．
+
+<img src="https://user-images.githubusercontent.com/56625097/119692407-57087800-be86-11eb-94fc-d4010899b602.png" width="300" />
+
