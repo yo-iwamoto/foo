@@ -2,11 +2,9 @@
 
 ひとりご飯の検索サイト，Foo のフロントレポジトリです．Next.js + TypeScript を利用しています．
 
-Foo - ひとりご飯の検索サイト：https://foo-search.net  
+Foo - ひとりご飯の検索サイト：https://foo-search.net (※ 現在サイトを閉じています)
 
-Storybook：https://foo-storybook.netlify.app  
-
-※ Storybookは現在作成中です．
+Storybook：https://foo-storybook.netlify.app (※ 現在サイトを閉じています)
 
 ### アーキテクチャ簡易図
 ![architecture](https://user-images.githubusercontent.com/56625097/123475306-2b6bdf80-d636-11eb-8bec-6685bdd3f24f.png)
